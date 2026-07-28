@@ -119,6 +119,41 @@
   .step-card h3{margin:0 0 4px;font-size:1rem;color:var(--navy);}
   .step-card p{margin:0;color:var(--muted);font-size:.92rem;}
 
+  /* Top exams section */
+  section.top-exams{padding:8px 0 48px;}
+  .top-grid{
+    display:grid;grid-template-columns:repeat(5,1fr);gap:10px;
+  }
+  .top-card{
+    background:#fff;border:1px solid var(--border);border-radius:14px;
+    padding:18px 12px;text-align:center;transition:border-color .15s ease, transform .15s ease;
+  }
+  .top-card:hover{border-color:var(--teal);transform:translateY(-2px);}
+  .top-card .top-icon{font-size:1.6rem;margin-bottom:8px;}
+  .top-card .top-name{font-size:.82rem;font-weight:600;color:var(--navy);line-height:1.25;}
+  .top-card .top-cat{font-size:.72rem;color:var(--muted);margin-top:2px;display:block;}
+  .top-note{
+    text-align:center;color:var(--muted);font-size:.88rem;margin-top:18px;
+  }
+  .top-note a{color:var(--teal-dark);font-weight:600;text-decoration:underline;}
+
+  @media(max-width:640px){
+    .top-grid{grid-template-columns:repeat(2,1fr);}
+  }
+
+  /* Category cards (paso 2) */
+  .category-grid{display:flex;flex-direction:column;gap:10px;margin-bottom:6px;}
+  .category-option{
+    display:flex;align-items:center;gap:12px;
+    border:1.5px solid var(--border);border-radius:12px;padding:14px;
+    cursor:pointer;transition:border-color .15s ease, background .15s ease;
+  }
+  .category-option:hover{border-color:var(--teal);background:var(--mint);}
+  .category-option input{width:18px;height:18px;accent-color:var(--teal);flex-shrink:0;}
+  .category-option .cat-icon{font-size:1.3rem;flex-shrink:0;}
+  .category-option .cat-text strong{display:block;font-size:.95rem;color:var(--navy);}
+  .category-option .cat-text span{font-size:.8rem;color:var(--muted);}
+
   /* Disclaimer band */
   .disclaimer{
     background:var(--navy);color:#fff;border-radius:18px;padding:22px 20px;
@@ -284,6 +319,41 @@
   </div>
 </section>
 
+<section class="top-exams">
+  <div class="container wide">
+    <div class="section-label" style="text-align:center">Los más solicitados</div>
+    <h2 style="text-align:center;color:var(--navy);font-size:1.4rem;margin:0 0 20px;">5 exámenes que la gente pide con más frecuencia</h2>
+    <div class="top-grid">
+      <div class="top-card">
+        <div class="top-icon">🩸</div>
+        <div class="top-name">Hemograma completo</div>
+        <span class="top-cat">Laboratorio</span>
+      </div>
+      <div class="top-card">
+        <div class="top-icon">🧬</div>
+        <div class="top-name">Perfil lipídico</div>
+        <span class="top-cat">Laboratorio</span>
+      </div>
+      <div class="top-card">
+        <div class="top-icon">🦋</div>
+        <div class="top-name">Perfil tiroideo</div>
+        <span class="top-cat">Laboratorio</span>
+      </div>
+      <div class="top-card">
+        <div class="top-icon">🤰</div>
+        <div class="top-name">Ecografía obstétrica</div>
+        <span class="top-cat">Ecografía</span>
+      </div>
+      <div class="top-card">
+        <div class="top-icon">🦴</div>
+        <div class="top-name">Resonancia de rodilla</div>
+        <span class="top-cat">Resonancia</span>
+      </div>
+    </div>
+    <p class="top-note">¿Buscas otro examen? También manejamos ecografías, resonancias y tomografías. <a href="#formulario">Solicita el tuyo aquí</a>.</p>
+  </div>
+</section>
+
 <section class="how">
   <div class="container">
     <div class="section-label">Así funciona</div>
@@ -435,9 +505,37 @@
         <!-- PASO 2: Selección de examen -->
         <div class="form-step" data-step="2">
           <h2>¿Qué examen necesitas?</h2>
-          <p class="hint">Categoría: exámenes de laboratorio. Puedes marcar más de uno.</p>
+          <p class="hint">Primero elige la categoría, luego el examen específico.</p>
 
           <div class="field">
+            <div class="category-grid">
+              <label class="category-option">
+                <input type="radio" name="categoria" value="Laboratorio" required>
+                <span class="cat-icon">🧪</span>
+                <span class="cat-text"><strong>Exámenes de laboratorio</strong><span>Sangre, orina, perfiles</span></span>
+              </label>
+              <label class="category-option">
+                <input type="radio" name="categoria" value="Ecografía">
+                <span class="cat-icon">🩻</span>
+                <span class="cat-text"><strong>Ecografía</strong><span>Abdominal, pélvica, obstétrica y más</span></span>
+              </label>
+              <label class="category-option">
+                <input type="radio" name="categoria" value="Resonancia magnética">
+                <span class="cat-icon">🧲</span>
+                <span class="cat-text"><strong>Resonancia magnética</strong><span>Columna, rodilla, cerebro y más</span></span>
+              </label>
+              <label class="category-option">
+                <input type="radio" name="categoria" value="Tomografía">
+                <span class="cat-icon">📷</span>
+                <span class="cat-text"><strong>Tomografía / Escáner</strong><span>Tórax, abdomen, cerebro</span></span>
+              </label>
+            </div>
+            <span class="error-text" id="categoriaError">Selecciona una categoría.</span>
+          </div>
+
+          <!-- Exámenes: Laboratorio -->
+          <div class="field conditional" id="examsLaboratorio">
+            <label>Exámenes de laboratorio <span class="req">*</span></label>
             <div class="exam-grid">
               <label class="exam-option"><input type="checkbox" name="examenes" value="Hemograma completo"><span>Hemograma completo</span></label>
               <label class="exam-option"><input type="checkbox" name="examenes" value="Perfil lipídico"><span>Perfil lipídico (colesterol, triglicéridos)</span></label>
@@ -449,10 +547,48 @@
               <label class="exam-option"><input type="checkbox" name="examenes" value="Perfil tiroideo"><span>Perfil tiroideo (TSH, T3, T4)</span></label>
               <label class="exam-option"><input type="checkbox" name="examenes" value="Función hepática"><span>Función hepática</span></label>
               <label class="exam-option"><input type="checkbox" name="examenes" value="Función renal"><span>Función renal</span></label>
-              <label class="exam-option"><input type="checkbox" name="examenes" value="Otro" id="examenOtroCheck"><span>Otro</span></label>
+              <label class="exam-option"><input type="checkbox" name="examenes" value="Otro" class="examenOtroCheck"><span>Otro</span></label>
             </div>
-            <span class="error-text" id="examenError">Selecciona al menos un examen.</span>
           </div>
+
+          <!-- Exámenes: Ecografía -->
+          <div class="field conditional" id="examsEcografía">
+            <label>Tipo de ecografía <span class="req">*</span></label>
+            <div class="exam-grid">
+              <label class="exam-option"><input type="checkbox" name="examenes" value="Ecografía abdominal"><span>Ecografía abdominal</span></label>
+              <label class="exam-option"><input type="checkbox" name="examenes" value="Ecografía pélvica"><span>Ecografía pélvica</span></label>
+              <label class="exam-option"><input type="checkbox" name="examenes" value="Ecografía obstétrica"><span>Ecografía obstétrica (embarazo)</span></label>
+              <label class="exam-option"><input type="checkbox" name="examenes" value="Ecografía tiroidea"><span>Ecografía tiroidea</span></label>
+              <label class="exam-option"><input type="checkbox" name="examenes" value="Ecografía mamaria"><span>Ecografía mamaria</span></label>
+              <label class="exam-option"><input type="checkbox" name="examenes" value="Ecografía de partes blandas"><span>Ecografía de partes blandas</span></label>
+              <label class="exam-option"><input type="checkbox" name="examenes" value="Otro" class="examenOtroCheck"><span>Otro</span></label>
+            </div>
+          </div>
+
+          <!-- Exámenes: Resonancia -->
+          <div class="field conditional" id="examsResonancia">
+            <label>Tipo de resonancia <span class="req">*</span></label>
+            <div class="exam-grid">
+              <label class="exam-option"><input type="checkbox" name="examenes" value="Resonancia de columna"><span>Resonancia de columna</span></label>
+              <label class="exam-option"><input type="checkbox" name="examenes" value="Resonancia de rodilla"><span>Resonancia de rodilla</span></label>
+              <label class="exam-option"><input type="checkbox" name="examenes" value="Resonancia cerebral"><span>Resonancia cerebral</span></label>
+              <label class="exam-option"><input type="checkbox" name="examenes" value="Resonancia de hombro"><span>Resonancia de hombro</span></label>
+              <label class="exam-option"><input type="checkbox" name="examenes" value="Otro" class="examenOtroCheck"><span>Otro</span></label>
+            </div>
+          </div>
+
+          <!-- Exámenes: Tomografía -->
+          <div class="field conditional" id="examsTomografía">
+            <label>Tipo de tomografía <span class="req">*</span></label>
+            <div class="exam-grid">
+              <label class="exam-option"><input type="checkbox" name="examenes" value="Tomografía de tórax"><span>Tomografía de tórax</span></label>
+              <label class="exam-option"><input type="checkbox" name="examenes" value="Tomografía abdominal"><span>Tomografía abdominal</span></label>
+              <label class="exam-option"><input type="checkbox" name="examenes" value="Tomografía cerebral"><span>Tomografía cerebral</span></label>
+              <label class="exam-option"><input type="checkbox" name="examenes" value="Otro" class="examenOtroCheck"><span>Otro</span></label>
+            </div>
+          </div>
+
+          <span class="error-text" id="examenError" style="display:none;margin-bottom:14px;">Selecciona al menos un examen.</span>
 
           <div class="field conditional" id="examenOtroWrap">
             <label>¿Qué otro examen necesitas?</label>
@@ -536,6 +672,66 @@
             </div>
             <div class="conditional" id="recomendadoDetalleWrap">
               <input type="text" name="recomendadoDetalle" placeholder="¿Quién?">
+            </div>
+          </div>
+
+          <!-- Preguntas específicas: Ecografía -->
+          <div class="conditional" id="extraEcografía">
+            <div class="field">
+              <label>¿Es una ecografía obstétrica (embarazo)?</label>
+              <div class="radio-row">
+                <label class="radio-opt"><input type="radio" name="esEmbarazo" value="Sí" data-toggle="semanasGestacionWrap">Sí</label>
+                <label class="radio-opt"><input type="radio" name="esEmbarazo" value="No" data-toggle="semanasGestacionWrap">No</label>
+              </div>
+              <div class="conditional" id="semanasGestacionWrap">
+                <input type="text" name="semanasGestacion" placeholder="¿Cuántas semanas de gestación, aprox.?">
+              </div>
+            </div>
+            <div class="field">
+              <label>¿Alguna zona específica que quieras que se evalúe?</label>
+              <input type="text" name="zonaEspecifica" placeholder="Opcional">
+            </div>
+          </div>
+
+          <!-- Preguntas específicas: Resonancia -->
+          <div class="conditional" id="extraResonancia">
+            <div class="field">
+              <label>¿Tienes algún implante metálico, marcapasos o prótesis?</label>
+              <div class="radio-row">
+                <label class="radio-opt"><input type="radio" name="tieneImplante" value="Sí" data-toggle="implanteDetalleWrap">Sí</label>
+                <label class="radio-opt"><input type="radio" name="tieneImplante" value="No" data-toggle="implanteDetalleWrap">No</label>
+              </div>
+              <div class="conditional" id="implanteDetalleWrap">
+                <input type="text" name="implanteDetalle" placeholder="¿Cuál?">
+              </div>
+            </div>
+            <div class="field">
+              <label>¿Sufres de claustrofobia?</label>
+              <div class="radio-row">
+                <label class="radio-opt"><input type="radio" name="claustrofobia" value="Sí">Sí</label>
+                <label class="radio-opt"><input type="radio" name="claustrofobia" value="No">No</label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Preguntas específicas: Tomografía -->
+          <div class="conditional" id="extraTomografía">
+            <div class="field">
+              <label>¿Tienes alergia al yodo o a medios de contraste?</label>
+              <div class="radio-row">
+                <label class="radio-opt"><input type="radio" name="alergiaContraste" value="Sí" data-toggle="alergiaDetalleWrap">Sí</label>
+                <label class="radio-opt"><input type="radio" name="alergiaContraste" value="No" data-toggle="alergiaDetalleWrap">No</label>
+              </div>
+              <div class="conditional" id="alergiaDetalleWrap">
+                <input type="text" name="alergiaDetalle" placeholder="Cuéntanos más">
+              </div>
+            </div>
+            <div class="field">
+              <label>¿Te han evaluado la función renal recientemente?</label>
+              <div class="radio-row">
+                <label class="radio-opt"><input type="radio" name="funcionRenalPrevia" value="Sí">Sí</label>
+                <label class="radio-opt"><input type="radio" name="funcionRenalPrevia" value="No">No</label>
+              </div>
             </div>
           </div>
 
@@ -700,10 +896,20 @@ function validateStep(n){
   }
 
   if(n===2){
-    const checked = stepEl.querySelectorAll('[name=examenes]:checked');
-    const errorEl = document.getElementById('examenError');
-    if(checked.length===0){ errorEl.style.display='block'; valid=false; }
-    else{ errorEl.style.display='none'; }
+    const catChecked = stepEl.querySelector('input[name=categoria]:checked');
+    const catErrorEl = document.getElementById('categoriaError');
+    if(!catChecked){
+      catErrorEl.style.display = 'block';
+      valid = false;
+    } else {
+      catErrorEl.style.display = 'none';
+      const listId = examListMap[catChecked.value];
+      const listEl = document.getElementById(listId);
+      const checked = listEl ? listEl.querySelectorAll('input[name=examenes]:checked') : [];
+      const errorEl = document.getElementById('examenError');
+      if(checked.length === 0){ errorEl.style.display = 'block'; valid = false; }
+      else{ errorEl.style.display = 'none'; }
+    }
   }
 
   return valid;
@@ -724,9 +930,54 @@ document.querySelectorAll('[data-prev]').forEach(btn=>{
   });
 });
 
-/* Mostrar/ocultar "Otro examen" */
-document.getElementById('examenOtroCheck').addEventListener('change', function(){
-  document.getElementById('examenOtroWrap').classList.toggle('show', this.checked);
+/* ================== Lógica de categorías de examen ================== */
+const examListMap = {
+  "Laboratorio": "examsLaboratorio",
+  "Ecografía": "examsEcografía",
+  "Resonancia magnética": "examsResonancia",
+  "Tomografía": "examsTomografía"
+};
+const extraMap = {
+  "Ecografía": "extraEcografía",
+  "Resonancia magnética": "extraResonancia",
+  "Tomografía": "extraTomografía"
+};
+
+function updateCategoryVisibility(){
+  const selected = document.querySelector('input[name=categoria]:checked');
+  const val = selected ? selected.value : null;
+
+  Object.values(examListMap).forEach(id=>{
+    const el = document.getElementById(id);
+    if(!el) return;
+    if(examListMap[val] === id){
+      el.classList.add('show');
+    } else {
+      el.classList.remove('show');
+      el.querySelectorAll('input[type=checkbox]').forEach(cb=> cb.checked = false);
+    }
+  });
+
+  Object.values(extraMap).forEach(id=>{
+    const el = document.getElementById(id);
+    if(!el) return;
+    el.classList.toggle('show', extraMap[val] === id);
+  });
+
+  document.getElementById('examenOtroWrap').classList.remove('show');
+  document.getElementById('examenError').style.display = 'none';
+}
+
+document.querySelectorAll('input[name=categoria]').forEach(radio=>{
+  radio.addEventListener('change', updateCategoryVisibility);
+});
+
+/* Mostrar/ocultar "Otro examen" (aplica a cualquier categoría) */
+document.querySelectorAll('.examenOtroCheck').forEach(cb=>{
+  cb.addEventListener('change', function(){
+    const anyChecked = Array.from(document.querySelectorAll('.examenOtroCheck')).some(c=>c.checked);
+    document.getElementById('examenOtroWrap').classList.toggle('show', anyChecked);
+  });
 });
 
 /* Mostrar/ocultar campos condicionales de radios Sí/No */
@@ -750,6 +1001,7 @@ function buildSummary(){
   const dep = fd.get('departamento') || '';
   const prov = fd.get('provincia') || '';
   const examenes = fd.getAll('examenes').join(', ') || '—';
+  const categoria = fd.get('categoria') || '—';
 
   document.getElementById('summaryBlock').innerHTML = `
     <h4>Resumen de tu solicitud</h4>
@@ -759,6 +1011,7 @@ function buildSummary(){
       <dt>Ubicación:</dt><dd>${prov ? prov+', ' : ''}${dep}</dd>
       <dt>Teléfono:</dt><dd>${tel}</dd>
       <dt>Correo:</dt><dd>${correo}</dd>
+      <dt>Categoría:</dt><dd>${categoria}</dd>
       <dt>Exámenes:</dt><dd>${examenes}</dd>
     </dl>
   `;
