@@ -785,6 +785,9 @@
         <p>Un médico revisará tu información y, si corresponde, recibirás la orden en el correo electrónico registrado.</p>
         <p style="font-size:.85rem">Esto puede tomar hasta 24-48 horas hábiles.</p>
         <span class="folio" id="folioDisplay"></span>
+        <div style="margin-top:22px;">
+          <button type="button" class="btn-secondary" id="btnNuevaSolicitud">Enviar otra solicitud</button>
+        </div>
       </div>
 
     </div>
@@ -1051,6 +1054,26 @@ form.addEventListener('submit', function(e){
     submitBtn.textContent = 'Enviar solicitud';
     alert('Hubo un problema al enviar tu solicitud. Por favor intenta nuevamente o escríbenos a contacto@ordenfacil.pe');
   });
+});
+
+/* ================== Reiniciar para una nueva solicitud ================== */
+document.getElementById('btnNuevaSolicitud').addEventListener('click', function(){
+  form.reset();
+  updateCategoryVisibility();
+  document.querySelectorAll('.conditional').forEach(el=> el.classList.remove('show'));
+  document.querySelectorAll('.field.error').forEach(el=> el.classList.remove('error'));
+
+  const submitBtn = document.getElementById('submitBtn');
+  submitBtn.disabled = false;
+  submitBtn.textContent = 'Enviar solicitud';
+
+  document.getElementById('successScreen').classList.remove('active');
+  form.style.display = '';
+  document.getElementById('progressWrap').style.display = '';
+
+  currentStep = 1;
+  showStep(1);
+  document.getElementById('formulario').scrollIntoView({behavior:'smooth', block:'start'});
 });
 </script>
 
