@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="es-PE">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OrdenFácil.pe — Tu orden médica, sin trámites ni esperas</title>
+<meta name="description" content="Solicita gratis tu orden de examen médico preventivo online. Un médico revisa tu caso y, si corresponde, la recibes por correo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0B2A4A;
+    --navy-2:#123A5E;
+    --teal:#14A98A;
+    --teal-dark:#0E8570;
+    --mint:#EAF6F2;
+    --bg:#FFFFFF;
+    --text:#1B2A38;
+    --muted:#5B7285;
+    --border:#E1EAE7;
+    --danger:#C0392B;
+    --radius:16px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:'Inter',system-ui,sans-serif;
+    color:var(--text);
+    background:var(--bg);
+    line-height:1.5;
+  }
+  h1,h2,h3,.brand-name{font-family:'Poppins',system-ui,sans-serif;}
+  a{color:inherit;}
+  img{max-width:100%;display:block;}
+  .container{max-width:640px;margin:0 auto;padding:0 20px;}
+  .wide{max-width:960px;}
+
+  /* Header */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(255,255,255,.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--border);
+  }
+  .header-inner{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 20px;max-width:960px;margin:0 auto;
+  }
+  .logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+  .logo-icon{
+    width:38px;height:38px;border-radius:11px;
+    background:var(--teal);
+    display:flex;align-items:center;justify-content:center;
+    color:#fff;flex-shrink:0;
+  }
+  .brand-name{font-weight:700;color:var(--navy);font-size:1.05rem;}
+  .header-cta{
+    background:var(--navy);color:#fff;padding:10px 18px;border-radius:999px;
+    font-weight:600;font-size:.9rem;text-decoration:none;white-space:nowrap;
+  }
+
+  /* Hero */
+  .hero{
+    background:linear-gradient(180deg, var(--mint) 0%, #ffffff 100%);
+    padding:52px 0 40px;
+  }
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    background:#fff;border:1px solid var(--border);color:var(--teal-dark);
+    font-size:.8rem;font-weight:600;padding:6px 14px;border-radius:999px;
+    margin-bottom:18px;
+  }
+  .hero h1{
+    font-size:2.1rem;line-height:1.15;color:var(--navy);margin:0 0 14px;
+    font-weight:800;
+  }
+  .hero h1 .accent{color:var(--teal-dark);}
+  .hero p.sub{color:var(--muted);font-size:1.05rem;margin:0 0 26px;}
+  .btn-primary{
+    display:inline-flex;align-items:center;gap:10px;
+    background:var(--teal);color:#fff;font-weight:700;
+    padding:16px 26px;border-radius:14px;text-decoration:none;
+    font-size:1.02rem;border:none;cursor:pointer;
+    box-shadow:0 10px 24px -8px rgba(20,169,138,.55);
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 28px -8px rgba(20,169,138,.65);}
+  .btn-primary:focus-visible{outline:3px solid var(--navy-2);outline-offset:2px;}
+
+  .trust-row{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:34px;
+  }
+  .trust-item{
+    background:#fff;border:1px solid var(--border);border-radius:14px;
+    padding:14px 8px;text-align:center;
+  }
+  .trust-item svg{color:var(--teal);margin-bottom:6px;}
+  .trust-item span{display:block;font-size:.78rem;font-weight:600;color:var(--navy);}
+
+  /* Steps section */
+  section.how{padding:48px 0;}
+  .section-label{
+    color:var(--teal-dark);font-weight:700;font-size:.85rem;
+    text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px;
+  }
+  section.how h2{color:var(--navy);font-size:1.5rem;margin:0 0 28px;}
+  .step-list{display:flex;flex-direction:column;gap:14px;}
+  .step-card{
+    display:flex;gap:16px;align-items:flex-start;
+    background:var(--mint);border-radius:14px;padding:16px;
+  }
+  .step-num{
+    width:32px;height:32px;border-radius:9px;background:var(--navy);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-weight:700;
+    flex-shrink:0;font-size:.9rem;
+  }
+  .step-card h3{margin:0 0 4px;font-size:1rem;color:var(--navy);}
+  .step-card p{margin:0;color:var(--muted);font-size:.92rem;}
+
+  /* Disclaimer band */
+  .disclaimer{
+    background:var(--navy);color:#fff;border-radius:18px;padding:22px 20px;
+    margin:0 20px 8px;max-width:920px;margin-left:auto;margin-right:auto;
+  }
+  .disclaimer h3{margin:0 0 8px;font-size:1.05rem;}
+  .disclaimer ul{margin:0;padding-left:18px;font-size:.9rem;color:#DCE9E5;}
+  .disclaimer li{margin-bottom:4px;}
+
+  /* Form section */
+  section.form-section{padding:48px 0 80px;background:#F8FBFA;}
+  .form-card{
+    background:#fff;border:1px solid var(--border);border-radius:20px;
+    padding:26px 22px;box-shadow:0 8px 30px -14px rgba(11,42,74,.15);
+  }
+  .progress-wrap{margin-bottom:22px;}
+  .progress-label{
+    display:flex;justify-content:space-between;font-size:.82rem;
+    color:var(--muted);font-weight:600;margin-bottom:8px;
+  }
+  .progress-bar{height:8px;background:var(--border);border-radius:99px;overflow:hidden;}
+  .progress-fill{height:100%;background:var(--teal);border-radius:99px;transition:width .3s ease;}
+
+  .form-step{display:none;}
+  .form-step.active{display:block;animation:fadein .25s ease;}
+  @keyframes fadein{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+
+  .form-step h2{font-size:1.25rem;color:var(--navy);margin:0 0 4px;}
+  .form-step p.hint{color:var(--muted);font-size:.9rem;margin:0 0 20px;}
+
+  .field{margin-bottom:16px;}
+  .field label{
+    display:block;font-size:.88rem;font-weight:600;color:var(--navy);margin-bottom:6px;
+  }
+  .field .req{color:var(--danger);}
+  .row-2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  input[type=text], input[type=tel], input[type=email], input[type=date], select, textarea{
+    width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:10px;
+    font-family:inherit;font-size:.95rem;color:var(--text);background:#fff;
+  }
+  input:focus, select:focus, textarea:focus{
+    outline:none;border-color:var(--teal);box-shadow:0 0 0 3px rgba(20,169,138,.15);
+  }
+  textarea{resize:vertical;min-height:80px;}
+
+  .exam-grid{display:flex;flex-direction:column;gap:10px;}
+  .exam-option{
+    display:flex;align-items:center;gap:12px;
+    border:1.5px solid var(--border);border-radius:12px;padding:13px 14px;
+    cursor:pointer;transition:border-color .15s ease, background .15s ease;
+  }
+  .exam-option:hover{border-color:var(--teal);background:var(--mint);}
+  .exam-option input{width:18px;height:18px;accent-color:var(--teal);flex-shrink:0;}
+  .exam-option span{font-size:.94rem;font-weight:500;}
+
+  .radio-row{display:flex;gap:18px;margin-top:4px;}
+  .radio-opt{display:flex;align-items:center;gap:8px;font-size:.9rem;}
+  .radio-opt input{width:16px;height:16px;accent-color:var(--teal);}
+  .conditional{display:none;margin-top:10px;}
+  .conditional.show{display:block;}
+
+  .check-line{
+    display:flex;align-items:flex-start;gap:10px;margin-bottom:14px;font-size:.85rem;color:var(--muted);
+  }
+  .check-line input{margin-top:3px;width:16px;height:16px;accent-color:var(--teal);flex-shrink:0;}
+  .check-line a{color:var(--teal-dark);font-weight:600;text-decoration:underline;}
+
+  .summary-block{
+    background:var(--mint);border-radius:14px;padding:16px;margin-bottom:18px;font-size:.9rem;
+  }
+  .summary-block h4{margin:0 0 8px;color:var(--navy);font-size:.9rem;}
+  .summary-block dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:4px 10px;}
+  .summary-block dt{color:var(--muted);}
+  .summary-block dd{margin:0;font-weight:600;}
+
+  .btn-row{display:flex;gap:10px;margin-top:22px;}
+  .btn-secondary{
+    flex:0 0 auto;background:#fff;border:1.5px solid var(--border);color:var(--navy);
+    font-weight:600;padding:14px 20px;border-radius:12px;cursor:pointer;font-size:.95rem;
+  }
+  .btn-next, .btn-submit{
+    flex:1;background:var(--teal);border:none;color:#fff;font-weight:700;
+    padding:14px 20px;border-radius:12px;cursor:pointer;font-size:.98rem;
+  }
+  .btn-next:hover, .btn-submit:hover{background:var(--teal-dark);}
+  .btn-next:disabled, .btn-submit:disabled{opacity:.6;cursor:not-allowed;}
+
+  .error-text{color:var(--danger);font-size:.8rem;margin-top:5px;display:none;}
+  .field.error input, .field.error select, .field.error textarea{border-color:var(--danger);}
+  .field.error .error-text{display:block;}
+
+  .success-screen{display:none;text-align:center;padding:20px 6px;}
+  .success-screen.active{display:block;}
+  .success-icon{
+    width:64px;height:64px;border-radius:50%;background:var(--mint);color:var(--teal-dark);
+    display:flex;align-items:center;justify-content:center;margin:0 auto 18px;
+  }
+  .success-screen h2{color:var(--navy);margin:0 0 10px;}
+  .success-screen p{color:var(--muted);margin:0 0 8px;}
+  .folio{
+    display:inline-block;background:var(--navy);color:#fff;font-weight:700;
+    padding:8px 16px;border-radius:10px;margin-top:8px;font-size:.9rem;letter-spacing:.03em;
+  }
+
+  footer{
+    background:var(--navy);color:#B9CBDA;padding:30px 0;font-size:.85rem;
+  }
+  footer .container{display:flex;flex-direction:column;gap:6px;}
+  footer strong{color:#fff;}
+
+  @media(min-width:640px){
+    .hero h1{font-size:2.6rem;}
+    .row-2{grid-template-columns:1fr 1fr;}
+  }
+  @media(max-width:480px){
+    .row-2{grid-template-columns:1fr;}
+    .trust-row{grid-template-columns:repeat(2,1fr);}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="#" class="logo">
+      <span class="logo-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3v2M16 3v2M4 8h16M12 12v5M9.5 14.5h5"/><rect x="4" y="5" width="16" height="16" rx="3"/></svg>
+      </span>
+      <span class="brand-name">OrdenFácil<span style="color:var(--teal-dark)">.pe</span></span>
+    </a>
+    <a href="#formulario" class="header-cta">Solicitar orden</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <span class="eyebrow">✓ Sin costo para el paciente</span>
+    <h1>Tu orden médica, <span class="accent">sin trámites ni esperas.</span></h1>
+    <p class="sub">Completa un formulario simple, un médico revisa tu caso y, si corresponde, recibes tu orden de examen por correo electrónico. Sin necesidad de crear cuenta.</p>
+    <a href="#formulario" class="btn-primary">
+      Solicitar mi orden gratis
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
+
+    <div class="trust-row">
+      <div class="trust-item">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+        <span>Rápido</span>
+      </div>
+      <div class="trust-item">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/></svg>
+        <span>Seguro</span>
+      </div>
+      <div class="trust-item">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8M12 18v3"/></svg>
+        <span>100% online</span>
+      </div>
+      <div class="trust-item">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 1 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
+        <span>Gratis</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="how">
+  <div class="container">
+    <div class="section-label">Así funciona</div>
+    <h2>4 pasos, sin trámites de por medio.</h2>
+    <div class="step-list">
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <div><h3>Cuéntanos qué necesitas</h3><p>Completa tus datos y elige el examen que buscas.</p></div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <div><h3>Responde un formulario breve</h3><p>Algunas preguntas simples sobre tu salud.</p></div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <div><h3>Un médico revisa tu caso</h3><p>Evaluamos la solicitud para ver si corresponde emitir la orden.</p></div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">4</div>
+        <div><h3>Recibes tu orden por correo</h3><p>Si corresponde, la orden llega firmada y lista para usar.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="disclaimer">
+  <h3>Antes de comenzar, esto es importante:</h3>
+  <ul>
+    <li>La solicitud es gratuita y no garantiza la emisión automática de la orden.</li>
+    <li>Un médico revisa cada caso; algunos podrían requerir una consulta adicional.</li>
+    <li>Si corresponde, la orden se envía al correo electrónico que registres.</li>
+    <li>Este servicio no reemplaza una consulta médica presencial.</li>
+  </ul>
+</div>
+
+<section class="form-section" id="formulario">
+  <div class="container">
+    <div class="form-card">
+
+      <div class="progress-wrap" id="progressWrap">
+        <div class="progress-label">
+          <span id="stepLabel">Paso 1 de 4</span>
+          <span id="stepTitle">Tus datos</span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:25%"></div></div>
+      </div>
+
+      <form id="ordenForm" novalidate>
+
+        <!-- PASO 1: Datos personales -->
+        <div class="form-step active" data-step="1">
+          <h2>Tus datos personales</h2>
+          <p class="hint">Los usaremos únicamente para emitir tu orden y contactarte.</p>
+
+          <div class="row-2">
+            <div class="field">
+              <label>Nombres <span class="req">*</span></label>
+              <input type="text" name="nombres" required>
+              <span class="error-text">Ingresa tus nombres.</span>
+            </div>
+            <div class="field">
+              <label>Apellido paterno <span class="req">*</span></label>
+              <input type="text" name="apellidoPaterno" required>
+              <span class="error-text">Ingresa tu apellido paterno.</span>
+            </div>
+          </div>
+
+          <div class="row-2">
+            <div class="field">
+              <label>Apellido materno</label>
+              <input type="text" name="apellidoMaterno">
+            </div>
+            <div class="field">
+              <label>Fecha de nacimiento <span class="req">*</span></label>
+              <input type="date" name="fechaNacimiento" required>
+              <span class="error-text">Ingresa tu fecha de nacimiento.</span>
+            </div>
+          </div>
+
+          <div class="row-2">
+            <div class="field">
+              <label>Tipo de documento <span class="req">*</span></label>
+              <select name="tipoDocumento" required>
+                <option value="">Selecciona...</option>
+                <option value="DNI">DNI</option>
+                <option value="Carné de Extranjería">Carné de Extranjería (CE)</option>
+                <option value="Pasaporte">Pasaporte</option>
+              </select>
+              <span class="error-text">Selecciona un tipo de documento.</span>
+            </div>
+            <div class="field">
+              <label>Número de documento <span class="req">*</span></label>
+              <input type="text" name="numeroDocumento" required>
+              <span class="error-text">Ingresa tu número de documento.</span>
+            </div>
+          </div>
+
+          <div class="row-2">
+            <div class="field">
+              <label>Sexo <span class="req">*</span></label>
+              <select name="sexo" required>
+                <option value="">Selecciona...</option>
+                <option value="Femenino">Femenino</option>
+                <option value="Masculino">Masculino</option>
+              </select>
+              <span class="error-text">Selecciona una opción.</span>
+            </div>
+            <div class="field">
+              <label>Nacionalidad</label>
+              <input type="text" name="nacionalidad" value="Peruana">
+            </div>
+          </div>
+
+          <div class="row-2">
+            <div class="field">
+              <label>Departamento <span class="req">*</span></label>
+              <select name="departamento" id="departamento" required>
+                <option value="">Selecciona...</option>
+              </select>
+              <span class="error-text">Selecciona tu departamento.</span>
+            </div>
+            <div class="field">
+              <label>Provincia <span class="req">*</span></label>
+              <select name="provincia" id="provincia" required>
+                <option value="">Primero elige un departamento</option>
+              </select>
+              <span class="error-text">Selecciona tu provincia.</span>
+            </div>
+          </div>
+
+          <div class="row-2">
+            <div class="field">
+              <label>Teléfono / WhatsApp <span class="req">*</span></label>
+              <input type="tel" name="telefono" required placeholder="9XXXXXXXX">
+              <span class="error-text">Ingresa un teléfono válido.</span>
+            </div>
+            <div class="field">
+              <label>Correo electrónico <span class="req">*</span></label>
+              <input type="email" name="correo" required placeholder="tu@correo.com">
+              <span class="error-text">Ingresa un correo válido. Aquí recibirás tu orden.</span>
+            </div>
+          </div>
+
+          <div class="btn-row">
+            <button type="button" class="btn-next" data-next>Continuar</button>
+          </div>
+        </div>
+
+        <!-- PASO 2: Selección de examen -->
+        <div class="form-step" data-step="2">
+          <h2>¿Qué examen necesitas?</h2>
+          <p class="hint">Categoría: exámenes de laboratorio. Puedes marcar más de uno.</p>
+
+          <div class="field">
+            <div class="exam-grid">
+              <label class="exam-option"><input type="checkbox" name="examenes" value="Hemograma completo"><span>Hemograma completo</span></label>
+              <label class="exam-option"><input type="checkbox" name="examenes" value="Perfil lipídico"><span>Perfil lipídico (colesterol, triglicéridos)</span></label>
+              <label class="exam-option"><input type="checkbox" name="examenes" value="Glucosa"><span>Glucosa en ayunas</span></label>
+              <label class="exam-option"><input type="checkbox" name="examenes" value="Insulina"><span>Insulina</span></label>
+              <label class="exam-option"><input type="checkbox" name="examenes" value="Vitamina D"><span>Vitamina D</span></label>
+              <label class="exam-option"><input type="checkbox" name="examenes" value="Vitamina B12"><span>Vitamina B12</span></label>
+              <label class="exam-option"><input type="checkbox" name="examenes" value="Ferritina"><span>Ferritina</span></label>
+              <label class="exam-option"><input type="checkbox" name="examenes" value="Perfil tiroideo"><span>Perfil tiroideo (TSH, T3, T4)</span></label>
+              <label class="exam-option"><input type="checkbox" name="examenes" value="Función hepática"><span>Función hepática</span></label>
+              <label class="exam-option"><input type="checkbox" name="examenes" value="Función renal"><span>Función renal</span></label>
+              <label class="exam-option"><input type="checkbox" name="examenes" value="Otro" id="examenOtroCheck"><span>Otro</span></label>
+            </div>
+            <span class="error-text" id="examenError">Selecciona al menos un examen.</span>
+          </div>
+
+          <div class="field conditional" id="examenOtroWrap">
+            <label>¿Qué otro examen necesitas?</label>
+            <input type="text" name="examenOtroTexto">
+          </div>
+
+          <div class="btn-row">
+            <button type="button" class="btn-secondary" data-prev>Atrás</button>
+            <button type="button" class="btn-next" data-next>Continuar</button>
+          </div>
+        </div>
+
+        <!-- PASO 3: Formulario clínico breve -->
+        <div class="form-step" data-step="3">
+          <h2>Un par de preguntas sobre tu salud</h2>
+          <p class="hint">Ayuda al médico a evaluar tu solicitud correctamente.</p>
+
+          <div class="field">
+            <label>¿Por qué deseas realizarte este examen? <span class="req">*</span></label>
+            <textarea name="motivo" required></textarea>
+            <span class="error-text">Cuéntanos brevemente el motivo.</span>
+          </div>
+
+          <div class="field">
+            <label>¿Presentas algún síntoma actualmente?</label>
+            <div class="radio-row">
+              <label class="radio-opt"><input type="radio" name="sintomas" value="Sí" data-toggle="sintomasDetalleWrap">Sí</label>
+              <label class="radio-opt"><input type="radio" name="sintomas" value="No" data-toggle="sintomasDetalleWrap">No</label>
+            </div>
+            <div class="conditional" id="sintomasDetalleWrap">
+              <textarea name="sintomasDetalle" placeholder="Describe tus síntomas y desde cuándo los presentas"></textarea>
+            </div>
+          </div>
+
+          <div class="field">
+            <label>¿Tienes algún diagnóstico médico previo relacionado?</label>
+            <div class="radio-row">
+              <label class="radio-opt"><input type="radio" name="diagnosticoPrevio" value="Sí" data-toggle="diagnosticoDetalleWrap">Sí</label>
+              <label class="radio-opt"><input type="radio" name="diagnosticoPrevio" value="No" data-toggle="diagnosticoDetalleWrap">No</label>
+            </div>
+            <div class="conditional" id="diagnosticoDetalleWrap">
+              <textarea name="diagnosticoDetalle" placeholder="¿Cuál?"></textarea>
+            </div>
+          </div>
+
+          <div class="field">
+            <label>¿Tomas medicamentos actualmente?</label>
+            <div class="radio-row">
+              <label class="radio-opt"><input type="radio" name="tomaMedicamentos" value="Sí" data-toggle="medicamentosDetalleWrap">Sí</label>
+              <label class="radio-opt"><input type="radio" name="tomaMedicamentos" value="No" data-toggle="medicamentosDetalleWrap">No</label>
+            </div>
+            <div class="conditional" id="medicamentosDetalleWrap">
+              <textarea name="medicamentosDetalle" placeholder="¿Cuáles?"></textarea>
+            </div>
+          </div>
+
+          <div class="field">
+            <label>¿Padeces alguna enfermedad crónica?</label>
+            <div class="radio-row">
+              <label class="radio-opt"><input type="radio" name="enfermedadCronica" value="Sí" data-toggle="cronicaDetalleWrap">Sí</label>
+              <label class="radio-opt"><input type="radio" name="enfermedadCronica" value="No" data-toggle="cronicaDetalleWrap">No</label>
+            </div>
+            <div class="conditional" id="cronicaDetalleWrap">
+              <textarea name="cronicaDetalle" placeholder="¿Cuál?"></textarea>
+            </div>
+          </div>
+
+          <div class="field">
+            <label>¿Te has realizado este examen antes?</label>
+            <div class="radio-row">
+              <label class="radio-opt"><input type="radio" name="examenPrevio" value="Sí">Sí</label>
+              <label class="radio-opt"><input type="radio" name="examenPrevio" value="No">No</label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label>¿Esta solicitud fue recomendada por otro profesional de salud?</label>
+            <div class="radio-row">
+              <label class="radio-opt"><input type="radio" name="recomendadoPor" value="Sí" data-toggle="recomendadoDetalleWrap">Sí</label>
+              <label class="radio-opt"><input type="radio" name="recomendadoPor" value="No" data-toggle="recomendadoDetalleWrap">No</label>
+            </div>
+            <div class="conditional" id="recomendadoDetalleWrap">
+              <input type="text" name="recomendadoDetalle" placeholder="¿Quién?">
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Comentarios adicionales</label>
+            <textarea name="comentarios" placeholder="Opcional"></textarea>
+          </div>
+
+          <div class="btn-row">
+            <button type="button" class="btn-secondary" data-prev>Atrás</button>
+            <button type="button" class="btn-next" data-next>Continuar</button>
+          </div>
+        </div>
+
+        <!-- PASO 4: Resumen y envío -->
+        <div class="form-step" data-step="4">
+          <h2>Revisa y confirma</h2>
+          <p class="hint">Verifica que todo esté correcto antes de enviar.</p>
+
+          <div class="summary-block" id="summaryBlock">
+            <!-- se llena con JS -->
+          </div>
+
+          <div class="check-line">
+            <input type="checkbox" name="aceptaTerminos" required>
+            <span>Acepto los <a href="#" target="_blank">Términos y condiciones</a> y la <a href="#" target="_blank">Política de privacidad</a>, y consiento el tratamiento de mis datos personales para este fin.</span>
+          </div>
+          <div class="check-line">
+            <input type="checkbox" name="declaraVeracidad" required>
+            <span>Declaro que la información entregada es verdadera y completa.</span>
+          </div>
+          <div class="check-line">
+            <input type="checkbox" name="entiendeEvaluacion" required>
+            <span>Entiendo que un médico evaluará mi solicitud y que esto no garantiza necesariamente la emisión de una orden.</span>
+          </div>
+
+          <div class="btn-row">
+            <button type="button" class="btn-secondary" data-prev>Atrás</button>
+            <button type="submit" class="btn-submit" id="submitBtn">Enviar solicitud</button>
+          </div>
+        </div>
+
+      </form>
+
+      <!-- Pantalla de éxito -->
+      <div class="success-screen" id="successScreen">
+        <div class="success-icon">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+        </div>
+        <h2>Tu solicitud fue recibida</h2>
+        <p>Un médico revisará tu información y, si corresponde, recibirás la orden en el correo electrónico registrado.</p>
+        <p style="font-size:.85rem">Esto puede tomar hasta 24-48 horas hábiles.</p>
+        <span class="folio" id="folioDisplay"></span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div><strong>OrdenFácil.pe</strong> — Menos trámites. Más salud.</div>
+    <div>Este servicio no reemplaza una consulta médica presencial. Los resultados deben interpretarse con personal de salud.</div>
+    <div>¿Dudas? Escríbenos a <strong>contacto@ordenfacil.pe</strong></div>
+  </div>
+</footer>
+
+<script>
+/* ================== DATOS: Departamentos y provincias del Perú ================== */
+const PERU = {
+  "Amazonas": ["Chachapoyas","Bagua","Bongará","Condorcanqui","Luya","Rodríguez de Mendoza","Utcubamba"],
+  "Áncash": ["Huaraz","Aija","Antonio Raymondi","Asunción","Bolognesi","Carhuaz","Carlos Fermín Fitzcarrald","Casma","Corongo","Huari","Huarmey","Huaylas","Mariscal Luzuriaga","Ocros","Pallasca","Pomabamba","Recuay","Santa","Sihuas","Yungay"],
+  "Apurímac": ["Abancay","Andahuaylas","Antabamba","Aymaraes","Cotabambas","Chincheros","Grau"],
+  "Arequipa": ["Arequipa","Camaná","Caravelí","Castilla","Caylloma","Condesuyos","Islay","La Unión"],
+  "Ayacucho": ["Huamanga","Cangallo","Huanca Sancos","Huanta","La Mar","Lucanas","Parinacochas","Páucar del Sara Sara","Sucre","Víctor Fajardo","Vilcas Huamán"],
+  "Cajamarca": ["Cajamarca","Cajabamba","Celendín","Chota","Contumazá","Cutervo","Hualgayoc","Jaén","San Ignacio","San Marcos","San Miguel","San Pablo","Santa Cruz"],
+  "Callao": ["Callao"],
+  "Cusco": ["Cusco","Acomayo","Anta","Calca","Canas","Canchis","Chumbivilcas","Espinar","La Convención","Paruro","Paucartambo","Quispicanchi","Urubamba"],
+  "Huancavelica": ["Huancavelica","Acobamba","Angaraes","Castrovirreyna","Churcampa","Huaytará","Tayacaja"],
+  "Huánuco": ["Huánuco","Ambo","Dos de Mayo","Huacaybamba","Huamalíes","Leoncio Prado","Marañón","Pachitea","Puerto Inca","Lauricocha","Yarowilca"],
+  "Ica": ["Ica","Chincha","Nazca","Palpa","Pisco"],
+  "Junín": ["Huancayo","Concepción","Chanchamayo","Jauja","Junín","Satipo","Tarma","Yauli","Chupaca"],
+  "La Libertad": ["Trujillo","Ascope","Bolívar","Chepén","Julcán","Otuzco","Pacasmayo","Pataz","Sánchez Carrión","Santiago de Chuco","Gran Chimú","Virú"],
+  "Lambayeque": ["Chiclayo","Ferreñafe","Lambayeque"],
+  "Lima": ["Lima","Barranca","Cajatambo","Canta","Cañete","Huaral","Huarochirí","Huaura","Oyón","Yauyos"],
+  "Loreto": ["Maynas","Alto Amazonas","Loreto","Mariscal Ramón Castilla","Requena","Ucayali","Datem del Marañón","Putumayo"],
+  "Madre de Dios": ["Tambopata","Manu","Tahuamanu"],
+  "Moquegua": ["Mariscal Nieto","General Sánchez Cerro","Ilo"],
+  "Pasco": ["Pasco","Daniel Alcides Carrión","Oxapampa"],
+  "Piura": ["Piura","Ayabaca","Huancabamba","Morropón","Paita","Sullana","Talara","Sechura"],
+  "Puno": ["Puno","Azángaro","Carabaya","Chucuito","El Collao","Huancané","Lampa","Melgar","Moho","San Antonio de Putina","San Román","Sandia","Yunguyo"],
+  "San Martín": ["Moyobamba","Bellavista","El Dorado","Huallaga","Lamas","Mariscal Cáceres","Picota","Rioja","San Martín","Tocache"],
+  "Tacna": ["Tacna","Candarave","Jorge Basadre","Tarata"],
+  "Tumbes": ["Tumbes","Contralmirante Villar","Zarumilla"],
+  "Ucayali": ["Coronel Portillo","Atalaya","Padre Abad","Purús"]
+};
+
+/* ⚠️ IMPORTANTE: reemplaza esta URL por la de tu Google Apps Script (ver instrucciones) */
+const SHEET_ENDPOINT = "PEGA_AQUI_TU_URL_DE_APPS_SCRIPT";
+
+/* ================== Poblar departamento/provincia ================== */
+const deptoSelect = document.getElementById('departamento');
+const provSelect = document.getElementById('provincia');
+
+Object.keys(PERU).sort((a,b)=>a.localeCompare(b,'es')).forEach(dep=>{
+  const opt = document.createElement('option');
+  opt.value = dep; opt.textContent = dep;
+  deptoSelect.appendChild(opt);
+});
+
+deptoSelect.addEventListener('change', ()=>{
+  provSelect.innerHTML = '';
+  const dep = deptoSelect.value;
+  if(!dep){
+    provSelect.innerHTML = '<option value="">Primero elige un departamento</option>';
+    return;
+  }
+  const placeholder = document.createElement('option');
+  placeholder.value=''; placeholder.textContent='Selecciona...';
+  provSelect.appendChild(placeholder);
+  PERU[dep].forEach(prov=>{
+    const opt = document.createElement('option');
+    opt.value = prov; opt.textContent = prov;
+    provSelect.appendChild(opt);
+  });
+});
+
+/* ================== Navegación entre pasos ================== */
+const form = document.getElementById('ordenForm');
+const steps = Array.from(document.querySelectorAll('.form-step'));
+let currentStep = 1;
+const totalSteps = steps.length;
+
+function showStep(n){
+  steps.forEach(s=> s.classList.toggle('active', Number(s.dataset.step) === n));
+  document.getElementById('stepLabel').textContent = `Paso ${n} de ${totalSteps}`;
+  const titles = {1:'Tus datos', 2:'Tu examen', 3:'Tu salud', 4:'Confirmar'};
+  document.getElementById('stepTitle').textContent = titles[n];
+  document.getElementById('progressFill').style.width = (n/totalSteps*100)+'%';
+  document.getElementById('progressWrap').scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+function validateStep(n){
+  let valid = true;
+  const stepEl = steps.find(s=>Number(s.dataset.step)===n);
+
+  stepEl.querySelectorAll('[required]').forEach(el=>{
+    const field = el.closest('.field');
+    if(!field) return;
+    if(!el.value || el.value.trim()===''){
+      field.classList.add('error'); valid = false;
+    } else {
+      field.classList.remove('error');
+    }
+  });
+
+  if(n===1){
+    const correo = stepEl.querySelector('[name=correo]');
+    const field = correo.closest('.field');
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if(!re.test(correo.value)){ field.classList.add('error'); valid=false; }
+  }
+
+  if(n===2){
+    const checked = stepEl.querySelectorAll('[name=examenes]:checked');
+    const errorEl = document.getElementById('examenError');
+    if(checked.length===0){ errorEl.style.display='block'; valid=false; }
+    else{ errorEl.style.display='none'; }
+  }
+
+  return valid;
+}
+
+document.querySelectorAll('[data-next]').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    if(!validateStep(currentStep)) return;
+    if(currentStep === 3) buildSummary();
+    currentStep = Math.min(currentStep+1, totalSteps);
+    showStep(currentStep);
+  });
+});
+document.querySelectorAll('[data-prev]').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    currentStep = Math.max(currentStep-1, 1);
+    showStep(currentStep);
+  });
+});
+
+/* Mostrar/ocultar "Otro examen" */
+document.getElementById('examenOtroCheck').addEventListener('change', function(){
+  document.getElementById('examenOtroWrap').classList.toggle('show', this.checked);
+});
+
+/* Mostrar/ocultar campos condicionales de radios Sí/No */
+document.querySelectorAll('input[data-toggle]').forEach(radio=>{
+  radio.addEventListener('change', function(){
+    const wrap = document.getElementById(this.dataset.toggle);
+    if(this.value === 'Sí'){ wrap.classList.add('show'); }
+    else{ wrap.classList.remove('show'); }
+  });
+});
+
+/* ================== Resumen dinámico ================== */
+function buildSummary(){
+  const fd = new FormData(form);
+  const nombres = fd.get('nombres') || '';
+  const apPat = fd.get('apellidoPaterno') || '';
+  const apMat = fd.get('apellidoMaterno') || '';
+  const doc = `${fd.get('tipoDocumento')||''} ${fd.get('numeroDocumento')||''}`;
+  const correo = fd.get('correo') || '';
+  const tel = fd.get('telefono') || '';
+  const dep = fd.get('departamento') || '';
+  const prov = fd.get('provincia') || '';
+  const examenes = fd.getAll('examenes').join(', ') || '—';
+
+  document.getElementById('summaryBlock').innerHTML = `
+    <h4>Resumen de tu solicitud</h4>
+    <dl>
+      <dt>Nombre:</dt><dd>${nombres} ${apPat} ${apMat}</dd>
+      <dt>Documento:</dt><dd>${doc}</dd>
+      <dt>Ubicación:</dt><dd>${prov ? prov+', ' : ''}${dep}</dd>
+      <dt>Teléfono:</dt><dd>${tel}</dd>
+      <dt>Correo:</dt><dd>${correo}</dd>
+      <dt>Exámenes:</dt><dd>${examenes}</dd>
+    </dl>
+  `;
+}
+
+/* ================== Envío del formulario ================== */
+form.addEventListener('submit', function(e){
+  e.preventDefault();
+  if(!validateStep(4)) return;
+
+  const submitBtn = document.getElementById('submitBtn');
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Enviando...';
+
+  const fd = new FormData(form);
+  // Adjuntar lista de exámenes como texto (checkboxes múltiples)
+  const examenesSeleccionados = fd.getAll('examenes').join(', ');
+  fd.set('examenes', examenesSeleccionados);
+  fd.set('fechaEnvio', new Date().toISOString());
+  const folio = 'OF-' + Date.now().toString().slice(-8);
+  fd.set('folio', folio);
+
+  fetch(SHEET_ENDPOINT, {
+    method: 'POST',
+    mode: 'no-cors', // Apps Script Web Apps no siempre exponen CORS legible; enviamos "a ciegas"
+    body: fd
+  })
+  .then(()=>{
+    form.style.display = 'none';
+    document.getElementById('progressWrap').style.display = 'none';
+    document.getElementById('successScreen').classList.add('active');
+    document.getElementById('folioDisplay').textContent = 'N° de solicitud: ' + folio;
+  })
+  .catch((err)=>{
+    console.error(err);
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Enviar solicitud';
+    alert('Hubo un problema al enviar tu solicitud. Por favor intenta nuevamente o escríbenos a contacto@ordenfacil.pe');
+  });
+});
+</script>
+
+</body>
+</html>
