@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>OrdenFácil.pe — Tu orden médica, sin trámites ni esperas</title>
-<meta name="description" content="Solicita gratis tu orden de examen médico preventivo online. Un médico revisa tu caso y, si corresponde, la recibes por correo.">
+<meta name="description" content="Elige tus exámenes, agrégalos a tu carrito y solicita tu orden médica online. Un médico revisa tu caso y, si corresponde, la recibes por correo.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -30,23 +30,24 @@
     color:var(--text);
     background:var(--bg);
     line-height:1.5;
+    padding-bottom:0;
   }
   h1,h2,h3,.brand-name{font-family:'Poppins',system-ui,sans-serif;}
   a{color:inherit;}
   img{max-width:100%;display:block;}
   .container{max-width:640px;margin:0 auto;padding:0 20px;}
-  .wide{max-width:960px;}
+  .wide{max-width:1000px;}
 
   /* Header */
   header{
-    position:sticky;top:0;z-index:50;
-    background:rgba(255,255,255,.92);
+    position:sticky;top:0;z-index:60;
+    background:rgba(255,255,255,.94);
     backdrop-filter:blur(6px);
     border-bottom:1px solid var(--border);
   }
   .header-inner{
     display:flex;align-items:center;justify-content:space-between;
-    padding:14px 20px;max-width:960px;margin:0 auto;
+    padding:14px 20px;max-width:1000px;margin:0 auto;gap:10px;
   }
   .logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
   .logo-icon{
@@ -56,9 +57,19 @@
     color:#fff;flex-shrink:0;
   }
   .brand-name{font-weight:700;color:var(--navy);font-size:1.05rem;}
+  .header-actions{display:flex;align-items:center;gap:10px;}
   .header-cta{
     background:var(--navy);color:#fff;padding:10px 18px;border-radius:999px;
     font-weight:600;font-size:.9rem;text-decoration:none;white-space:nowrap;
+  }
+  .cart-pill{
+    display:flex;align-items:center;gap:6px;background:var(--mint);color:var(--navy);
+    border:1.5px solid var(--teal);padding:8px 14px;border-radius:999px;font-weight:700;
+    font-size:.88rem;cursor:pointer;white-space:nowrap;
+  }
+  .cart-pill .count{
+    background:var(--teal);color:#fff;border-radius:999px;min-width:20px;height:20px;
+    display:inline-flex;align-items:center;justify-content:center;font-size:.75rem;padding:0 5px;
   }
 
   /* Hero */
@@ -91,6 +102,7 @@
 
   .trust-row{
     display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:34px;
+    max-width:640px;
   }
   .trust-item{
     background:#fff;border:1px solid var(--border);border-radius:14px;
@@ -119,19 +131,27 @@
   .step-card h3{margin:0 0 4px;font-size:1rem;color:var(--navy);}
   .step-card p{margin:0;color:var(--muted);font-size:.92rem;}
 
-  /* Top exams section */
-  section.top-exams{padding:8px 0 48px;}
+  /* Quick picks */
+  section.top-exams{padding:8px 0 20px;}
   .top-grid{
-    display:grid;grid-template-columns:repeat(5,1fr);gap:10px;
+    display:grid;grid-template-columns:repeat(4,1fr);gap:12px;
   }
   .top-card{
-    background:#fff;border:1px solid var(--border);border-radius:14px;
-    padding:18px 12px;text-align:center;transition:border-color .15s ease, transform .15s ease;
+    background:#fff;border:1.5px solid var(--border);border-radius:14px;
+    padding:16px 12px;text-align:center;transition:border-color .15s ease, transform .15s ease;
+    display:flex;flex-direction:column;align-items:center;gap:8px;
   }
   .top-card:hover{border-color:var(--teal);transform:translateY(-2px);}
-  .top-card .top-icon{font-size:1.6rem;margin-bottom:8px;}
-  .top-card .top-name{font-size:.82rem;font-weight:600;color:var(--navy);line-height:1.25;}
-  .top-card .top-cat{font-size:.72rem;color:var(--muted);margin-top:2px;display:block;}
+  .top-card .top-icon{font-size:1.6rem;}
+  .top-card .top-name{font-size:.85rem;font-weight:600;color:var(--navy);line-height:1.25;}
+  .top-card .top-cat{font-size:.72rem;color:var(--muted);}
+  .add-btn{
+    margin-top:4px;width:100%;background:var(--teal);color:#fff;border:none;font-weight:700;
+    padding:9px 10px;border-radius:9px;cursor:pointer;font-size:.82rem;
+    transition:background .15s ease;
+  }
+  .add-btn:hover{background:var(--teal-dark);}
+  .add-btn.added{background:var(--navy);}
   .top-note{
     text-align:center;color:var(--muted);font-size:.88rem;margin-top:18px;
   }
@@ -141,18 +161,58 @@
     .top-grid{grid-template-columns:repeat(2,1fr);}
   }
 
-  /* Category cards (paso 2) */
-  .category-grid{display:flex;flex-direction:column;gap:10px;margin-bottom:6px;}
-  .category-option{
-    display:flex;align-items:center;gap:12px;
-    border:1.5px solid var(--border);border-radius:12px;padding:14px;
-    cursor:pointer;transition:border-color .15s ease, background .15s ease;
+  /* Catalog */
+  section.catalog{padding:24px 0 48px;background:#F8FBFA;}
+  .cat-tabs{
+    display:flex;gap:8px;overflow-x:auto;padding-bottom:10px;margin-bottom:20px;
+    -ms-overflow-style:none;scrollbar-width:none;
   }
-  .category-option:hover{border-color:var(--teal);background:var(--mint);}
-  .category-option input{width:18px;height:18px;accent-color:var(--teal);flex-shrink:0;}
-  .category-option .cat-icon{font-size:1.3rem;flex-shrink:0;}
-  .category-option .cat-text strong{display:block;font-size:.95rem;color:var(--navy);}
-  .category-option .cat-text span{font-size:.8rem;color:var(--muted);}
+  .cat-tabs::-webkit-scrollbar{display:none;}
+  .cat-tab{
+    flex:0 0 auto;background:#fff;border:1.5px solid var(--border);color:var(--navy);
+    font-weight:600;font-size:.86rem;padding:10px 16px;border-radius:999px;cursor:pointer;
+    white-space:nowrap;transition:all .15s ease;
+  }
+  .cat-tab:hover{border-color:var(--teal);}
+  .cat-tab.active{background:var(--navy);border-color:var(--navy);color:#fff;}
+
+  .catalog-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:640px){.catalog-grid{grid-template-columns:1fr;}}
+  .catalog-card{
+    background:#fff;border:1.5px solid var(--border);border-radius:14px;padding:16px;
+    display:flex;flex-direction:column;gap:8px;
+  }
+  .catalog-card h4{margin:0;font-size:.98rem;color:var(--navy);}
+  .catalog-card .indic{font-size:.78rem;color:var(--teal-dark);font-weight:600;}
+  .catalog-card .incluye{font-size:.82rem;color:var(--muted);}
+  .catalog-card .incluye-toggle{
+    font-size:.78rem;color:var(--teal-dark);font-weight:600;cursor:pointer;text-decoration:underline;
+    background:none;border:none;padding:0;text-align:left;
+  }
+  .catalog-card .incluye-full{display:none;font-size:.82rem;color:var(--muted);margin-top:2px;}
+  .catalog-card .incluye-full.show{display:block;}
+  .catalog-card .card-footer{margin-top:auto;}
+  .catalog-card input[type=text]{
+    width:100%;padding:9px 10px;border:1.5px solid var(--border);border-radius:8px;font-size:.85rem;margin-bottom:8px;
+  }
+
+  /* Sticky cart bar */
+  .cart-bar{
+    position:fixed;left:0;right:0;bottom:-100px;z-index:70;
+    background:var(--navy);color:#fff;padding:14px 20px;
+    display:flex;align-items:center;justify-content:center;gap:16px;
+    box-shadow:0 -8px 24px -10px rgba(0,0,0,.35);
+    transition:bottom .25s ease;
+  }
+  .cart-bar.show{bottom:0;}
+  .cart-bar-inner{display:flex;align-items:center;justify-content:space-between;gap:16px;max-width:640px;width:100%;}
+  .cart-bar-count{font-weight:700;font-size:.92rem;}
+  .cart-bar-count span{color:var(--teal);}
+  .btn-cart-cta{
+    background:var(--teal);color:#fff;border:none;font-weight:700;
+    padding:12px 20px;border-radius:11px;cursor:pointer;font-size:.92rem;white-space:nowrap;
+  }
+  .btn-cart-cta:hover{background:var(--teal-dark);}
 
   /* Disclaimer band */
   .disclaimer{
@@ -164,7 +224,7 @@
   .disclaimer li{margin-bottom:4px;}
 
   /* Form section */
-  section.form-section{padding:48px 0 80px;background:#F8FBFA;}
+  section.form-section{padding:48px 0 100px;background:#F8FBFA;}
   .form-card{
     background:#fff;border:1px solid var(--border);border-radius:20px;
     padding:26px 22px;box-shadow:0 8px 30px -14px rgba(11,42,74,.15);
@@ -199,16 +259,6 @@
   }
   textarea{resize:vertical;min-height:80px;}
 
-  .exam-grid{display:flex;flex-direction:column;gap:10px;}
-  .exam-option{
-    display:flex;align-items:center;gap:12px;
-    border:1.5px solid var(--border);border-radius:12px;padding:13px 14px;
-    cursor:pointer;transition:border-color .15s ease, background .15s ease;
-  }
-  .exam-option:hover{border-color:var(--teal);background:var(--mint);}
-  .exam-option input{width:18px;height:18px;accent-color:var(--teal);flex-shrink:0;}
-  .exam-option span{font-size:.94rem;font-weight:500;}
-
   .radio-row{display:flex;gap:18px;margin-top:4px;}
   .radio-opt{display:flex;align-items:center;gap:8px;font-size:.9rem;}
   .radio-opt input{width:16px;height:16px;accent-color:var(--teal);}
@@ -217,17 +267,41 @@
 
   .check-line{
     display:flex;align-items:flex-start;gap:10px;margin-bottom:14px;font-size:.85rem;color:var(--muted);
+    border-radius:10px;padding:4px;
   }
   .check-line input{margin-top:3px;width:16px;height:16px;accent-color:var(--teal);flex-shrink:0;}
   .check-line a{color:var(--teal-dark);font-weight:600;text-decoration:underline;}
+  .check-line.error{background:rgba(192,57,43,.06);}
+  .check-line .cl-error-text{color:var(--danger);font-size:.78rem;display:none;margin-top:3px;}
+  .check-line.error .cl-error-text{display:block;}
+
+  /* Cart review (step 1) */
+  .cart-list{display:flex;flex-direction:column;gap:10px;margin-bottom:10px;}
+  .cart-item{
+    display:flex;align-items:center;justify-content:space-between;gap:10px;
+    border:1.5px solid var(--border);border-radius:12px;padding:12px 14px;
+  }
+  .cart-item .ci-name{font-weight:600;color:var(--navy);font-size:.92rem;}
+  .cart-item .ci-cat{font-size:.76rem;color:var(--muted);}
+  .cart-item .ci-remove{
+    background:none;border:none;color:var(--danger);cursor:pointer;font-size:.8rem;font-weight:600;
+    flex-shrink:0;
+  }
+  .cart-empty{text-align:center;color:var(--muted);padding:30px 10px;font-size:.92rem;}
+  .cart-total-line{
+    display:flex;justify-content:space-between;font-weight:700;color:var(--navy);
+    padding:10px 0;border-top:1.5px dashed var(--border);margin-top:6px;
+  }
 
   .summary-block{
     background:var(--mint);border-radius:14px;padding:16px;margin-bottom:18px;font-size:.9rem;
   }
   .summary-block h4{margin:0 0 8px;color:var(--navy);font-size:.9rem;}
-  .summary-block dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:4px 10px;}
+  .summary-block dl{margin:0 0 10px;display:grid;grid-template-columns:auto 1fr;gap:4px 10px;}
   .summary-block dt{color:var(--muted);}
   .summary-block dd{margin:0;font-weight:600;}
+  .summary-block ul{margin:0;padding-left:18px;}
+  .summary-block li{font-size:.85rem;margin-bottom:3px;}
 
   .btn-row{display:flex;gap:10px;margin-top:22px;}
   .btn-secondary{
@@ -244,6 +318,8 @@
   .error-text{color:var(--danger);font-size:.8rem;margin-top:5px;display:none;}
   .field.error input, .field.error select, .field.error textarea{border-color:var(--danger);}
   .field.error .error-text{display:block;}
+  .cart-step-error{color:var(--danger);font-size:.85rem;text-align:center;display:none;margin-top:6px;}
+  .cart-step-error.show{display:block;}
 
   .success-screen{display:none;text-align:center;padding:20px 6px;}
   .success-screen.active{display:block;}
@@ -271,6 +347,7 @@
   @media(max-width:480px){
     .row-2{grid-template-columns:1fr;}
     .trust-row{grid-template-columns:repeat(2,1fr);}
+    .top-grid{grid-template-columns:repeat(2,1fr);}
   }
 </style>
 </head>
@@ -284,7 +361,12 @@
       </span>
       <span class="brand-name">OrdenFácil<span style="color:var(--teal-dark)">.pe</span></span>
     </a>
-    <a href="#formulario" class="header-cta">Solicitar orden</a>
+    <div class="header-actions">
+      <div class="cart-pill" onclick="goToCart()">
+        🛒 <span class="count" id="headerCartCount">0</span>
+      </div>
+      <a href="#catalogo" class="header-cta">Elegir exámenes</a>
+    </div>
   </div>
 </header>
 
@@ -292,9 +374,9 @@
   <div class="container">
     <span class="eyebrow">✓ Sin costo para el paciente</span>
     <h1>Tu orden médica, <span class="accent">sin trámites ni esperas.</span></h1>
-    <p class="sub">Completa un formulario simple, un médico revisa tu caso y, si corresponde, recibes tu orden de examen por correo electrónico. Sin necesidad de crear cuenta.</p>
-    <a href="#formulario" class="btn-primary">
-      Solicitar mi orden gratis
+    <p class="sub">Elige tus exámenes, agrégalos a tu carrito y arma tu orden completa en un solo pedido. Un médico revisa tu caso y, si corresponde, recibes tu orden por correo. Sin necesidad de crear cuenta.</p>
+    <a href="#catalogo" class="btn-primary">
+      Elegir mis exámenes
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
     </a>
 
@@ -319,61 +401,48 @@
   </div>
 </section>
 
-<section class="top-exams">
+<section class="top-exams" id="masPedidos">
   <div class="container wide">
     <div class="section-label" style="text-align:center">Los más solicitados</div>
-    <h2 style="text-align:center;color:var(--navy);font-size:1.4rem;margin:0 0 20px;">5 exámenes que la gente pide con más frecuencia</h2>
-    <div class="top-grid">
-      <div class="top-card">
-        <div class="top-icon">🩸</div>
-        <div class="top-name">Hemograma completo</div>
-        <span class="top-cat">Laboratorio</span>
-      </div>
-      <div class="top-card">
-        <div class="top-icon">🧬</div>
-        <div class="top-name">Perfil lipídico</div>
-        <span class="top-cat">Laboratorio</span>
-      </div>
-      <div class="top-card">
-        <div class="top-icon">🦋</div>
-        <div class="top-name">Perfil tiroideo</div>
-        <span class="top-cat">Laboratorio</span>
-      </div>
-      <div class="top-card">
-        <div class="top-icon">🤰</div>
-        <div class="top-name">Ecografía obstétrica</div>
-        <span class="top-cat">Ecografía</span>
-      </div>
-      <div class="top-card">
-        <div class="top-icon">🦴</div>
-        <div class="top-name">Resonancia de rodilla</div>
-        <span class="top-cat">Resonancia</span>
-      </div>
-    </div>
-    <p class="top-note">¿Buscas otro examen? También manejamos ecografías, resonancias y tomografías. <a href="#formulario">Solicita el tuyo aquí</a>.</p>
+    <h2 style="text-align:center;color:var(--navy);font-size:1.4rem;margin:0 0 20px;">Agrega directo al carrito</h2>
+    <div class="top-grid" id="quickPicksGrid"><!-- se llena con JS --></div>
+    <p class="top-note">¿Buscas otro examen? Explora el catálogo completo abajo, con paquetes, laboratorio, ecografía, radiografía, holter, ecocardiograma, resonancia y tomografía. <a href="#catalogo">Ver catálogo</a>.</p>
+  </div>
+</section>
+
+<section class="catalog" id="catalogo">
+  <div class="container wide">
+    <div class="section-label">Catálogo completo</div>
+    <h2 style="color:var(--navy);font-size:1.4rem;margin:0 0 18px;">Elige tus exámenes y agrégalos al carrito</h2>
+    <div class="cat-tabs" id="catTabs"><!-- se llena con JS --></div>
+    <div class="catalog-grid" id="catalogGrid"><!-- se llena con JS --></div>
   </div>
 </section>
 
 <section class="how">
   <div class="container">
     <div class="section-label">Así funciona</div>
-    <h2>4 pasos, sin trámites de por medio.</h2>
+    <h2>5 pasos, sin trámites de por medio.</h2>
     <div class="step-list">
       <div class="step-card">
         <div class="step-num">1</div>
-        <div><h3>Cuéntanos qué necesitas</h3><p>Completa tus datos y elige el examen que buscas.</p></div>
+        <div><h3>Elige tus exámenes</h3><p>Agrega al carrito uno o varios exámenes o paquetes, todos en un solo pedido.</p></div>
       </div>
       <div class="step-card">
         <div class="step-num">2</div>
-        <div><h3>Responde un formulario breve</h3><p>Algunas preguntas simples sobre tu salud.</p></div>
+        <div><h3>Cuéntanos tus datos</h3><p>Completa tus datos personales una sola vez, aunque hayas pedido varios exámenes.</p></div>
       </div>
       <div class="step-card">
         <div class="step-num">3</div>
-        <div><h3>Un médico revisa tu caso</h3><p>Evaluamos la solicitud para ver si corresponde emitir la orden.</p></div>
+        <div><h3>Responde un formulario breve</h3><p>Algunas preguntas simples sobre tu salud, según lo que hayas elegido.</p></div>
       </div>
       <div class="step-card">
         <div class="step-num">4</div>
-        <div><h3>Recibes tu orden por correo</h3><p>Si corresponde, la orden llega firmada y lista para usar.</p></div>
+        <div><h3>Un médico revisa tu caso</h3><p>Evaluamos la solicitud para ver si corresponde emitir la orden.</p></div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">5</div>
+        <div><h3>Recibes tu orden por correo</h3><p>Para laboratorio y ecografía el proceso es más ágil; resonancia y tomografía siempre pasan por revisión médica caso por caso.</p></div>
       </div>
     </div>
   </div>
@@ -396,15 +465,29 @@
       <div class="progress-wrap" id="progressWrap">
         <div class="progress-label">
           <span id="stepLabel">Paso 1 de 4</span>
-          <span id="stepTitle">Tus datos</span>
+          <span id="stepTitle">Tu carrito</span>
         </div>
         <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:25%"></div></div>
       </div>
 
       <form id="ordenForm" novalidate>
 
-        <!-- PASO 1: Datos personales -->
+        <!-- PASO 1: Carrito -->
         <div class="form-step active" data-step="1">
+          <h2>Revisa tu carrito</h2>
+          <p class="hint">Estos son los exámenes que vas a incluir en tu solicitud.</p>
+
+          <div class="cart-list" id="cartStepList"><!-- se llena con JS --></div>
+          <p class="cart-step-error" id="cartStepError">Agrega al menos un examen a tu carrito antes de continuar.</p>
+
+          <div class="btn-row">
+            <a href="#catalogo" class="btn-secondary" style="text-decoration:none;display:flex;align-items:center;">+ Seguir agregando</a>
+            <button type="button" class="btn-next" data-next>Continuar</button>
+          </div>
+        </div>
+
+        <!-- PASO 2: Datos personales -->
+        <div class="form-step" data-step="2">
           <h2>Tus datos personales</h2>
           <p class="hint">Los usaremos únicamente para emitir tu orden y contactarte.</p>
 
@@ -498,116 +581,18 @@
           </div>
 
           <div class="btn-row">
-            <button type="button" class="btn-next" data-next>Continuar</button>
-          </div>
-        </div>
-
-        <!-- PASO 2: Selección de examen -->
-        <div class="form-step" data-step="2">
-          <h2>¿Qué examen necesitas?</h2>
-          <p class="hint">Primero elige la categoría, luego el examen específico.</p>
-
-          <div class="field">
-            <div class="category-grid">
-              <label class="category-option">
-                <input type="radio" name="categoria" value="Laboratorio" required>
-                <span class="cat-icon">🧪</span>
-                <span class="cat-text"><strong>Exámenes de laboratorio</strong><span>Sangre, orina, perfiles</span></span>
-              </label>
-              <label class="category-option">
-                <input type="radio" name="categoria" value="Ecografía">
-                <span class="cat-icon">🩻</span>
-                <span class="cat-text"><strong>Ecografía</strong><span>Abdominal, pélvica, obstétrica y más</span></span>
-              </label>
-              <label class="category-option">
-                <input type="radio" name="categoria" value="Resonancia magnética">
-                <span class="cat-icon">🧲</span>
-                <span class="cat-text"><strong>Resonancia magnética</strong><span>Columna, rodilla, cerebro y más</span></span>
-              </label>
-              <label class="category-option">
-                <input type="radio" name="categoria" value="Tomografía">
-                <span class="cat-icon">📷</span>
-                <span class="cat-text"><strong>Tomografía / Escáner</strong><span>Tórax, abdomen, cerebro</span></span>
-              </label>
-            </div>
-            <span class="error-text" id="categoriaError">Selecciona una categoría.</span>
-          </div>
-
-          <!-- Exámenes: Laboratorio -->
-          <div class="field conditional" id="examsLaboratorio">
-            <label>Exámenes de laboratorio <span class="req">*</span></label>
-            <div class="exam-grid">
-              <label class="exam-option"><input type="checkbox" name="examenes" value="Hemograma completo"><span>Hemograma completo</span></label>
-              <label class="exam-option"><input type="checkbox" name="examenes" value="Perfil lipídico"><span>Perfil lipídico (colesterol, triglicéridos)</span></label>
-              <label class="exam-option"><input type="checkbox" name="examenes" value="Glucosa"><span>Glucosa en ayunas</span></label>
-              <label class="exam-option"><input type="checkbox" name="examenes" value="Insulina"><span>Insulina</span></label>
-              <label class="exam-option"><input type="checkbox" name="examenes" value="Vitamina D"><span>Vitamina D</span></label>
-              <label class="exam-option"><input type="checkbox" name="examenes" value="Vitamina B12"><span>Vitamina B12</span></label>
-              <label class="exam-option"><input type="checkbox" name="examenes" value="Ferritina"><span>Ferritina</span></label>
-              <label class="exam-option"><input type="checkbox" name="examenes" value="Perfil tiroideo"><span>Perfil tiroideo (TSH, T3, T4)</span></label>
-              <label class="exam-option"><input type="checkbox" name="examenes" value="Función hepática"><span>Función hepática</span></label>
-              <label class="exam-option"><input type="checkbox" name="examenes" value="Función renal"><span>Función renal</span></label>
-              <label class="exam-option"><input type="checkbox" name="examenes" value="Otro" class="examenOtroCheck"><span>Otro</span></label>
-            </div>
-          </div>
-
-          <!-- Exámenes: Ecografía -->
-          <div class="field conditional" id="examsEcografía">
-            <label>Tipo de ecografía <span class="req">*</span></label>
-            <div class="exam-grid">
-              <label class="exam-option"><input type="checkbox" name="examenes" value="Ecografía abdominal"><span>Ecografía abdominal</span></label>
-              <label class="exam-option"><input type="checkbox" name="examenes" value="Ecografía pélvica"><span>Ecografía pélvica</span></label>
-              <label class="exam-option"><input type="checkbox" name="examenes" value="Ecografía obstétrica"><span>Ecografía obstétrica (embarazo)</span></label>
-              <label class="exam-option"><input type="checkbox" name="examenes" value="Ecografía tiroidea"><span>Ecografía tiroidea</span></label>
-              <label class="exam-option"><input type="checkbox" name="examenes" value="Ecografía mamaria"><span>Ecografía mamaria</span></label>
-              <label class="exam-option"><input type="checkbox" name="examenes" value="Ecografía de partes blandas"><span>Ecografía de partes blandas</span></label>
-              <label class="exam-option"><input type="checkbox" name="examenes" value="Otro" class="examenOtroCheck"><span>Otro</span></label>
-            </div>
-          </div>
-
-          <!-- Exámenes: Resonancia -->
-          <div class="field conditional" id="examsResonancia">
-            <label>Tipo de resonancia <span class="req">*</span></label>
-            <div class="exam-grid">
-              <label class="exam-option"><input type="checkbox" name="examenes" value="Resonancia de columna"><span>Resonancia de columna</span></label>
-              <label class="exam-option"><input type="checkbox" name="examenes" value="Resonancia de rodilla"><span>Resonancia de rodilla</span></label>
-              <label class="exam-option"><input type="checkbox" name="examenes" value="Resonancia cerebral"><span>Resonancia cerebral</span></label>
-              <label class="exam-option"><input type="checkbox" name="examenes" value="Resonancia de hombro"><span>Resonancia de hombro</span></label>
-              <label class="exam-option"><input type="checkbox" name="examenes" value="Otro" class="examenOtroCheck"><span>Otro</span></label>
-            </div>
-          </div>
-
-          <!-- Exámenes: Tomografía -->
-          <div class="field conditional" id="examsTomografía">
-            <label>Tipo de tomografía <span class="req">*</span></label>
-            <div class="exam-grid">
-              <label class="exam-option"><input type="checkbox" name="examenes" value="Tomografía de tórax"><span>Tomografía de tórax</span></label>
-              <label class="exam-option"><input type="checkbox" name="examenes" value="Tomografía abdominal"><span>Tomografía abdominal</span></label>
-              <label class="exam-option"><input type="checkbox" name="examenes" value="Tomografía cerebral"><span>Tomografía cerebral</span></label>
-              <label class="exam-option"><input type="checkbox" name="examenes" value="Otro" class="examenOtroCheck"><span>Otro</span></label>
-            </div>
-          </div>
-
-          <span class="error-text" id="examenError" style="display:none;margin-bottom:14px;">Selecciona al menos un examen.</span>
-
-          <div class="field conditional" id="examenOtroWrap">
-            <label>¿Qué otro examen necesitas?</label>
-            <input type="text" name="examenOtroTexto">
-          </div>
-
-          <div class="btn-row">
             <button type="button" class="btn-secondary" data-prev>Atrás</button>
             <button type="button" class="btn-next" data-next>Continuar</button>
           </div>
         </div>
 
-        <!-- PASO 3: Formulario clínico breve -->
+        <!-- PASO 3: Formulario clínico -->
         <div class="form-step" data-step="3">
           <h2>Un par de preguntas sobre tu salud</h2>
           <p class="hint">Ayuda al médico a evaluar tu solicitud correctamente.</p>
 
           <div class="field">
-            <label>¿Por qué deseas realizarte este examen? <span class="req">*</span></label>
+            <label>¿Por qué deseas realizarte estos exámenes? <span class="req">*</span></label>
             <textarea name="motivo" required></textarea>
             <span class="error-text">Cuéntanos brevemente el motivo.</span>
           </div>
@@ -657,7 +642,7 @@
           </div>
 
           <div class="field">
-            <label>¿Te has realizado este examen antes?</label>
+            <label>¿Te has realizado alguno de estos exámenes antes?</label>
             <div class="radio-row">
               <label class="radio-opt"><input type="radio" name="examenPrevio" value="Sí">Sí</label>
               <label class="radio-opt"><input type="radio" name="examenPrevio" value="No">No</label>
@@ -675,34 +660,38 @@
             </div>
           </div>
 
-          <!-- Preguntas específicas: Ecografía -->
-          <div class="conditional" id="extraEcografía">
+          <!-- Preguntas específicas: Ecografía obstétrica -->
+          <div class="conditional" id="extraEcoObstetrica">
             <div class="field">
-              <label>¿Es una ecografía obstétrica (embarazo)?</label>
-              <div class="radio-row">
-                <label class="radio-opt"><input type="radio" name="esEmbarazo" value="Sí" data-toggle="semanasGestacionWrap">Sí</label>
-                <label class="radio-opt"><input type="radio" name="esEmbarazo" value="No" data-toggle="semanasGestacionWrap">No</label>
-              </div>
-              <div class="conditional" id="semanasGestacionWrap">
-                <input type="text" name="semanasGestacion" placeholder="¿Cuántas semanas de gestación, aprox.?">
-              </div>
+              <label>Indicaste una ecografía obstétrica. ¿Cuántas semanas de gestación tienes aproximadamente?</label>
+              <input type="text" name="semanasGestacion" placeholder="Ej: 12 semanas">
             </div>
+          </div>
+
+          <!-- Pregunta específica: Tomografía -->
+          <div class="conditional" id="extraTomografia">
             <div class="field">
-              <label>¿Alguna zona específica que quieras que se evalúe?</label>
-              <input type="text" name="zonaEspecifica" placeholder="Opcional">
+              <label>Solicitaste una tomografía. ¿Estás embarazada actualmente? <span class="req">*</span></label>
+              <div class="radio-row">
+                <label class="radio-opt"><input type="radio" name="embarazadaActual" value="Sí" data-required-group="tomografia">Sí</label>
+                <label class="radio-opt"><input type="radio" name="embarazadaActual" value="No" data-required-group="tomografia">No</label>
+                <label class="radio-opt"><input type="radio" name="embarazadaActual" value="No aplica" data-required-group="tomografia">No aplica</label>
+              </div>
+              <span class="error-text" id="embarazadaError">Por favor responde esta pregunta antes de continuar.</span>
             </div>
           </div>
 
           <!-- Preguntas específicas: Resonancia -->
           <div class="conditional" id="extraResonancia">
             <div class="field">
-              <label>¿Tienes algún implante metálico, marcapasos o prótesis?</label>
+              <label>Solicitaste una resonancia magnética. ¿Tienes marcapasos, válvulas cardiacas, clips, prótesis (cadera, rodilla, u otro implante metálico)? <span class="req">*</span></label>
               <div class="radio-row">
-                <label class="radio-opt"><input type="radio" name="tieneImplante" value="Sí" data-toggle="implanteDetalleWrap">Sí</label>
-                <label class="radio-opt"><input type="radio" name="tieneImplante" value="No" data-toggle="implanteDetalleWrap">No</label>
+                <label class="radio-opt"><input type="radio" name="tieneImplante" value="Sí" data-toggle="implanteDetalleWrap" data-required-group="resonancia">Sí</label>
+                <label class="radio-opt"><input type="radio" name="tieneImplante" value="No" data-toggle="implanteDetalleWrap" data-required-group="resonancia">No</label>
               </div>
+              <span class="error-text" id="implanteError">Por favor responde esta pregunta antes de continuar.</span>
               <div class="conditional" id="implanteDetalleWrap">
-                <input type="text" name="implanteDetalle" placeholder="¿Cuál?">
+                <input type="text" name="implanteDetalle" placeholder="¿Cuál? (importante para tu seguridad)">
               </div>
             </div>
             <div class="field">
@@ -710,27 +699,6 @@
               <div class="radio-row">
                 <label class="radio-opt"><input type="radio" name="claustrofobia" value="Sí">Sí</label>
                 <label class="radio-opt"><input type="radio" name="claustrofobia" value="No">No</label>
-              </div>
-            </div>
-          </div>
-
-          <!-- Preguntas específicas: Tomografía -->
-          <div class="conditional" id="extraTomografía">
-            <div class="field">
-              <label>¿Tienes alergia al yodo o a medios de contraste?</label>
-              <div class="radio-row">
-                <label class="radio-opt"><input type="radio" name="alergiaContraste" value="Sí" data-toggle="alergiaDetalleWrap">Sí</label>
-                <label class="radio-opt"><input type="radio" name="alergiaContraste" value="No" data-toggle="alergiaDetalleWrap">No</label>
-              </div>
-              <div class="conditional" id="alergiaDetalleWrap">
-                <input type="text" name="alergiaDetalle" placeholder="Cuéntanos más">
-              </div>
-            </div>
-            <div class="field">
-              <label>¿Te han evaluado la función renal recientemente?</label>
-              <div class="radio-row">
-                <label class="radio-opt"><input type="radio" name="funcionRenalPrevia" value="Sí">Sí</label>
-                <label class="radio-opt"><input type="radio" name="funcionRenalPrevia" value="No">No</label>
               </div>
             </div>
           </div>
@@ -755,17 +723,23 @@
             <!-- se llena con JS -->
           </div>
 
-          <div class="check-line">
-            <input type="checkbox" name="aceptaTerminos" required>
-            <span>Acepto los <a href="#" target="_blank">Términos y condiciones</a> y la <a href="#" target="_blank">Política de privacidad</a>, y consiento el tratamiento de mis datos personales para este fin.</span>
+          <div class="check-line" id="checkTerminosWrap">
+            <input type="checkbox" name="aceptaTerminos" id="chkTerminos" required>
+            <span>Acepto los <a href="#" target="_blank">Términos y condiciones</a> y la <a href="#" target="_blank">Política de privacidad</a>, y consiento el tratamiento de mis datos personales para este fin.
+              <span class="cl-error-text">Debes aceptar esto para poder enviar tu solicitud.</span>
+            </span>
           </div>
-          <div class="check-line">
-            <input type="checkbox" name="declaraVeracidad" required>
-            <span>Declaro que la información entregada es verdadera y completa.</span>
+          <div class="check-line" id="checkVeracidadWrap">
+            <input type="checkbox" name="declaraVeracidad" id="chkVeracidad" required>
+            <span>Declaro que la información entregada es verdadera y completa, y asumo la responsabilidad y los riesgos derivados de una declaración inexacta.
+              <span class="cl-error-text">Debes aceptar esto para poder enviar tu solicitud.</span>
+            </span>
           </div>
-          <div class="check-line">
-            <input type="checkbox" name="entiendeEvaluacion" required>
-            <span>Entiendo que un médico evaluará mi solicitud y que esto no garantiza necesariamente la emisión de una orden.</span>
+          <div class="check-line" id="checkEvaluacionWrap">
+            <input type="checkbox" name="entiendeEvaluacion" id="chkEvaluacion" required>
+            <span>Entiendo que un médico evaluará mi solicitud y que esto no garantiza necesariamente la emisión de una orden.
+              <span class="cl-error-text">Debes aceptar esto para poder enviar tu solicitud.</span>
+            </span>
           </div>
 
           <div class="btn-row">
@@ -782,7 +756,7 @@
           <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
         </div>
         <h2>Tu solicitud fue recibida</h2>
-        <p>Un médico revisará tu información y, si corresponde, recibirás la orden en el correo electrónico registrado.</p>
+        <p>Un médico revisará tu información y, si corresponde, recibirás tu orden en el correo electrónico registrado.</p>
         <p style="font-size:.85rem">Esto puede tomar hasta 24-48 horas hábiles.</p>
         <span class="folio" id="folioDisplay"></span>
         <div style="margin-top:22px;">
@@ -802,8 +776,256 @@
   </div>
 </footer>
 
+<div class="cart-bar" id="cartBar">
+  <div class="cart-bar-inner">
+    <div class="cart-bar-count">🛒 <span id="cartBarCount">0</span> examen(es) en tu carrito</div>
+    <button type="button" class="btn-cart-cta" onclick="goToCart()">Generar mi orden</button>
+  </div>
+</div>
+
 <script>
-/* ================== DATOS: Departamentos y provincias del Perú ================== */
+/* ================== CATÁLOGO ================== */
+const CATALOG = [
+  // Análisis de laboratorio individuales
+  {id:'lab-hemograma',cat:'LaboratorioIndividual',name:'Hemograma completo',icon:'🩸'},
+  {id:'lab-lipidico',cat:'LaboratorioIndividual',name:'Perfil lipídico (colesterol, triglicéridos)',icon:'🧬'},
+  {id:'lab-glucosa',cat:'LaboratorioIndividual',name:'Glucosa en ayunas',icon:'🩸'},
+  {id:'lab-insulina',cat:'LaboratorioIndividual',name:'Insulina',icon:'🧪'},
+  {id:'lab-vitd',cat:'LaboratorioIndividual',name:'Vitamina D',icon:'☀️'},
+  {id:'lab-vitb12',cat:'LaboratorioIndividual',name:'Vitamina B12',icon:'🧪'},
+  {id:'lab-ferritina',cat:'LaboratorioIndividual',name:'Ferritina',icon:'🧪'},
+  {id:'lab-tiroideo',cat:'LaboratorioIndividual',name:'Perfil tiroideo (TSH, T3, T4)',icon:'🦋'},
+  {id:'lab-hepatica',cat:'LaboratorioIndividual',name:'Función hepática',icon:'🧪'},
+  {id:'lab-renal',cat:'LaboratorioIndividual',name:'Función renal',icon:'🧪'},
+  // Ecografía
+  {id:'eco-abdominal',cat:'Ecografía',name:'Ecografía abdominal',icon:'🩻'},
+  {id:'eco-pelvica',cat:'Ecografía',name:'Ecografía pélvica',icon:'🩻'},
+  {id:'eco-obstetrica',cat:'Ecografía',name:'Ecografía obstétrica (embarazo)',icon:'🤰'},
+  {id:'eco-tiroidea',cat:'Ecografía',name:'Ecografía tiroidea',icon:'🩻'},
+  {id:'eco-mamaria',cat:'Ecografía',name:'Ecografía mamaria',icon:'🩻'},
+  {id:'eco-partesblandas',cat:'Ecografía',name:'Ecografía de partes blandas',icon:'🩻'},
+  // Radiografía
+  {id:'rx-torax',cat:'Radiografía',name:'Radiografía de tórax',icon:'📸'},
+  // Holter
+  {id:'holter-24h',cat:'Holter',name:'Holter de presión arterial (24 horas)',icon:'❤️'},
+  // Ecocardiograma
+  {id:'ecocardio-basico',cat:'Ecocardiograma',name:'Ecocardiograma',icon:'🫀'},
+  // Resonancia
+  {id:'rm-columna',cat:'Resonancia magnética',name:'Resonancia de columna',icon:'🧲'},
+  {id:'rm-rodilla',cat:'Resonancia magnética',name:'Resonancia de rodilla',icon:'🧲'},
+  {id:'rm-cerebral',cat:'Resonancia magnética',name:'Resonancia cerebral',icon:'🧲'},
+  {id:'rm-hombro',cat:'Resonancia magnética',name:'Resonancia de hombro',icon:'🧲'},
+  // Tomografía
+  {id:'tac-torax',cat:'Tomografía',name:'Tomografía de tórax',icon:'📷'},
+  {id:'tac-abdominal',cat:'Tomografía',name:'Tomografía abdominal',icon:'📷'},
+  {id:'tac-cerebral',cat:'Tomografía',name:'Tomografía cerebral',icon:'📷'},
+  // Paquetes de laboratorio
+  {id:'pkg-01',cat:'Paquetes',name:'Chequeo General Básico',indic:'Adultos sanos 18-39 años',incluye:'Hemograma completo, Glucosa, Creatinina, Urea, eGFR, Perfil lipídico, TGO, TGP, Bilirrubina total, Fosfatasa alcalina, GGT, Proteínas totales, Albúmina, Sodio, Potasio, Cloro, Examen completo de orina'},
+  {id:'pkg-02',cat:'Paquetes',name:'Chequeo General Intermedio',indic:'Adultos 40-59 años',incluye:'Todo lo del Básico + HbA1c, TSH, Calcio, Fósforo, Magnesio, Ácido úrico'},
+  {id:'pkg-03',cat:'Paquetes',name:'Chequeo General Premium',indic:'>60 años o chequeo ejecutivo',incluye:'Todo lo del Intermedio + Ferritina, Hierro sérico, Transferrina, Saturación de transferrina, Vitamina B12, Ácido fólico, Vitamina D, PCR ultrasensible'},
+  {id:'pkg-04',cat:'Paquetes',name:'Chequeo Metabólico',indic:'Obesidad, síndrome metabólico',incluye:'Hemograma, Glucosa, HbA1c, Insulina basal, Perfil lipídico, Ácido úrico, TGO, TGP, GGT'},
+  {id:'pkg-05',cat:'Paquetes',name:'Chequeo Renal',indic:'Hipertensión, diabetes, enfermedad renal',incluye:'Creatinina, Urea, eGFR, Sodio, Potasio, Cloro, Calcio, Fósforo, Magnesio, Examen de orina, Microalbuminuria, Relación albúmina/creatinina'},
+  {id:'pkg-06',cat:'Paquetes',name:'Chequeo Hepático',indic:'Esteatosis hepática, hepatopatías, consumo de alcohol',incluye:'TGO, TGP, Fosfatasa alcalina, GGT, Bilirrubina total/directa/indirecta, Albúmina, Proteínas totales'},
+  {id:'pkg-07',cat:'Paquetes',name:'Chequeo Cardiovascular',indic:'Prevención cardiovascular',incluye:'Perfil lipídico, Glucosa, HbA1c, PCR ultrasensible, Lipoproteína(a) (opcional), ApoB (opcional)'},
+  {id:'pkg-08',cat:'Paquetes',name:'Chequeo Tiroideo',indic:'Fatiga, aumento de peso, alteraciones tiroideas',incluye:'TSH, T4 Libre, T3 Libre (opcional), Anti-TPO (opcional)'},
+  {id:'pkg-09',cat:'Paquetes',name:'Chequeo de Vitaminas y Micronutrientes',indic:'Fatiga, malabsorción, bariatría',incluye:'Vitamina D, Vitamina B12, Ácido fólico, Ferritina, Hierro sérico, Transferrina, Saturación de transferrina'},
+  {id:'pkg-10',cat:'Paquetes',name:'Chequeo de Anemia',indic:'Sospecha de anemia',incluye:'Hemograma, Reticulocitos, Ferritina, Hierro sérico, Transferrina, Saturación de transferrina, Vitamina B12, Ácido fólico'},
+  {id:'pkg-11',cat:'Paquetes',name:'Chequeo Masculino (<40 años)',indic:'Prevención en hombres jóvenes',incluye:'Hemograma, Glucosa, HbA1c, Perfil lipídico, Creatinina, TGO, TGP, TSH, Examen de orina'},
+  {id:'pkg-12',cat:'Paquetes',name:'Chequeo Masculino (>40 años)',indic:'Prevención en hombres mayores',incluye:'Todo lo anterior + PSA total, PSA libre (si corresponde)'},
+  {id:'pkg-13',cat:'Paquetes',name:'Chequeo Femenino',indic:'Prevención en mujeres',incluye:'Hemograma, Glucosa, HbA1c, Perfil lipídico, Creatinina, TSH, Ferritina, Hierro, Examen de orina'},
+  {id:'pkg-14',cat:'Paquetes',name:'Chequeo Menopausia',indic:'Mujeres con sospecha de menopausia',incluye:'FSH, Estradiol, TSH, Vitamina D, Calcio'},
+  {id:'pkg-15',cat:'Paquetes',name:'Chequeo Obesidad',indic:'Sobrepeso y obesidad',incluye:'Hemograma, Glucosa, HbA1c, Insulina basal, Perfil lipídico, Creatinina, Ácido úrico, TGO, TGP, GGT, TSH, Vitamina D, Ferritina, Vitamina B12'},
+  {id:'pkg-16',cat:'Paquetes',name:'Chequeo Hipertensión',indic:'Hipertensos',incluye:'Hemograma, Glucosa, HbA1c, Creatinina, Urea, eGFR, Electrolitos, Perfil lipídico, Examen de orina, Microalbuminuria'},
+  {id:'pkg-17',cat:'Paquetes',name:'Chequeo Diabetes',indic:'Diabéticos',incluye:'HbA1c, Glucosa, Creatinina, eGFR, Perfil lipídico, Examen de orina, Microalbuminuria, Relación albúmina/creatinina'},
+  {id:'pkg-18',cat:'Paquetes',name:'Chequeo Fatiga Crónica',indic:'Cansancio persistente',incluye:'Hemograma, Ferritina, Hierro, Vitamina B12, Ácido fólico, TSH, T4 Libre, Vitamina D, PCR, VSG'},
+  {id:'pkg-19',cat:'Paquetes',name:'Chequeo Preoperatorio',indic:'Cirugía programada',incluye:'Hemograma, Glucosa, Creatinina, Urea, Electrolitos, TP/INR, TTPa, Grupo y factor sanguíneo, Examen de orina'},
+  {id:'pkg-20',cat:'Paquetes',name:'Perfil Deportivo',indic:'',incluye:'Hemograma, Glucosa, Creatinina, CPK, LDH, Perfil lipídico, Electrolitos, Ferritina, Vitamina D, TSH'},
+  {id:'pkg-21',cat:'Paquetes',name:'Perfil Bariátrico (preoperatorio)',indic:'',incluye:'Hemograma, Glucosa, HbA1c, Perfil lipídico, Creatinina, TGO, TGP, GGT, Albúmina, Proteínas totales, Ferritina, Hierro, B12, Ácido fólico, Vitamina D, Calcio, Magnesio, Fósforo, Zinc'},
+  {id:'pkg-22',cat:'Paquetes',name:'Perfil Sexual Masculino',indic:'',incluye:'Testosterona total, Testosterona libre, SHBG, LH, FSH, Prolactina, Estradiol'},
+  {id:'pkg-23',cat:'Paquetes',name:'Perfil Hormonal Femenino',indic:'',incluye:'FSH, LH, Estradiol, Progesterona, Prolactina, TSH'},
+  {id:'pkg-24',cat:'Paquetes',name:'Perfil Hepático Completo',indic:'',incluye:'TGO, TGP, GGT, Fosfatasa alcalina, Bilirrubinas, Albúmina, Proteínas totales, TP/INR'},
+  {id:'pkg-25',cat:'Paquetes',name:'Perfil Renal Completo',indic:'',incluye:'Creatinina, Urea, eGFR, Electrolitos, Calcio, Fósforo, Magnesio, Examen de orina, Microalbuminuria'},
+];
+
+const CATALOG_BY_ID = {};
+CATALOG.forEach(item => CATALOG_BY_ID[item.id] = item);
+
+const TABS = [
+  {key:'Paquetes', label:'📦 Paquetes de laboratorio'},
+  {key:'LaboratorioIndividual', label:'🧪 Análisis individuales'},
+  {key:'Ecografía', label:'🩻 Ecografía'},
+  {key:'Radiografía', label:'📸 Radiografía'},
+  {key:'Holter', label:'❤️ Holter'},
+  {key:'Ecocardiograma', label:'🫀 Ecocardiograma'},
+  {key:'Resonancia magnética', label:'🧲 Resonancia magnética'},
+  {key:'Tomografía', label:'📷 Tomografía / Escáner'},
+];
+
+const QUICK_PICKS = ['lab-hemograma','pkg-01','lab-lipidico','lab-glucosa','eco-abdominal','pkg-19','rx-torax','pkg-05'];
+
+// Categorías que hoy se pueden automatizar (fase futura); el resto siempre pasa por revisión médica caso por caso
+const AUTO_CATS = ['LaboratorioIndividual','Paquetes','Ecografía'];
+
+/* ================== CARRITO ================== */
+let cart = [];
+try{
+  const saved = localStorage.getItem('ordenfacil_cart');
+  if(saved) cart = JSON.parse(saved);
+}catch(e){ cart = []; }
+
+function saveCart(){
+  try{ localStorage.setItem('ordenfacil_cart', JSON.stringify(cart)); }catch(e){}
+}
+
+function isInCart(id){ return cart.includes(id); }
+
+function toggleCartItem(id){
+  const idx = cart.indexOf(id);
+  if(idx === -1){ cart.push(id); } else { cart.splice(idx,1); }
+  saveCart();
+  renderAll();
+}
+
+function removeFromCart(id){
+  const idx = cart.indexOf(id);
+  if(idx !== -1) cart.splice(idx,1);
+  saveCart();
+  renderAll();
+}
+
+function goToCart(){
+  currentStep = 1;
+  showStep(1);
+  document.getElementById('formulario').scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+/* ================== Render: quick picks ================== */
+function renderQuickPicks(){
+  const grid = document.getElementById('quickPicksGrid');
+  grid.innerHTML = QUICK_PICKS.map(id=>{
+    const item = CATALOG_BY_ID[id];
+    const added = isInCart(id);
+    return `
+      <div class="top-card">
+        <div class="top-icon">${item.icon || '🧾'}</div>
+        <div class="top-name">${item.name}</div>
+        <span class="top-cat">${tabLabel(item.cat)}</span>
+        <button type="button" class="add-btn ${added?'added':''}" onclick="toggleCartItem('${item.id}')">${added?'✓ En el carrito':'Agregar al carrito'}</button>
+      </div>
+    `;
+  }).join('');
+}
+
+function tabLabel(catKey){
+  const t = TABS.find(t=>t.key===catKey);
+  return t ? t.label.replace(/^\S+\s/,'') : catKey;
+}
+
+/* ================== Render: catálogo por categoría ================== */
+let activeTab = 'Paquetes';
+
+function renderTabs(){
+  const wrap = document.getElementById('catTabs');
+  wrap.innerHTML = TABS.map(t=>`
+    <button type="button" class="cat-tab ${t.key===activeTab?'active':''}" onclick="setActiveTab('${t.key}')">${t.label}</button>
+  `).join('');
+}
+
+function setActiveTab(key){
+  activeTab = key;
+  renderTabs();
+  renderCatalogGrid();
+}
+
+function renderCatalogGrid(){
+  const grid = document.getElementById('catalogGrid');
+  const items = CATALOG.filter(i=>i.cat===activeTab);
+  grid.innerHTML = items.map(item=>{
+    const added = isInCart(item.id);
+    const indic = item.indic ? `<div class="indic">${item.indic}</div>` : '';
+    let incluye = '';
+    if(item.incluye){
+      incluye = `
+        <button type="button" class="incluye-toggle" onclick="toggleIncluye('${item.id}')">Ver qué incluye</button>
+        <div class="incluye-full" id="incluye-${item.id}">${item.incluye}</div>
+      `;
+    }
+    return `
+      <div class="catalog-card">
+        <h4>${item.icon?item.icon+' ':''}${item.name}</h4>
+        ${indic}
+        ${incluye}
+        <div class="card-footer">
+          <button type="button" class="add-btn ${added?'added':''}" onclick="toggleCartItem('${item.id}')">${added?'✓ En el carrito — quitar':'Agregar al carrito'}</button>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function toggleIncluye(id){
+  const el = document.getElementById('incluye-'+id);
+  if(el) el.classList.toggle('show');
+}
+
+/* ================== Render: barra de carrito y contador ================== */
+function renderCartBar(){
+  const bar = document.getElementById('cartBar');
+  const count = cart.length;
+  document.getElementById('cartBarCount').textContent = count;
+  document.getElementById('headerCartCount').textContent = count;
+  bar.classList.toggle('show', count>0);
+}
+
+/* ================== Render: paso 1 del checkout (carrito) ================== */
+function renderCartStep(){
+  const list = document.getElementById('cartStepList');
+  if(cart.length === 0){
+    list.innerHTML = `<div class="cart-empty">Tu carrito está vacío. <a href="#catalogo" style="color:var(--teal-dark);font-weight:600;">Ve al catálogo</a> para elegir tus exámenes.</div>`;
+    return;
+  }
+  list.innerHTML = cart.map(id=>{
+    const item = CATALOG_BY_ID[id];
+    if(!item) return '';
+    return `
+      <div class="cart-item">
+        <div>
+          <div class="ci-name">${item.name}</div>
+          <div class="ci-cat">${tabLabel(item.cat)}</div>
+        </div>
+        <button type="button" class="ci-remove" onclick="removeFromCart('${id}')">Quitar</button>
+      </div>
+    `;
+  }).join('');
+}
+
+/* ================== Preguntas clínicas condicionales según carrito ================== */
+function cartHasCategory(catKey){
+  return cart.some(id => CATALOG_BY_ID[id] && CATALOG_BY_ID[id].cat === catKey);
+}
+
+function updateConditionalClinicalQuestions(){
+  const hasTomografia = cartHasCategory('Tomografía');
+  const hasResonancia = cartHasCategory('Resonancia magnética');
+  const hasEcoObstetrica = isInCart('eco-obstetrica');
+
+  document.getElementById('extraTomografia').classList.toggle('show', hasTomografia);
+  document.getElementById('extraResonancia').classList.toggle('show', hasResonancia);
+  document.getElementById('extraEcoObstetrica').classList.toggle('show', hasEcoObstetrica);
+
+  document.querySelectorAll('input[data-required-group=tomografia]').forEach(el=> el.required = hasTomografia);
+  document.querySelectorAll('input[data-required-group=resonancia]').forEach(el=> el.required = hasResonancia);
+}
+
+function renderAll(){
+  renderQuickPicks();
+  renderCatalogGrid();
+  renderCartBar();
+  renderCartStep();
+  updateConditionalClinicalQuestions();
+}
+
+/* ================== Datos: Departamentos y provincias del Perú ================== */
 const PERU = {
   "Amazonas": ["Chachapoyas","Bagua","Bongará","Condorcanqui","Luya","Rodríguez de Mendoza","Utcubamba"],
   "Áncash": ["Huaraz","Aija","Antonio Raymondi","Asunción","Bolognesi","Carhuaz","Carlos Fermín Fitzcarrald","Casma","Corongo","Huari","Huarmey","Huaylas","Mariscal Luzuriaga","Ocros","Pallasca","Pomabamba","Recuay","Santa","Sihuas","Yungay"],
@@ -832,37 +1054,58 @@ const PERU = {
   "Ucayali": ["Coronel Portillo","Atalaya","Padre Abad","Purús"]
 };
 
-/* ⚠️ IMPORTANTE: reemplaza esta URL por la de tu Google Apps Script (ver instrucciones) */
-const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbzReXEC-8NK43_eg2FxPB415WQryz42h8WbaaworzTmLL9KvBlanEV6kbxIflTGiB5G/exec";
-
-/* ================== Poblar departamento/provincia ================== */
-const deptoSelect = document.getElementById('departamento');
-const provSelect = document.getElementById('provincia');
-
-Object.keys(PERU).sort((a,b)=>a.localeCompare(b,'es')).forEach(dep=>{
+const depSelect = document.getElementById('departamento');
+Object.keys(PERU).forEach(dep=>{
   const opt = document.createElement('option');
   opt.value = dep; opt.textContent = dep;
-  deptoSelect.appendChild(opt);
+  depSelect.appendChild(opt);
 });
-
-deptoSelect.addEventListener('change', ()=>{
-  provSelect.innerHTML = '';
-  const dep = deptoSelect.value;
-  if(!dep){
-    provSelect.innerHTML = '<option value="">Primero elige un departamento</option>';
-    return;
-  }
-  const placeholder = document.createElement('option');
-  placeholder.value=''; placeholder.textContent='Selecciona...';
-  provSelect.appendChild(placeholder);
-  PERU[dep].forEach(prov=>{
+const provSelect = document.getElementById('provincia');
+depSelect.addEventListener('change', function(){
+  provSelect.innerHTML = '<option value="">Selecciona...</option>';
+  (PERU[this.value] || []).forEach(prov=>{
     const opt = document.createElement('option');
     opt.value = prov; opt.textContent = prov;
     provSelect.appendChild(opt);
   });
 });
 
-/* ================== Navegación entre pasos ================== */
+/* ================== Datos del médico (para automatización futura de lab/ecografía) ================== */
+const MEDICO = {
+  nombre: 'Giuseppe Bogani Amadori',
+  cmp: '076780',
+  titulo: 'Médico General' // se usa "médico general" en las órdenes automáticas de laboratorio/ecografía
+};
+
+/* ================== Prefill de datos personales guardados ================== */
+function prefillPersonalData(){
+  try{
+    const saved = JSON.parse(localStorage.getItem('ordenfacil_datos') || '{}');
+    Object.keys(saved).forEach(name=>{
+      const el = document.querySelector(`[name="${name}"]`);
+      if(el && saved[name]){
+        el.value = saved[name];
+        if(el.id === 'departamento'){ el.dispatchEvent(new Event('change')); }
+      }
+    });
+    if(saved.provincia){
+      setTimeout(()=>{ const p = document.querySelector('[name="provincia"]'); if(p) p.value = saved.provincia; }, 50);
+    }
+  }catch(e){}
+}
+prefillPersonalData();
+
+function savePersonalData(){
+  const fields = ['nombres','apellidoPaterno','apellidoMaterno','fechaNacimiento','tipoDocumento','numeroDocumento','sexo','nacionalidad','departamento','provincia','telefono','correo'];
+  const data = {};
+  fields.forEach(f=>{
+    const el = document.querySelector(`[name="${f}"]`);
+    if(el) data[f] = el.value;
+  });
+  try{ localStorage.setItem('ordenfacil_datos', JSON.stringify(data)); }catch(e){}
+}
+
+/* ================== Navegación entre pasos del checkout ================== */
 const form = document.getElementById('ordenForm');
 const steps = Array.from(document.querySelectorAll('.form-step'));
 let currentStep = 1;
@@ -871,9 +1114,11 @@ const totalSteps = steps.length;
 function showStep(n){
   steps.forEach(s=> s.classList.toggle('active', Number(s.dataset.step) === n));
   document.getElementById('stepLabel').textContent = `Paso ${n} de ${totalSteps}`;
-  const titles = {1:'Tus datos', 2:'Tu examen', 3:'Tu salud', 4:'Confirmar'};
+  const titles = {1:'Tu carrito', 2:'Tus datos', 3:'Tu salud', 4:'Confirmar'};
   document.getElementById('stepTitle').textContent = titles[n];
   document.getElementById('progressFill').style.width = (n/totalSteps*100)+'%';
+  if(n === 1) renderCartStep();
+  if(n === 3) updateConditionalClinicalQuestions();
   document.getElementById('progressWrap').scrollIntoView({behavior:'smooth', block:'start'});
 }
 
@@ -881,38 +1126,31 @@ function validateStep(n){
   let valid = true;
   const stepEl = steps.find(s=>Number(s.dataset.step)===n);
 
+  if(n === 1){
+    const errEl = document.getElementById('cartStepError');
+    if(cart.length === 0){ errEl.classList.add('show'); valid = false; }
+    else{ errEl.classList.remove('show'); }
+    return valid;
+  }
+
   stepEl.querySelectorAll('[required]').forEach(el=>{
-    const field = el.closest('.field');
+    const field = el.closest('.field') || el.closest('.check-line');
     if(!field) return;
-    if(!el.value || el.value.trim()===''){
-      field.classList.add('error'); valid = false;
-    } else {
-      field.classList.remove('error');
-    }
+    const isCheckbox = el.type === 'checkbox';
+    const isRadio = el.type === 'radio';
+    let ok;
+    if(isCheckbox){ ok = el.checked; }
+    else if(isRadio){ ok = stepEl.querySelectorAll(`input[name="${el.name}"]:checked`).length > 0; }
+    else{ ok = el.value && el.value.trim() !== ''; }
+    if(!ok){ field.classList.add('error'); valid = false; }
+    else{ field.classList.remove('error'); }
   });
 
-  if(n===1){
+  if(n===2){
     const correo = stepEl.querySelector('[name=correo]');
     const field = correo.closest('.field');
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if(!re.test(correo.value)){ field.classList.add('error'); valid=false; }
-  }
-
-  if(n===2){
-    const catChecked = stepEl.querySelector('input[name=categoria]:checked');
-    const catErrorEl = document.getElementById('categoriaError');
-    if(!catChecked){
-      catErrorEl.style.display = 'block';
-      valid = false;
-    } else {
-      catErrorEl.style.display = 'none';
-      const listId = examListMap[catChecked.value];
-      const listEl = document.getElementById(listId);
-      const checked = listEl ? listEl.querySelectorAll('input[name=examenes]:checked') : [];
-      const errorEl = document.getElementById('examenError');
-      if(checked.length === 0){ errorEl.style.display = 'block'; valid = false; }
-      else{ errorEl.style.display = 'none'; }
-    }
   }
 
   return valid;
@@ -921,6 +1159,7 @@ function validateStep(n){
 document.querySelectorAll('[data-next]').forEach(btn=>{
   btn.addEventListener('click', ()=>{
     if(!validateStep(currentStep)) return;
+    if(currentStep === 2) savePersonalData();
     if(currentStep === 3) buildSummary();
     currentStep = Math.min(currentStep+1, totalSteps);
     showStep(currentStep);
@@ -933,66 +1172,17 @@ document.querySelectorAll('[data-prev]').forEach(btn=>{
   });
 });
 
-/* ================== Lógica de categorías de examen ================== */
-const examListMap = {
-  "Laboratorio": "examsLaboratorio",
-  "Ecografía": "examsEcografía",
-  "Resonancia magnética": "examsResonancia",
-  "Tomografía": "examsTomografía"
-};
-const extraMap = {
-  "Ecografía": "extraEcografía",
-  "Resonancia magnética": "extraResonancia",
-  "Tomografía": "extraTomografía"
-};
-
-function updateCategoryVisibility(){
-  const selected = document.querySelector('input[name=categoria]:checked');
-  const val = selected ? selected.value : null;
-
-  Object.values(examListMap).forEach(id=>{
-    const el = document.getElementById(id);
-    if(!el) return;
-    if(examListMap[val] === id){
-      el.classList.add('show');
-    } else {
-      el.classList.remove('show');
-      el.querySelectorAll('input[type=checkbox]').forEach(cb=> cb.checked = false);
-    }
-  });
-
-  Object.values(extraMap).forEach(id=>{
-    const el = document.getElementById(id);
-    if(!el) return;
-    el.classList.toggle('show', extraMap[val] === id);
-  });
-
-  document.getElementById('examenOtroWrap').classList.remove('show');
-  document.getElementById('examenError').style.display = 'none';
-}
-
-document.querySelectorAll('input[name=categoria]').forEach(radio=>{
-  radio.addEventListener('change', updateCategoryVisibility);
-});
-
-/* Mostrar/ocultar "Otro examen" (aplica a cualquier categoría) */
-document.querySelectorAll('.examenOtroCheck').forEach(cb=>{
-  cb.addEventListener('change', function(){
-    const anyChecked = Array.from(document.querySelectorAll('.examenOtroCheck')).some(c=>c.checked);
-    document.getElementById('examenOtroWrap').classList.toggle('show', anyChecked);
-  });
-});
-
 /* Mostrar/ocultar campos condicionales de radios Sí/No */
 document.querySelectorAll('input[data-toggle]').forEach(radio=>{
   radio.addEventListener('change', function(){
     const wrap = document.getElementById(this.dataset.toggle);
+    if(!wrap) return;
     if(this.value === 'Sí'){ wrap.classList.add('show'); }
     else{ wrap.classList.remove('show'); }
   });
 });
 
-/* ================== Resumen dinámico ================== */
+/* ================== Resumen dinámico (paso 4) ================== */
 function buildSummary(){
   const fd = new FormData(form);
   const nombres = fd.get('nombres') || '';
@@ -1003,24 +1193,30 @@ function buildSummary(){
   const tel = fd.get('telefono') || '';
   const dep = fd.get('departamento') || '';
   const prov = fd.get('provincia') || '';
-  const examenes = fd.getAll('examenes').join(', ') || '—';
-  const categoria = fd.get('categoria') || '—';
+
+  const itemsHtml = cart.map(id=>{
+    const item = CATALOG_BY_ID[id];
+    return item ? `<li>${item.name} <span style="color:var(--muted)">(${tabLabel(item.cat)})</span></li>` : '';
+  }).join('');
 
   document.getElementById('summaryBlock').innerHTML = `
-    <h4>Resumen de tu solicitud</h4>
+    <h4>Tus exámenes (${cart.length})</h4>
+    <ul>${itemsHtml}</ul>
+    <h4 style="margin-top:12px;">Tus datos</h4>
     <dl>
       <dt>Nombre:</dt><dd>${nombres} ${apPat} ${apMat}</dd>
       <dt>Documento:</dt><dd>${doc}</dd>
       <dt>Ubicación:</dt><dd>${prov ? prov+', ' : ''}${dep}</dd>
       <dt>Teléfono:</dt><dd>${tel}</dd>
       <dt>Correo:</dt><dd>${correo}</dd>
-      <dt>Categoría:</dt><dd>${categoria}</dd>
-      <dt>Exámenes:</dt><dd>${examenes}</dd>
     </dl>
   `;
 }
 
 /* ================== Envío del formulario ================== */
+/* ⚠️ IMPORTANTE: reemplaza esta URL por la de tu Google Apps Script (ver instrucciones) */
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbzReXEC-8NK43_eg2FxPB415WQryz42h8WbaaworzTmLL9KvBlanEV6kbxIflTGiB5G/exec";
+
 form.addEventListener('submit', function(e){
   e.preventDefault();
   if(!validateStep(4)) return;
@@ -1030,9 +1226,23 @@ form.addEventListener('submit', function(e){
   submitBtn.textContent = 'Enviando...';
 
   const fd = new FormData(form);
-  // Adjuntar lista de exámenes como texto (checkboxes múltiples)
-  const examenesSeleccionados = fd.getAll('examenes').join(', ');
+
+  // Exámenes del carrito
+  const examenesSeleccionados = cart.map(id => CATALOG_BY_ID[id] ? CATALOG_BY_ID[id].name : id).join(', ');
+  const categoriasEnCarrito = [...new Set(cart.map(id => CATALOG_BY_ID[id] ? CATALOG_BY_ID[id].cat : ''))].join(', ');
   fd.set('examenes', examenesSeleccionados);
+  fd.set('categorias', categoriasEnCarrito);
+  fd.set('cantidadExamenes', String(cart.length));
+
+  // Flujo automático vs revisión manual
+  const soloAutomatizable = cart.every(id => CATALOG_BY_ID[id] && AUTO_CATS.includes(CATALOG_BY_ID[id].cat));
+  fd.set('tipoFlujo', soloAutomatizable ? 'Automático (laboratorio/ecografía)' : 'Revisión manual');
+
+  // Datos del médico (para automatización de órdenes de laboratorio/ecografía)
+  fd.set('medicoNombre', MEDICO.nombre);
+  fd.set('medicoCMP', MEDICO.cmp);
+  fd.set('medicoTitulo', MEDICO.titulo);
+
   fd.set('fechaEnvio', new Date().toISOString());
   const folio = 'OF-' + Date.now().toString().slice(-8);
   fd.set('folio', folio);
@@ -1047,6 +1257,9 @@ form.addEventListener('submit', function(e){
     document.getElementById('progressWrap').style.display = 'none';
     document.getElementById('successScreen').classList.add('active');
     document.getElementById('folioDisplay').textContent = 'N° de solicitud: ' + folio;
+    cart = [];
+    saveCart();
+    renderAll();
   })
   .catch((err)=>{
     console.error(err);
@@ -1059,9 +1272,8 @@ form.addEventListener('submit', function(e){
 /* ================== Reiniciar para una nueva solicitud ================== */
 document.getElementById('btnNuevaSolicitud').addEventListener('click', function(){
   form.reset();
-  updateCategoryVisibility();
   document.querySelectorAll('.conditional').forEach(el=> el.classList.remove('show'));
-  document.querySelectorAll('.field.error').forEach(el=> el.classList.remove('error'));
+  document.querySelectorAll('.field.error, .check-line.error').forEach(el=> el.classList.remove('error'));
 
   const submitBtn = document.getElementById('submitBtn');
   submitBtn.disabled = false;
@@ -1073,8 +1285,12 @@ document.getElementById('btnNuevaSolicitud').addEventListener('click', function(
 
   currentStep = 1;
   showStep(1);
-  document.getElementById('formulario').scrollIntoView({behavior:'smooth', block:'start'});
+  document.getElementById('catalogo').scrollIntoView({behavior:'smooth', block:'start'});
 });
+
+/* ================== Inicialización ================== */
+renderTabs();
+renderAll();
 </script>
 
 </body>
