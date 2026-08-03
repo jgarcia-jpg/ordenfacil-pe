@@ -23,7 +23,7 @@
     --radius:16px;
   }
   *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
+  html{scroll-behavior:smooth;overflow-x:hidden;}
   body{
     margin:0;
     font-family:'Inter',system-ui,sans-serif;
@@ -31,6 +31,8 @@
     background:var(--bg);
     line-height:1.5;
     padding-bottom:0;
+    overflow-x:hidden;
+    width:100%;
   }
   h1,h2,h3,.brand-name{font-family:'Poppins',system-ui,sans-serif;}
   a{color:inherit;}
@@ -47,25 +49,34 @@
   }
   .header-inner{
     display:flex;align-items:center;justify-content:space-between;
-    padding:14px 20px;max-width:1000px;margin:0 auto;gap:10px;
+    padding:14px 16px;max-width:1000px;margin:0 auto;gap:8px;
+    flex-wrap:nowrap;
   }
-  .logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+  .logo{display:flex;align-items:center;gap:8px;text-decoration:none;min-width:0;flex-shrink:1;}
   .logo-icon{
-    width:38px;height:38px;border-radius:11px;
+    width:34px;height:34px;border-radius:10px;
     background:var(--teal);
     display:flex;align-items:center;justify-content:center;
     color:#fff;flex-shrink:0;
   }
-  .brand-name{font-weight:700;color:var(--navy);font-size:1.05rem;}
-  .header-actions{display:flex;align-items:center;gap:10px;}
+  .brand-name{font-weight:700;color:var(--navy);font-size:1rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .header-actions{display:flex;align-items:center;gap:8px;flex-shrink:0;}
   .header-cta{
-    background:var(--navy);color:#fff;padding:10px 18px;border-radius:999px;
-    font-weight:600;font-size:.9rem;text-decoration:none;white-space:nowrap;
+    background:var(--navy);color:#fff;padding:9px 12px;border-radius:999px;
+    font-weight:600;font-size:.82rem;text-decoration:none;white-space:nowrap;
   }
   .cart-pill{
-    display:flex;align-items:center;gap:6px;background:var(--mint);color:var(--navy);
-    border:1.5px solid var(--teal);padding:8px 14px;border-radius:999px;font-weight:700;
-    font-size:.88rem;cursor:pointer;white-space:nowrap;
+    display:flex;align-items:center;gap:5px;background:var(--mint);color:var(--navy);
+    border:1.5px solid var(--teal);padding:7px 11px;border-radius:999px;font-weight:700;
+    font-size:.82rem;cursor:pointer;white-space:nowrap;flex-shrink:0;
+  }
+  @media(max-width:400px){
+    .brand-name{font-size:.88rem;max-width:88px;}
+    .header-cta{padding:9px 10px;font-size:.76rem;}
+    .header-cta::after{content:'';}
+  }
+  @media(max-width:340px){
+    .header-cta{display:none;}
   }
   .cart-pill .count{
     background:var(--teal);color:#fff;border-radius:999px;min-width:20px;height:20px;
@@ -214,6 +225,26 @@
   }
   .btn-cart-cta:hover{background:var(--teal-dark);}
 
+  /* Banner de cookies */
+  .cookie-banner{
+    position:fixed;left:16px;right:16px;bottom:16px;z-index:80;
+    background:#fff;border:1.5px solid var(--border);border-radius:16px;
+    padding:16px 18px;box-shadow:0 12px 30px -10px rgba(11,42,74,.25);
+    display:none;max-width:520px;margin:0 auto;
+  }
+  .cookie-banner.show{display:block;}
+  .cookie-banner p{margin:0 0 12px;font-size:.85rem;color:var(--muted);}
+  .cookie-banner a{color:var(--teal-dark);font-weight:600;text-decoration:underline;}
+  .cookie-actions{display:flex;gap:10px;}
+  .cookie-btn-accept{
+    background:var(--teal);color:#fff;border:none;font-weight:700;font-size:.85rem;
+    padding:10px 16px;border-radius:9px;cursor:pointer;flex:1;
+  }
+  .cookie-btn-reject{
+    background:none;border:1.5px solid var(--border);color:var(--navy);font-weight:600;font-size:.85rem;
+    padding:10px 16px;border-radius:9px;cursor:pointer;
+  }
+
   /* Disclaimer band */
   .disclaimer{
     background:var(--navy);color:#fff;border-radius:18px;padding:22px 20px;
@@ -288,6 +319,26 @@
     flex-shrink:0;
   }
   .cart-empty{text-align:center;color:var(--muted);padding:30px 10px;font-size:.92rem;}
+  .ci-incluye-toggle{
+    font-size:.76rem;color:var(--teal-dark);font-weight:600;cursor:pointer;text-decoration:underline;
+    background:none;border:none;padding:0;margin-top:2px;text-align:left;
+  }
+  .ci-incluye-full{display:none;font-size:.78rem;color:var(--muted);margin-top:4px;}
+  .ci-incluye-full.show{display:block;}
+
+  .duplicate-warning{
+    background:#FFF6EC;border:1.5px solid #F0B860;border-radius:12px;
+    padding:14px 16px;margin-bottom:14px;
+  }
+  .duplicate-warning h4{margin:0 0 8px;color:#8A5A00;font-size:.9rem;}
+  .duplicate-warning .dup-row{
+    display:flex;align-items:center;justify-content:space-between;gap:8px;
+    font-size:.84rem;color:#6B4700;margin-bottom:8px;
+  }
+  .duplicate-warning .dup-fix{
+    background:#8A5A00;color:#fff;border:none;font-weight:600;font-size:.78rem;
+    padding:6px 10px;border-radius:8px;cursor:pointer;white-space:nowrap;flex-shrink:0;
+  }
   .cart-total-line{
     display:flex;justify-content:space-between;font-weight:700;color:var(--navy);
     padding:10px 0;border-top:1.5px dashed var(--border);margin-top:6px;
@@ -477,6 +528,7 @@
           <h2>Revisa tu carrito</h2>
           <p class="hint">Estos son los exámenes que vas a incluir en tu solicitud.</p>
 
+          <div id="cartDuplicateWarning"><!-- se llena con JS si hay duplicados --></div>
           <div class="cart-list" id="cartStepList"><!-- se llena con JS --></div>
           <p class="cart-step-error" id="cartStepError">Agrega al menos un examen a tu carrito antes de continuar.</p>
 
@@ -668,10 +720,10 @@
             </div>
           </div>
 
-          <!-- Pregunta específica: Tomografía -->
+          <!-- Pregunta específica: Tomografía y/o Radiografía (uso de radiación) -->
           <div class="conditional" id="extraTomografia">
             <div class="field">
-              <label>Solicitaste una tomografía. ¿Estás embarazada actualmente? <span class="req">*</span></label>
+              <label id="labelEmbarazo">Solicitaste un examen con radiación (tomografía y/o radiografía). ¿Estás embarazada actualmente? <span class="req">*</span></label>
               <div class="radio-row">
                 <label class="radio-opt"><input type="radio" name="embarazadaActual" value="Sí" data-required-group="tomografia">Sí</label>
                 <label class="radio-opt"><input type="radio" name="embarazadaActual" value="No" data-required-group="tomografia">No</label>
@@ -725,7 +777,7 @@
 
           <div class="check-line" id="checkTerminosWrap">
             <input type="checkbox" name="aceptaTerminos" id="chkTerminos" required>
-            <span>Acepto los <a href="#" target="_blank">Términos y condiciones</a> y la <a href="#" target="_blank">Política de privacidad</a>, y consiento el tratamiento de mis datos personales para este fin.
+            <span>Acepto los <a href="terminos.html" target="_blank">Términos y condiciones</a> y la <a href="privacidad.html" target="_blank">Política de privacidad</a>, y consiento el tratamiento de mis datos personales para este fin.
               <span class="cl-error-text">Debes aceptar esto para poder enviar tu solicitud.</span>
             </span>
           </div>
@@ -780,6 +832,14 @@
   <div class="cart-bar-inner">
     <div class="cart-bar-count">🛒 <span id="cartBarCount">0</span> examen(es) en tu carrito</div>
     <button type="button" class="btn-cart-cta" onclick="goToCart()">Generar mi orden</button>
+  </div>
+</div>
+
+<div class="cookie-banner" id="cookieBanner">
+  <p>Usamos cookies necesarias para que tu carrito y tus datos funcionen correctamente en este sitio. Puedes leer más en nuestra <a href="privacidad.html" target="_blank">Política de privacidad</a>.</p>
+  <div class="cookie-actions">
+    <button type="button" class="cookie-btn-reject" onclick="handleCookieChoice(false)">Rechazar</button>
+    <button type="button" class="cookie-btn-accept" onclick="handleCookieChoice(true)">Aceptar</button>
   </div>
 </div>
 
@@ -849,6 +909,54 @@ const CATALOG = [
 
 const CATALOG_BY_ID = {};
 CATALOG.forEach(item => CATALOG_BY_ID[item.id] = item);
+
+/* ================== Detección de exámenes duplicados ==================
+   Los paquetes de laboratorio incluyen análisis individuales dentro de su
+   texto "incluye" (ej: "Chequeo General Básico" incluye "Hemograma completo").
+   Este mapa asocia cada análisis individual del catálogo con las palabras
+   clave que buscamos dentro del texto "incluye" de cada paquete, para poder
+   avisar si el usuario agregó por separado algo que ya venía en un paquete. */
+const KEYWORDS_POR_ANALISIS = {
+  'lab-hemograma': ['Hemograma'],
+  'lab-lipidico': ['Perfil lipídico'],
+  'lab-glucosa': ['Glucosa'],
+  'lab-insulina': ['Insulina'],
+  'lab-vitd': ['Vitamina D'],
+  'lab-vitb12': ['Vitamina B12'],
+  'lab-ferritina': ['Ferritina'],
+  'lab-tiroideo': ['TSH'],
+  'lab-hepatica': ['TGO', 'TGP'],
+  'lab-renal': ['Creatinina', 'Urea', 'eGFR'],
+};
+
+// Para cada paquete, precalculamos qué IDs de análisis individuales contiene.
+CATALOG.filter(i => i.cat === 'Paquetes').forEach(pkg => {
+  const incluyeTexto = pkg.incluye || '';
+  pkg.incluyeIds = Object.keys(KEYWORDS_POR_ANALISIS).filter(analisisId =>
+    KEYWORDS_POR_ANALISIS[analisisId].some(kw => incluyeTexto.toLowerCase().includes(kw.toLowerCase()))
+  );
+});
+
+/**
+ * Revisa el carrito actual y devuelve una lista de conflictos:
+ * cada conflicto indica que un análisis individual está en el carrito
+ * Y también está incluido dentro de un paquete que también está en el carrito.
+ */
+function getCartDuplicates(){
+  const conflictos = [];
+  const paquetesEnCarrito = cart.filter(id => CATALOG_BY_ID[id] && CATALOG_BY_ID[id].cat === 'Paquetes');
+  cart.forEach(analisisId => {
+    const item = CATALOG_BY_ID[analisisId];
+    if(!item || item.cat !== 'LaboratorioIndividual') return;
+    paquetesEnCarrito.forEach(pkgId => {
+      const pkg = CATALOG_BY_ID[pkgId];
+      if(pkg.incluyeIds && pkg.incluyeIds.includes(analisisId)){
+        conflictos.push({ analisisId, analisisNombre: item.name, pkgId, pkgNombre: pkg.name });
+      }
+    });
+  });
+  return conflictos;
+}
 
 const TABS = [
   {key:'Paquetes', label:'📦 Paquetes de laboratorio'},
@@ -980,23 +1088,58 @@ function renderCartBar(){
 /* ================== Render: paso 1 del checkout (carrito) ================== */
 function renderCartStep(){
   const list = document.getElementById('cartStepList');
+  const warningWrap = document.getElementById('cartDuplicateWarning');
+
   if(cart.length === 0){
     list.innerHTML = `<div class="cart-empty">Tu carrito está vacío. <a href="#catalogo" style="color:var(--teal-dark);font-weight:600;">Ve al catálogo</a> para elegir tus exámenes.</div>`;
+    warningWrap.innerHTML = '';
     return;
   }
+
+  // Aviso de duplicados: análisis individuales que ya vienen incluidos en un paquete del carrito
+  const duplicados = getCartDuplicates();
+  if(duplicados.length > 0){
+    warningWrap.innerHTML = `
+      <div class="duplicate-warning">
+        <h4>⚠️ Tienes exámenes duplicados en tu carrito</h4>
+        ${duplicados.map(d => `
+          <div class="dup-row">
+            <span><strong>${d.analisisNombre}</strong> ya está incluido en <strong>${d.pkgNombre}</strong>. No hace falta pedirlo dos veces.</span>
+            <button type="button" class="dup-fix" onclick="removeFromCart('${d.analisisId}')">Quitar duplicado</button>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  } else {
+    warningWrap.innerHTML = '';
+  }
+
   list.innerHTML = cart.map(id=>{
     const item = CATALOG_BY_ID[id];
     if(!item) return '';
+    let incluyeHtml = '';
+    if(item.incluye){
+      incluyeHtml = `
+        <button type="button" class="ci-incluye-toggle" onclick="toggleCartIncluye('${id}')">Ver qué incluye</button>
+        <div class="ci-incluye-full" id="cart-incluye-${id}">${item.incluye}</div>
+      `;
+    }
     return `
       <div class="cart-item">
         <div>
           <div class="ci-name">${item.name}</div>
           <div class="ci-cat">${tabLabel(item.cat)}</div>
+          ${incluyeHtml}
         </div>
         <button type="button" class="ci-remove" onclick="removeFromCart('${id}')">Quitar</button>
       </div>
     `;
   }).join('');
+}
+
+function toggleCartIncluye(id){
+  const el = document.getElementById('cart-incluye-'+id);
+  if(el) el.classList.toggle('show');
 }
 
 /* ================== Preguntas clínicas condicionales según carrito ================== */
@@ -1006,14 +1149,28 @@ function cartHasCategory(catKey){
 
 function updateConditionalClinicalQuestions(){
   const hasTomografia = cartHasCategory('Tomografía');
+  const hasRadiografia = cartHasCategory('Radiografía');
+  const hasRadiacion = hasTomografia || hasRadiografia; // ambas usan radiación, misma pregunta de embarazo
   const hasResonancia = cartHasCategory('Resonancia magnética');
   const hasEcoObstetrica = isInCart('eco-obstetrica');
 
-  document.getElementById('extraTomografia').classList.toggle('show', hasTomografia);
+  document.getElementById('extraTomografia').classList.toggle('show', hasRadiacion);
   document.getElementById('extraResonancia').classList.toggle('show', hasResonancia);
   document.getElementById('extraEcoObstetrica').classList.toggle('show', hasEcoObstetrica);
 
-  document.querySelectorAll('input[data-required-group=tomografia]').forEach(el=> el.required = hasTomografia);
+  // Ajustamos el texto de la etiqueta según qué examen(es) disparó la pregunta
+  const label = document.getElementById('labelEmbarazo');
+  if(label){
+    if(hasTomografia && hasRadiografia){
+      label.innerHTML = 'Solicitaste una tomografía y una radiografía. ¿Estás embarazada actualmente? <span class="req">*</span>';
+    } else if(hasTomografia){
+      label.innerHTML = 'Solicitaste una tomografía. ¿Estás embarazada actualmente? <span class="req">*</span>';
+    } else if(hasRadiografia){
+      label.innerHTML = 'Solicitaste una radiografía. ¿Estás embarazada actualmente? <span class="req">*</span>';
+    }
+  }
+
+  document.querySelectorAll('input[data-required-group=tomografia]').forEach(el=> el.required = hasRadiacion);
   document.querySelectorAll('input[data-required-group=resonancia]').forEach(el=> el.required = hasResonancia);
 }
 
@@ -1128,8 +1285,15 @@ function validateStep(n){
 
   if(n === 1){
     const errEl = document.getElementById('cartStepError');
-    if(cart.length === 0){ errEl.classList.add('show'); valid = false; }
-    else{ errEl.classList.remove('show'); }
+    if(cart.length === 0){
+      errEl.textContent = 'Agrega al menos un examen a tu carrito antes de continuar.';
+      errEl.classList.add('show'); valid = false;
+    } else if(getCartDuplicates().length > 0){
+      errEl.textContent = 'Resuelve los exámenes duplicados marcados arriba antes de continuar.';
+      errEl.classList.add('show'); valid = false;
+    } else{
+      errEl.classList.remove('show');
+    }
     return valid;
   }
 
@@ -1199,9 +1363,16 @@ function buildSummary(){
     return item ? `<li>${item.name} <span style="color:var(--muted)">(${tabLabel(item.cat)})</span></li>` : '';
   }).join('');
 
+  const requiereRevisionManual = cart.some(id => CATALOG_BY_ID[id] && !AUTO_CATS.includes(CATALOG_BY_ID[id].cat));
+  const notaRevision = requiereRevisionManual ? `
+    <div style="background:#FFF6EC;border:1px solid #F0B860;border-radius:10px;padding:10px 12px;margin-top:12px;font-size:.82rem;color:#6B4700;">
+      ⏱️ Tu solicitud incluye exámenes que requieren revisión médica caso por caso (resonancia, tomografía, radiografía, holter y/o ecocardiograma). Esto puede tomar un poco más de tiempo que laboratorio/ecografía.
+    </div>` : '';
+
   document.getElementById('summaryBlock').innerHTML = `
     <h4>Tus exámenes (${cart.length})</h4>
     <ul>${itemsHtml}</ul>
+    ${notaRevision}
     <h4 style="margin-top:12px;">Tus datos</h4>
     <dl>
       <dt>Nombre:</dt><dd>${nombres} ${apPat} ${apMat}</dd>
@@ -1233,6 +1404,14 @@ form.addEventListener('submit', function(e){
   fd.set('examenes', examenesSeleccionados);
   fd.set('categorias', categoriasEnCarrito);
   fd.set('cantidadExamenes', String(cart.length));
+
+  // Detalle estructurado (nombre + qué incluye cada paquete), para que el PDF
+  // pueda mostrar cada examen desglosado en vez de solo el nombre del paquete.
+  const examenesDetalle = cart.map(id => {
+    const item = CATALOG_BY_ID[id];
+    return item ? { nombre: item.name, categoria: item.cat, incluye: item.incluye || '' } : null;
+  }).filter(Boolean);
+  fd.set('examenesDetalle', JSON.stringify(examenesDetalle));
 
   // Flujo automático vs revisión manual
   const soloAutomatizable = cart.every(id => CATALOG_BY_ID[id] && AUTO_CATS.includes(CATALOG_BY_ID[id].cat));
@@ -1287,6 +1466,19 @@ document.getElementById('btnNuevaSolicitud').addEventListener('click', function(
   showStep(1);
   document.getElementById('catalogo').scrollIntoView({behavior:'smooth', block:'start'});
 });
+
+/* ================== Banner de cookies ================== */
+function handleCookieChoice(aceptado){
+  try{ localStorage.setItem('ordenfacil_cookies', aceptado ? 'aceptado' : 'rechazado'); }catch(e){}
+  document.getElementById('cookieBanner').classList.remove('show');
+}
+(function initCookieBanner(){
+  let choice = null;
+  try{ choice = localStorage.getItem('ordenfacil_cookies'); }catch(e){}
+  if(!choice){
+    setTimeout(()=> document.getElementById('cookieBanner').classList.add('show'), 800);
+  }
+})();
 
 /* ================== Inicialización ================== */
 renderTabs();
