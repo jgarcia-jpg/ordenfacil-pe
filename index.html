@@ -61,6 +61,11 @@
   }
   .brand-name{font-weight:700;color:var(--navy);font-size:1rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
   .header-actions{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+  .header-link{
+    color:var(--navy);font-weight:600;font-size:.88rem;text-decoration:none;white-space:nowrap;
+    padding:8px 4px;
+  }
+  .header-link:hover{color:var(--teal-dark);}
   .header-cta{
     background:var(--navy);color:#fff;padding:9px 12px;border-radius:999px;
     font-weight:600;font-size:.82rem;text-decoration:none;white-space:nowrap;
@@ -69,6 +74,9 @@
     display:flex;align-items:center;gap:5px;background:var(--mint);color:var(--navy);
     border:1.5px solid var(--teal);padding:7px 11px;border-radius:999px;font-weight:700;
     font-size:.82rem;cursor:pointer;white-space:nowrap;flex-shrink:0;
+  }
+  @media(max-width:520px){
+    .header-link{display:none;}
   }
   @media(max-width:400px){
     .brand-name{font-size:.88rem;max-width:88px;}
@@ -110,6 +118,58 @@
   }
   .btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 28px -8px rgba(20,169,138,.65);}
   .btn-primary:focus-visible{outline:3px solid var(--navy-2);outline-offset:2px;}
+  .btn-outline{
+    display:inline-flex;align-items:center;gap:8px;
+    background:#fff;color:var(--navy);font-weight:700;
+    padding:16px 24px;border-radius:14px;text-decoration:none;
+    font-size:1.02rem;border:1.5px solid var(--border);cursor:pointer;
+  }
+  .btn-outline:hover{border-color:var(--teal);}
+
+  .hero-grid{
+    display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;
+  }
+  .hero-cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:26px;}
+  .trust-row-inline{
+    display:flex;flex-wrap:wrap;align-items:center;gap:10px;color:var(--navy);
+  }
+  .trust-inline-item{
+    display:inline-flex;align-items:center;gap:6px;font-size:.85rem;font-weight:600;color:var(--navy);
+  }
+  .trust-inline-item svg{color:var(--teal);flex-shrink:0;}
+  .trust-dot{color:var(--border);font-size:.9rem;}
+  .hero-illustration{width:100%;max-width:420px;margin:0 auto;}
+  .hero-illustration img{width:100%;height:auto;display:block;}
+
+  @media(max-width:640px){
+    .hero-grid{grid-template-columns:1fr;}
+    .hero-illustration{max-width:300px;margin-top:12px;order:2;}
+    .hero-text{order:1;}
+  }
+
+  /* Benefits row */
+  section.benefits{padding:4px 0 32px;}
+  .benefits-grid{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:10px;
+  }
+  .benefit-card{
+    display:flex;align-items:center;gap:10px;
+    background:#fff;border:1px solid var(--border);border-radius:12px;padding:12px 14px;
+  }
+  .benefit-icon{
+    width:30px;height:30px;border-radius:50%;background:var(--mint);color:var(--teal-dark);
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  }
+  .benefit-icon svg{width:16px;height:16px;}
+  .benefit-card h3{margin:0;font-size:.82rem;color:var(--navy);line-height:1.2;}
+  .benefit-card p{margin:0;font-size:.72rem;color:var(--muted);line-height:1.2;}
+  @media(max-width:760px){
+    .benefits-grid{grid-template-columns:repeat(2,1fr);}
+  }
+  @media(max-width:420px){
+    .benefit-card{padding:10px;}
+    .benefit-card p{display:none;}
+  }
 
   .trust-row{
     display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:34px;
@@ -123,12 +183,44 @@
   .trust-item span{display:block;font-size:.78rem;font-weight:600;color:var(--navy);}
 
   /* Steps section */
-  section.how{padding:48px 0;}
+  section.how{padding:48px 0;background:#F8FBFA;}
   .section-label{
     color:var(--teal-dark);font-weight:700;font-size:.85rem;
     text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px;
   }
-  section.how h2{color:var(--navy);font-size:1.5rem;margin:0 0 28px;}
+  section.how h2{color:var(--navy);font-size:1.6rem;margin:0 0 8px;text-align:center;}
+  .how-sub{color:var(--muted);font-size:.95rem;text-align:center;margin:0 0 32px;}
+
+  .how-steps-row{
+    display:flex;align-items:stretch;gap:6px;margin-bottom:32px;
+  }
+  .how-step{
+    flex:1;background:#fff;border:1px solid var(--border);border-radius:16px;
+    padding:22px 18px;position:relative;
+  }
+  .how-step .step-num{
+    position:absolute;top:-14px;left:18px;width:28px;height:28px;border-radius:50%;
+    background:var(--teal);font-size:.85rem;
+  }
+  .how-step-icon{
+    width:44px;height:44px;border-radius:12px;background:var(--mint);color:var(--teal-dark);
+    display:flex;align-items:center;justify-content:center;margin:8px 0 14px;
+  }
+  .how-step h3{margin:0 0 6px;font-size:1rem;color:var(--navy);}
+  .how-step p{margin:0;color:var(--muted);font-size:.88rem;}
+  .how-arrow{display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--border);}
+
+  .how-disclaimer{
+    margin-top:24px;background:#fff;border:1px solid var(--border);border-radius:12px;
+    padding:14px 18px;text-align:center;color:var(--muted);font-size:.85rem;
+  }
+
+  @media(max-width:760px){
+    .how-steps-row{flex-direction:column;}
+    .how-arrow{display:none;}
+    .how-step{padding-top:26px;}
+  }
+
   .step-list{display:flex;flex-direction:column;gap:14px;}
   .step-card{
     display:flex;gap:16px;align-items:flex-start;
@@ -179,6 +271,31 @@
     -ms-overflow-style:none;scrollbar-width:none;
   }
   .cat-tabs::-webkit-scrollbar{display:none;}
+  .search-wrap{
+    position:relative;display:flex;align-items:center;
+  }
+  .search-wrap .search-icon{
+    position:absolute;left:14px;color:var(--muted);pointer-events:none;
+  }
+  #catalogSearch{
+    width:100%;padding:12px 40px 12px 40px;border:1.5px solid var(--border);border-radius:12px;
+    font-size:.92rem;background:#fff;font-family:inherit;
+  }
+  #catalogSearch:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px rgba(20,169,138,.15);}
+  .clear-search-btn{
+    position:absolute;right:10px;background:var(--border);color:var(--navy);border:none;
+    width:24px;height:24px;border-radius:50%;cursor:pointer;font-size:.75rem;line-height:1;
+  }
+
+  .tabs-row{position:relative;display:flex;align-items:center;gap:4px;}
+  .tab-arrow{
+    flex-shrink:0;width:30px;height:30px;border-radius:50%;border:1.5px solid var(--border);
+    background:#fff;color:var(--navy);font-size:1.2rem;line-height:1;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px -2px rgba(11,42,74,.15);
+    z-index:2;
+  }
+  .tab-arrow:disabled{opacity:.3;cursor:default;}
+  .tabs-row .cat-tabs{flex:1;margin-bottom:0;padding-bottom:6px;}
   .cat-tab{
     flex:0 0 auto;background:#fff;border:1.5px solid var(--border);color:var(--navy);
     font-weight:600;font-size:.86rem;padding:10px 16px;border-radius:999px;cursor:pointer;
@@ -427,40 +544,86 @@
       <span class="brand-name">OrdenFácil<span style="color:var(--teal-dark)">.pe</span></span>
     </a>
     <div class="header-actions">
+      <a href="#como-funciona" class="header-link">Cómo funciona</a>
       <div class="cart-pill" onclick="goToCart()">
         🛒 <span class="count" id="headerCartCount">0</span>
       </div>
-      <a href="#catalogo" class="header-cta">Elegir exámenes</a>
+      <a href="#catalogo" class="header-cta">Solicitar mi orden</a>
     </div>
   </div>
 </header>
 
 <section class="hero">
-  <div class="container">
-    <span class="eyebrow">✓ Sin costo para el paciente</span>
-    <h1>Tu orden médica, <span class="accent">sin trámites ni esperas.</span></h1>
-    <p class="sub">Elige tus exámenes, agrégalos a tu carrito y arma tu orden completa en un solo pedido. Un médico revisa tu caso y, si corresponde, recibes tu orden por correo. Sin necesidad de crear cuenta.</p>
-    <a href="#catalogo" class="btn-primary">
-      Elegir mis exámenes
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-    </a>
+  <div class="container wide hero-grid">
+    <div class="hero-text">
+      <span class="eyebrow">✓ Orden médica online sin costo para ti</span>
+      <h1>¿Necesitas un examen y aún no tienes <span class="accent">la orden médica?</span></h1>
+      <p class="sub">Evita agendar, trasladarte y pagar una consulta presencial únicamente para solicitarla.</p>
+      <p class="sub">Elige tus exámenes y responde unas preguntas. Un médico revisará tu caso y, si corresponde, recibirás tu orden digital por correo, en muchos casos en pocos minutos.</p>
 
-    <div class="trust-row">
-      <div class="trust-item">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
-        <span>Rápido</span>
+      <div class="hero-cta-row">
+        <a href="#catalogo" class="btn-primary">
+          Solicitar mi orden médica
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a href="#como-funciona" class="btn-outline">Ver cómo funciona</a>
       </div>
-      <div class="trust-item">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/></svg>
-        <span>Seguro</span>
+
+      <div class="trust-row-inline">
+        <span class="trust-inline-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>
+          Sin registro
+        </span>
+        <span class="trust-dot">•</span>
+        <span class="trust-inline-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/></svg>
+          Revisión médica
+        </span>
+        <span class="trust-dot">•</span>
+        <span class="trust-inline-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8M12 18v3"/></svg>
+          100% online
+        </span>
+        <span class="trust-dot">•</span>
+        <span class="trust-inline-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 1 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
+          Sin costo para ti
+        </span>
       </div>
-      <div class="trust-item">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8M12 18v3"/></svg>
-        <span>100% online</span>
+    </div>
+
+    <div class="hero-illustration">
+      <img src="hero-illustration.png" alt="Laptop mostrando una orden médica digital firmada, con un sobre de correo" width="494" height="369" loading="eager">
+    </div>
+  </div>
+</section>
+
+<section class="benefits">
+  <div class="container wide">
+    <div class="benefits-grid">
+      <div class="benefit-card">
+        <div class="benefit-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+        </div>
+        <div><h3>Ahorra tiempo</h3><p>Evita citas, esperas y traslados.</p></div>
       </div>
-      <div class="trust-item">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 1 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
-        <span>Gratis</span>
+      <div class="benefit-card">
+        <div class="benefit-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 8.5c0 1-2 1.5-2 3 0 1 1 1.5 1 2.5 0 2-2 3-5 3-4 0-7-2-7-5 0-1 .5-2 1-2.5-1 0-2-.5-2-2 0-1 1-2 2-2 .5-1.5 2-2.5 4-2.5 3 0 5 1.5 6 3.5.7.1 2 .5 2 2z"/><circle cx="16" cy="9" r=".5" fill="currentColor"/></svg>
+        </div>
+        <div><h3>Ahorra dinero</h3><p>No pagas una consulta solo para pedir la orden.</p></div>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8M12 18v3"/></svg>
+        </div>
+        <div><h3>Todo online</h3><p>Desde tu celular o computador.</p></div>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z"/></svg>
+        </div>
+        <div><h3>Respuesta rápida</h3><p>En muchos casos, en pocos minutos.</p></div>
       </div>
     </div>
   </div>
@@ -479,37 +642,77 @@
   <div class="container wide">
     <div class="section-label">Catálogo completo</div>
     <h2 style="color:var(--navy);font-size:1.4rem;margin:0 0 18px;">Elige tus exámenes y agrégalos al carrito</h2>
-    <p style="color:var(--muted);font-size:.8rem;margin:0 0 8px;">👉 Desliza para ver todas las categorías: paquetes, análisis, ecografía, radiografía, holter, ecocardiograma/ECG, <strong>resonancia magnética</strong> y <strong>tomografía</strong>.</p>
-    <div class="cat-tabs" id="catTabs"><!-- se llena con JS --></div>
+
+    <div class="search-wrap">
+      <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      <input type="text" id="catalogSearch" placeholder="Buscar examen (ej: hemograma, tórax, tiroides...)" oninput="handleCatalogSearch(this.value)">
+      <button type="button" id="clearSearchBtn" class="clear-search-btn" onclick="clearCatalogSearch()" style="display:none;">✕</button>
+    </div>
+
+    <p id="tabsHint" style="color:var(--muted);font-size:.8rem;margin:10px 0 8px;">👉 Desliza o usa las flechas para ver todas las categorías: paquetes, análisis, ecografía, radiografía, holter, ecocardiograma/ECG, <strong>resonancia magnética</strong> y <strong>tomografía</strong>.</p>
+
+    <div class="tabs-row" id="tabsRow">
+      <button type="button" class="tab-arrow tab-arrow-left" id="tabArrowLeft" onclick="scrollTabs(-1)" aria-label="Ver categorías anteriores">‹</button>
+      <div class="cat-tabs" id="catTabs"><!-- se llena con JS --></div>
+      <button type="button" class="tab-arrow tab-arrow-right" id="tabArrowRight" onclick="scrollTabs(1)" aria-label="Ver más categorías">›</button>
+    </div>
+
     <div class="catalog-grid" id="catalogGrid"><!-- se llena con JS --></div>
   </div>
 </section>
 
-<section class="how">
-  <div class="container">
-    <div class="section-label">Así funciona</div>
-    <h2>5 pasos, sin trámites de por medio.</h2>
-    <div class="step-list">
-      <div class="step-card">
+<section class="how" id="como-funciona">
+  <div class="container wide">
+    <div class="section-label" style="text-align:center">Cómo funciona</div>
+    <h2 style="text-align:center;">Tu orden médica en tres pasos simples</h2>
+    <p class="how-sub">Un proceso pensado para ahorrar tiempo sin reemplazar la evaluación médica.</p>
+
+    <div class="how-steps-row">
+      <div class="how-step">
         <div class="step-num">1</div>
-        <div><h3>Elige tus exámenes</h3><p>Agrega al carrito uno o varios exámenes o paquetes, todos en un solo pedido.</p></div>
+        <div class="how-step-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12l2 2 4-4"/></svg>
+        </div>
+        <h3>Selecciona tus exámenes</h3>
+        <p>Agrega uno o varios exámenes a una misma solicitud.</p>
       </div>
-      <div class="step-card">
+
+      <div class="how-arrow" aria-hidden="true">
+        <svg width="60" height="16" viewBox="0 0 60 16" fill="none"><path d="M0 8h52" stroke="#B9CBDA" stroke-width="2" stroke-dasharray="5,5"/><path d="M46 2l8 6-8 6" stroke="#B9CBDA" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+
+      <div class="how-step">
         <div class="step-num">2</div>
-        <div><h3>Cuéntanos tus datos</h3><p>Completa tus datos personales una sola vez, aunque hayas pedido varios exámenes.</p></div>
+        <div class="how-step-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="3"/><path d="M6 21c0-3.5 2.7-6 6-6s6 2.5 6 6"/><path d="M9 3.5c.6-.3 1.3-.5 2-.5"/></svg>
+        </div>
+        <h3>Un médico revisa tu caso</h3>
+        <p>Evaluamos la información entregada y determinamos si corresponde emitir la orden.</p>
       </div>
-      <div class="step-card">
+
+      <div class="how-arrow" aria-hidden="true">
+        <svg width="60" height="16" viewBox="0 0 60 16" fill="none"><path d="M0 8h52" stroke="#B9CBDA" stroke-width="2" stroke-dasharray="5,5"/><path d="M46 2l8 6-8 6" stroke="#B9CBDA" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+
+      <div class="how-step">
         <div class="step-num">3</div>
-        <div><h3>Responde un formulario breve</h3><p>Algunas preguntas simples sobre tu salud, según lo que hayas elegido.</p></div>
+        <div class="how-step-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 6l9 7 9-7"/><circle cx="18" cy="17" r="4" fill="#14A98A" stroke="none"/><path d="M16.3 17l1.2 1.2 2.2-2.4" stroke="#fff" stroke-width="1.6"/></svg>
+        </div>
+        <h3>Recibe tu orden digital</h3>
+        <p>Si corresponde, la recibirás por correo. En muchos casos, en pocos minutos.</p>
       </div>
-      <div class="step-card">
-        <div class="step-num">4</div>
-        <div><h3>Un médico revisa tu caso</h3><p>Evaluamos la solicitud para ver si corresponde emitir la orden.</p></div>
-      </div>
-      <div class="step-card">
-        <div class="step-num">5</div>
-        <div><h3>Recibes tu orden por correo</h3><p>Para laboratorio y ecografía el proceso es más ágil; resonancia y tomografía siempre pasan por revisión médica caso por caso.</p></div>
-      </div>
+    </div>
+
+    <div style="text-align:center;">
+      <a href="#catalogo" class="btn-primary">
+        Comenzar mi solicitud
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+
+    <div class="how-disclaimer">
+      ⓘ La emisión de la orden está sujeta a evaluación médica. OrdenFácil.pe no reemplaza una consulta cuando se necesita diagnóstico o atención clínica.
     </div>
   </div>
 </section>
@@ -1147,20 +1350,46 @@ function renderTabs(){
   wrap.innerHTML = TABS.map(t=>`
     <button type="button" class="cat-tab ${t.key===activeTab?'active':''}" onclick="setActiveTab('${t.key}')">${t.label}</button>
   `).join('');
+  if(typeof updateTabArrows === 'function') setTimeout(updateTabArrows, 0);
 }
 
 function setActiveTab(key){
   activeTab = key;
+  if(searchQuery){
+    searchQuery = '';
+    const searchInput = document.getElementById('catalogSearch');
+    if(searchInput) searchInput.value = '';
+    document.getElementById('clearSearchBtn').style.display = 'none';
+    document.getElementById('tabsRow').style.opacity = '1';
+    document.getElementById('tabsHint').style.display = 'block';
+  }
   renderTabs();
   renderCatalogGrid();
 }
 
 function renderCatalogGrid(){
   const grid = document.getElementById('catalogGrid');
-  const items = CATALOG.filter(i=>i.cat===activeTab);
+  const q = searchQuery.trim().toLowerCase();
+  let items;
+  if(q.length > 0){
+    items = CATALOG.filter(i =>
+      i.name.toLowerCase().includes(q) ||
+      (i.indic && i.indic.toLowerCase().includes(q)) ||
+      (i.incluye && i.incluye.toLowerCase().includes(q))
+    );
+  } else {
+    items = CATALOG.filter(i=>i.cat===activeTab);
+  }
+
+  if(items.length === 0){
+    grid.innerHTML = `<p style="color:var(--muted);font-size:.9rem;grid-column:1/-1;">No encontramos exámenes para "${searchQuery}". Prueba con otro término, por ejemplo el nombre del análisis o del paquete.</p>`;
+    return;
+  }
+
   grid.innerHTML = items.map(item=>{
     const added = isInCart(item.id);
     const indic = item.indic ? `<div class="indic">${item.indic}</div>` : '';
+    const catBadge = q.length > 0 ? `<div class="indic" style="color:var(--muted);">${tabLabel(item.cat)}</div>` : '';
     let incluye = '';
     if(item.incluye){
       incluye = `
@@ -1171,6 +1400,7 @@ function renderCatalogGrid(){
     return `
       <div class="catalog-card">
         <h4>${item.icon?item.icon+' ':''}${item.name}</h4>
+        ${catBadge}
         ${indic}
         ${velocidadBadge(item)}
         ${incluye}
@@ -1180,6 +1410,41 @@ function renderCatalogGrid(){
       </div>
     `;
   }).join('');
+}
+
+/* ================== Buscador del catálogo ================== */
+let searchQuery = '';
+
+function handleCatalogSearch(value){
+  searchQuery = value;
+  document.getElementById('clearSearchBtn').style.display = value.length > 0 ? 'block' : 'none';
+  document.getElementById('tabsRow').style.opacity = value.length > 0 ? '0.45' : '1';
+  document.getElementById('tabsHint').style.display = value.length > 0 ? 'none' : 'block';
+  renderCatalogGrid();
+}
+
+function clearCatalogSearch(){
+  searchQuery = '';
+  document.getElementById('catalogSearch').value = '';
+  document.getElementById('clearSearchBtn').style.display = 'none';
+  document.getElementById('tabsRow').style.opacity = '1';
+  document.getElementById('tabsHint').style.display = 'block';
+  renderCatalogGrid();
+}
+
+/* ================== Flechas de navegación de pestañas ================== */
+function scrollTabs(direccion){
+  const wrap = document.getElementById('catTabs');
+  wrap.scrollBy({ left: direccion * 180, behavior: 'smooth' });
+}
+
+function updateTabArrows(){
+  const wrap = document.getElementById('catTabs');
+  if(!wrap) return;
+  const izq = document.getElementById('tabArrowLeft');
+  const der = document.getElementById('tabArrowRight');
+  izq.disabled = wrap.scrollLeft <= 4;
+  der.disabled = wrap.scrollLeft >= (wrap.scrollWidth - wrap.clientWidth - 4);
 }
 
 function toggleIncluye(id){
@@ -1623,6 +1888,10 @@ function handleCookieChoice(aceptado){
 /* ================== Inicialización ================== */
 renderTabs();
 renderAll();
+
+document.getElementById('catTabs').addEventListener('scroll', updateTabArrows);
+window.addEventListener('resize', updateTabArrows);
+setTimeout(updateTabArrows, 300); // tras el primer render, para medir bien los anchos
 </script>
 
 </body>
