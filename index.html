@@ -143,7 +143,7 @@
 
   @media(max-width:640px){
     .hero-grid{grid-template-columns:1fr;}
-    .hero-illustration{max-width:300px;margin-top:12px;order:2;}
+    .hero-illustration{display:none;}
     .hero-text{order:1;}
   }
 
@@ -629,38 +629,6 @@
   </div>
 </section>
 
-<section class="top-exams" id="masPedidos">
-  <div class="container wide">
-    <div class="section-label" style="text-align:center">Los más solicitados</div>
-    <h2 style="text-align:center;color:var(--navy);font-size:1.4rem;margin:0 0 20px;">Agrega directo al carrito</h2>
-    <div class="top-grid" id="quickPicksGrid"><!-- se llena con JS --></div>
-    <p class="top-note">¿Buscas otro examen? Explora el catálogo completo abajo, con paquetes, laboratorio, ecografía, radiografía, holter, ecocardiograma, resonancia y tomografía. <a href="#catalogo">Ver catálogo</a>.</p>
-  </div>
-</section>
-
-<section class="catalog" id="catalogo">
-  <div class="container wide">
-    <div class="section-label">Catálogo completo</div>
-    <h2 style="color:var(--navy);font-size:1.4rem;margin:0 0 18px;">Elige tus exámenes y agrégalos al carrito</h2>
-
-    <div class="search-wrap">
-      <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-      <input type="text" id="catalogSearch" placeholder="Buscar examen (ej: hemograma, tórax, tiroides...)" oninput="handleCatalogSearch(this.value)">
-      <button type="button" id="clearSearchBtn" class="clear-search-btn" onclick="clearCatalogSearch()" style="display:none;">✕</button>
-    </div>
-
-    <p id="tabsHint" style="color:var(--muted);font-size:.8rem;margin:10px 0 8px;">👉 Desliza o usa las flechas para ver todas las categorías: paquetes, análisis, ecografía, radiografía, holter, ecocardiograma/ECG, <strong>resonancia magnética</strong> y <strong>tomografía</strong>.</p>
-
-    <div class="tabs-row" id="tabsRow">
-      <button type="button" class="tab-arrow tab-arrow-left" id="tabArrowLeft" onclick="scrollTabs(-1)" aria-label="Ver categorías anteriores">‹</button>
-      <div class="cat-tabs" id="catTabs"><!-- se llena con JS --></div>
-      <button type="button" class="tab-arrow tab-arrow-right" id="tabArrowRight" onclick="scrollTabs(1)" aria-label="Ver más categorías">›</button>
-    </div>
-
-    <div class="catalog-grid" id="catalogGrid"><!-- se llena con JS --></div>
-  </div>
-</section>
-
 <section class="how" id="como-funciona">
   <div class="container wide">
     <div class="section-label" style="text-align:center">Cómo funciona</div>
@@ -714,6 +682,38 @@
     <div class="how-disclaimer">
       ⓘ La emisión de la orden está sujeta a evaluación médica. OrdenFácil.pe no reemplaza una consulta cuando se necesita diagnóstico o atención clínica.
     </div>
+  </div>
+</section>
+
+<section class="top-exams" id="masPedidos">
+  <div class="container wide">
+    <div class="section-label" style="text-align:center">Los más solicitados</div>
+    <h2 style="text-align:center;color:var(--navy);font-size:1.4rem;margin:0 0 20px;">Agrega directo al carrito</h2>
+    <div class="top-grid" id="quickPicksGrid"><!-- se llena con JS --></div>
+    <p class="top-note">¿Buscas otro examen? Explora el catálogo completo abajo, con paquetes, laboratorio, ecografía, radiografía, holter, ecocardiograma, resonancia y tomografía. <a href="#catalogo">Ver catálogo</a>.</p>
+  </div>
+</section>
+
+<section class="catalog" id="catalogo">
+  <div class="container wide">
+    <div class="section-label">Catálogo completo</div>
+    <h2 style="color:var(--navy);font-size:1.4rem;margin:0 0 18px;">Elige tus exámenes y agrégalos al carrito</h2>
+
+    <div class="search-wrap">
+      <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      <input type="text" id="catalogSearch" placeholder="Buscar examen (ej: hemograma, tórax, tiroides...)" oninput="handleCatalogSearch(this.value)">
+      <button type="button" id="clearSearchBtn" class="clear-search-btn" onclick="clearCatalogSearch()" style="display:none;">✕</button>
+    </div>
+
+    <p id="tabsHint" style="color:var(--muted);font-size:.8rem;margin:10px 0 8px;">👉 Desliza o usa las flechas para ver todas las categorías: paquetes, análisis, ecografía, radiografía, holter, ecocardiograma/ECG, <strong>resonancia magnética</strong> y <strong>tomografía</strong>.</p>
+
+    <div class="tabs-row" id="tabsRow">
+      <button type="button" class="tab-arrow tab-arrow-left" id="tabArrowLeft" onclick="scrollTabs(-1)" aria-label="Ver categorías anteriores">‹</button>
+      <div class="cat-tabs" id="catTabs"><!-- se llena con JS --></div>
+      <button type="button" class="tab-arrow tab-arrow-right" id="tabArrowRight" onclick="scrollTabs(1)" aria-label="Ver más categorías">›</button>
+    </div>
+
+    <div class="catalog-grid" id="catalogGrid"><!-- se llena con JS --></div>
   </div>
 </section>
 
