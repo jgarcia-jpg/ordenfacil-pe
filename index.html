@@ -319,6 +319,12 @@
     flex-shrink:0;
   }
   .cart-empty{text-align:center;color:var(--muted);padding:30px 10px;font-size:.92rem;}
+  .badge-velocidad{
+    display:inline-block;font-size:.7rem;font-weight:700;padding:3px 8px;border-radius:999px;
+    margin:2px 0 4px;
+  }
+  .badge-rapido{background:#EAF6F2;color:var(--teal-dark);}
+  .badge-manual{background:#FFF6EC;color:#8A5A00;}
   .ci-incluye-toggle{
     font-size:.76rem;color:var(--teal-dark);font-weight:600;cursor:pointer;text-decoration:underline;
     background:none;border:none;padding:0;margin-top:2px;text-align:left;
@@ -339,6 +345,14 @@
     background:#8A5A00;color:#fff;border:none;font-weight:600;font-size:.78rem;
     padding:6px 10px;border-radius:8px;cursor:pointer;white-space:nowrap;flex-shrink:0;
   }
+
+  .velocidad-nota{
+    border-radius:12px;padding:12px 14px;margin-bottom:14px;font-size:.85rem;
+  }
+  .velocidad-nota.rapido{background:#EAF6F2;border:1.5px solid var(--teal);color:#0E8570;}
+  .velocidad-nota.manual{background:#FFF6EC;border:1.5px solid #F0B860;color:#8A5A00;}
+  .velocidad-nota.mixto{background:#FFF6EC;border:1.5px solid #F0B860;color:#8A5A00;}
+  .velocidad-nota strong{display:block;margin-bottom:2px;}
   .cart-total-line{
     display:flex;justify-content:space-between;font-weight:700;color:var(--navy);
     padding:10px 0;border-top:1.5px dashed var(--border);margin-top:6px;
@@ -465,6 +479,7 @@
   <div class="container wide">
     <div class="section-label">Catálogo completo</div>
     <h2 style="color:var(--navy);font-size:1.4rem;margin:0 0 18px;">Elige tus exámenes y agrégalos al carrito</h2>
+    <p style="color:var(--muted);font-size:.8rem;margin:0 0 8px;">👉 Desliza para ver todas las categorías: paquetes, análisis, ecografía, radiografía, holter, ecocardiograma/ECG, <strong>resonancia magnética</strong> y <strong>tomografía</strong>.</p>
     <div class="cat-tabs" id="catTabs"><!-- se llena con JS --></div>
     <div class="catalog-grid" id="catalogGrid"><!-- se llena con JS --></div>
   </div>
@@ -529,6 +544,7 @@
           <p class="hint">Estos son los exámenes que vas a incluir en tu solicitud.</p>
 
           <div id="cartDuplicateWarning"><!-- se llena con JS si hay duplicados --></div>
+          <div id="cartVelocidadNota"><!-- se llena con JS: nota de tiempos de entrega --></div>
           <div class="cart-list" id="cartStepList"><!-- se llena con JS --></div>
           <p class="cart-step-error" id="cartStepError">Agrega al menos un examen a tu carrito antes de continuar.</p>
 
@@ -809,7 +825,7 @@
         </div>
         <h2>Tu solicitud fue recibida</h2>
         <p>Un médico revisará tu información y, si corresponde, recibirás tu orden en el correo electrónico registrado.</p>
-        <p style="font-size:.85rem">Esto puede tomar hasta 24-48 horas hábiles.</p>
+        <p style="font-size:.85rem" id="tiempoEsperaTexto">Esto puede tomar hasta 24-48 horas hábiles.</p>
         <span class="folio" id="folioDisplay"></span>
         <div style="margin-top:22px;">
           <button type="button" class="btn-secondary" id="btnNuevaSolicitud">Enviar otra solicitud</button>
@@ -849,14 +865,58 @@ const CATALOG = [
   // Análisis de laboratorio individuales
   {id:'lab-hemograma',cat:'LaboratorioIndividual',name:'Hemograma completo',icon:'🩸'},
   {id:'lab-lipidico',cat:'LaboratorioIndividual',name:'Perfil lipídico (colesterol, triglicéridos)',icon:'🧬'},
+  {id:'lab-colesterol',cat:'LaboratorioIndividual',name:'Colesterol total',icon:'🧬'},
+  {id:'lab-trigliceridos',cat:'LaboratorioIndividual',name:'Triglicéridos',icon:'🧬'},
+  {id:'lab-hdl',cat:'LaboratorioIndividual',name:'Colesterol HDL',icon:'🧬'},
+  {id:'lab-ldl',cat:'LaboratorioIndividual',name:'Colesterol LDL',icon:'🧬'},
   {id:'lab-glucosa',cat:'LaboratorioIndividual',name:'Glucosa en ayunas',icon:'🩸'},
-  {id:'lab-insulina',cat:'LaboratorioIndividual',name:'Insulina',icon:'🧪'},
+  {id:'lab-hba1c',cat:'LaboratorioIndividual',name:'HbA1c (hemoglobina glicosilada)',icon:'🩸'},
+  {id:'lab-insulina',cat:'LaboratorioIndividual',name:'Insulina basal',icon:'🧪'},
   {id:'lab-vitd',cat:'LaboratorioIndividual',name:'Vitamina D',icon:'☀️'},
   {id:'lab-vitb12',cat:'LaboratorioIndividual',name:'Vitamina B12',icon:'🧪'},
+  {id:'lab-folico',cat:'LaboratorioIndividual',name:'Ácido fólico',icon:'🧪'},
   {id:'lab-ferritina',cat:'LaboratorioIndividual',name:'Ferritina',icon:'🧪'},
-  {id:'lab-tiroideo',cat:'LaboratorioIndividual',name:'Perfil tiroideo (TSH, T3, T4)',icon:'🦋'},
-  {id:'lab-hepatica',cat:'LaboratorioIndividual',name:'Función hepática',icon:'🧪'},
-  {id:'lab-renal',cat:'LaboratorioIndividual',name:'Función renal',icon:'🧪'},
+  {id:'lab-hierro',cat:'LaboratorioIndividual',name:'Hierro sérico',icon:'🧪'},
+  {id:'lab-transferrina',cat:'LaboratorioIndividual',name:'Transferrina y saturación de transferrina',icon:'🧪'},
+  {id:'lab-reticulocitos',cat:'LaboratorioIndividual',name:'Reticulocitos',icon:'🩸'},
+  {id:'lab-tsh',cat:'LaboratorioIndividual',name:'TSH',icon:'🦋'},
+  {id:'lab-t4',cat:'LaboratorioIndividual',name:'T4 Libre',icon:'🦋'},
+  {id:'lab-t3',cat:'LaboratorioIndividual',name:'T3 Libre',icon:'🦋'},
+  {id:'lab-antitpo',cat:'LaboratorioIndividual',name:'Anti-TPO',icon:'🦋'},
+  {id:'lab-creatinina',cat:'LaboratorioIndividual',name:'Creatinina sérica (con eGFR calculado)',icon:'🧪'},
+  {id:'lab-urea',cat:'LaboratorioIndividual',name:'Urea',icon:'🧪'},
+  {id:'lab-electrolitos',cat:'LaboratorioIndividual',name:'Electrolitos (sodio, potasio y cloro)',icon:'🧪'},
+  {id:'lab-orina',cat:'LaboratorioIndividual',name:'Examen completo de orina',icon:'🧪'},
+  {id:'lab-microalbuminuria',cat:'LaboratorioIndividual',name:'Microalbuminuria / relación albúmina-creatinina',icon:'🧪'},
+  {id:'lab-acido-urico',cat:'LaboratorioIndividual',name:'Ácido úrico',icon:'🧪'},
+  {id:'lab-tgo',cat:'LaboratorioIndividual',name:'TGO (AST)',icon:'🧪'},
+  {id:'lab-tgp',cat:'LaboratorioIndividual',name:'TGP (ALT)',icon:'🧪'},
+  {id:'lab-bilirrubinas',cat:'LaboratorioIndividual',name:'Bilirrubinas (total, directa, indirecta)',icon:'🧪'},
+  {id:'lab-fosfatasa',cat:'LaboratorioIndividual',name:'Fosfatasa alcalina',icon:'🧪'},
+  {id:'lab-ggt',cat:'LaboratorioIndividual',name:'GGT',icon:'🧪'},
+  {id:'lab-proteinas',cat:'LaboratorioIndividual',name:'Proteínas totales y albúmina',icon:'🧪'},
+  {id:'lab-calcio',cat:'LaboratorioIndividual',name:'Calcio',icon:'🧪'},
+  {id:'lab-fosforo',cat:'LaboratorioIndividual',name:'Fósforo',icon:'🧪'},
+  {id:'lab-magnesio',cat:'LaboratorioIndividual',name:'Magnesio',icon:'🧪'},
+  {id:'lab-zinc',cat:'LaboratorioIndividual',name:'Zinc',icon:'🧪'},
+  {id:'lab-pcr',cat:'LaboratorioIndividual',name:'PCR ultrasensible',icon:'🧪'},
+  {id:'lab-vsg',cat:'LaboratorioIndividual',name:'VSG (velocidad de sedimentación)',icon:'🧪'},
+  {id:'lab-coagulacion',cat:'LaboratorioIndividual',name:'Tiempos de coagulación (TP/INR, TTPa)',icon:'🩸'},
+  {id:'lab-grupo-sanguineo',cat:'LaboratorioIndividual',name:'Grupo sanguíneo y factor Rh',icon:'🩸'},
+  {id:'lab-cpk',cat:'LaboratorioIndividual',name:'CPK',icon:'🧪'},
+  {id:'lab-ldh',cat:'LaboratorioIndividual',name:'LDH',icon:'🧪'},
+  {id:'lab-psa-total',cat:'LaboratorioIndividual',name:'PSA total',icon:'🧪'},
+  {id:'lab-psa-libre',cat:'LaboratorioIndividual',name:'PSA libre',icon:'🧪'},
+  {id:'lab-testosterona-total',cat:'LaboratorioIndividual',name:'Testosterona total',icon:'🧬'},
+  {id:'lab-testosterona-libre',cat:'LaboratorioIndividual',name:'Testosterona libre',icon:'🧬'},
+  {id:'lab-shbg',cat:'LaboratorioIndividual',name:'SHBG',icon:'🧬'},
+  {id:'lab-fsh',cat:'LaboratorioIndividual',name:'FSH',icon:'🧬'},
+  {id:'lab-lh',cat:'LaboratorioIndividual',name:'LH',icon:'🧬'},
+  {id:'lab-estradiol',cat:'LaboratorioIndividual',name:'Estradiol',icon:'🧬'},
+  {id:'lab-progesterona',cat:'LaboratorioIndividual',name:'Progesterona',icon:'🧬'},
+  {id:'lab-prolactina',cat:'LaboratorioIndividual',name:'Prolactina',icon:'🧬'},
+  // Cardiología básica
+  {id:'ecg-reposo',cat:'Ecocardiograma',name:'Electrocardiograma (ECG) de reposo',icon:'💓'},
   // Ecografía
   {id:'eco-abdominal',cat:'Ecografía',name:'Ecografía abdominal',icon:'🩻'},
   {id:'eco-pelvica',cat:'Ecografía',name:'Ecografía pélvica',icon:'🩻'},
@@ -880,23 +940,23 @@ const CATALOG = [
   {id:'tac-abdominal',cat:'Tomografía',name:'Tomografía abdominal',icon:'📷'},
   {id:'tac-cerebral',cat:'Tomografía',name:'Tomografía cerebral',icon:'📷'},
   // Paquetes de laboratorio
-  {id:'pkg-01',cat:'Paquetes',name:'Chequeo General Básico',indic:'Adultos sanos 18-39 años',incluye:'Hemograma completo, Glucosa, Creatinina, Urea, eGFR, Perfil lipídico, TGO, TGP, Bilirrubina total, Fosfatasa alcalina, GGT, Proteínas totales, Albúmina, Sodio, Potasio, Cloro, Examen completo de orina'},
-  {id:'pkg-02',cat:'Paquetes',name:'Chequeo General Intermedio',indic:'Adultos 40-59 años',incluye:'Todo lo del Básico + HbA1c, TSH, Calcio, Fósforo, Magnesio, Ácido úrico'},
-  {id:'pkg-03',cat:'Paquetes',name:'Chequeo General Premium',indic:'>60 años o chequeo ejecutivo',incluye:'Todo lo del Intermedio + Ferritina, Hierro sérico, Transferrina, Saturación de transferrina, Vitamina B12, Ácido fólico, Vitamina D, PCR ultrasensible'},
+  {id:'pkg-01',cat:'Paquetes',name:'Chequeo General Básico',indic:'Adultos sanos 18-39 años',incluye:'Hemograma completo, Glucosa, Creatinina (con eGFR calculado), Urea, Perfil lipídico, TGO, TGP, Bilirrubina total, Fosfatasa alcalina, GGT, Proteínas totales, Albúmina, Sodio, Potasio, Cloro, Examen completo de orina'},
+  {id:'pkg-02',cat:'Paquetes',name:'Chequeo General Intermedio',indic:'Adultos 40-59 años',incluye:'Hemograma completo, Glucosa, Creatinina (con eGFR calculado), Urea, Perfil lipídico, TGO, TGP, Bilirrubina total, Fosfatasa alcalina, GGT, Proteínas totales, Albúmina, Sodio, Potasio, Cloro, Examen completo de orina, HbA1c, TSH, Calcio, Fósforo, Magnesio, Ácido úrico'},
+  {id:'pkg-03',cat:'Paquetes',name:'Chequeo General Premium',indic:'>60 años o chequeo ejecutivo',incluye:'Hemograma completo, Glucosa, Creatinina (con eGFR calculado), Urea, Perfil lipídico, TGO, TGP, Bilirrubina total, Fosfatasa alcalina, GGT, Proteínas totales, Albúmina, Sodio, Potasio, Cloro, Examen completo de orina, HbA1c, TSH, Calcio, Fósforo, Magnesio, Ácido úrico, Ferritina, Hierro sérico, Transferrina, Saturación de transferrina, Vitamina B12, Ácido fólico, Vitamina D, PCR ultrasensible'},
   {id:'pkg-04',cat:'Paquetes',name:'Chequeo Metabólico',indic:'Obesidad, síndrome metabólico',incluye:'Hemograma, Glucosa, HbA1c, Insulina basal, Perfil lipídico, Ácido úrico, TGO, TGP, GGT'},
-  {id:'pkg-05',cat:'Paquetes',name:'Chequeo Renal',indic:'Hipertensión, diabetes, enfermedad renal',incluye:'Creatinina, Urea, eGFR, Sodio, Potasio, Cloro, Calcio, Fósforo, Magnesio, Examen de orina, Microalbuminuria, Relación albúmina/creatinina'},
+  {id:'pkg-05',cat:'Paquetes',name:'Chequeo Renal',indic:'Hipertensión, diabetes, enfermedad renal',incluye:'Creatinina (con eGFR calculado), Urea, Sodio, Potasio, Cloro, Calcio, Fósforo, Magnesio, Examen de orina, Microalbuminuria, Relación albúmina/creatinina'},
   {id:'pkg-06',cat:'Paquetes',name:'Chequeo Hepático',indic:'Esteatosis hepática, hepatopatías, consumo de alcohol',incluye:'TGO, TGP, Fosfatasa alcalina, GGT, Bilirrubina total/directa/indirecta, Albúmina, Proteínas totales'},
   {id:'pkg-07',cat:'Paquetes',name:'Chequeo Cardiovascular',indic:'Prevención cardiovascular',incluye:'Perfil lipídico, Glucosa, HbA1c, PCR ultrasensible, Lipoproteína(a) (opcional), ApoB (opcional)'},
   {id:'pkg-08',cat:'Paquetes',name:'Chequeo Tiroideo',indic:'Fatiga, aumento de peso, alteraciones tiroideas',incluye:'TSH, T4 Libre, T3 Libre (opcional), Anti-TPO (opcional)'},
   {id:'pkg-09',cat:'Paquetes',name:'Chequeo de Vitaminas y Micronutrientes',indic:'Fatiga, malabsorción, bariatría',incluye:'Vitamina D, Vitamina B12, Ácido fólico, Ferritina, Hierro sérico, Transferrina, Saturación de transferrina'},
   {id:'pkg-10',cat:'Paquetes',name:'Chequeo de Anemia',indic:'Sospecha de anemia',incluye:'Hemograma, Reticulocitos, Ferritina, Hierro sérico, Transferrina, Saturación de transferrina, Vitamina B12, Ácido fólico'},
   {id:'pkg-11',cat:'Paquetes',name:'Chequeo Masculino (<40 años)',indic:'Prevención en hombres jóvenes',incluye:'Hemograma, Glucosa, HbA1c, Perfil lipídico, Creatinina, TGO, TGP, TSH, Examen de orina'},
-  {id:'pkg-12',cat:'Paquetes',name:'Chequeo Masculino (>40 años)',indic:'Prevención en hombres mayores',incluye:'Todo lo anterior + PSA total, PSA libre (si corresponde)'},
+  {id:'pkg-12',cat:'Paquetes',name:'Chequeo Masculino (>40 años)',indic:'Prevención en hombres mayores',incluye:'Hemograma, Glucosa, HbA1c, Perfil lipídico, Creatinina, TGO, TGP, TSH, Examen de orina, PSA total, PSA libre'},
   {id:'pkg-13',cat:'Paquetes',name:'Chequeo Femenino',indic:'Prevención en mujeres',incluye:'Hemograma, Glucosa, HbA1c, Perfil lipídico, Creatinina, TSH, Ferritina, Hierro, Examen de orina'},
   {id:'pkg-14',cat:'Paquetes',name:'Chequeo Menopausia',indic:'Mujeres con sospecha de menopausia',incluye:'FSH, Estradiol, TSH, Vitamina D, Calcio'},
   {id:'pkg-15',cat:'Paquetes',name:'Chequeo Obesidad',indic:'Sobrepeso y obesidad',incluye:'Hemograma, Glucosa, HbA1c, Insulina basal, Perfil lipídico, Creatinina, Ácido úrico, TGO, TGP, GGT, TSH, Vitamina D, Ferritina, Vitamina B12'},
-  {id:'pkg-16',cat:'Paquetes',name:'Chequeo Hipertensión',indic:'Hipertensos',incluye:'Hemograma, Glucosa, HbA1c, Creatinina, Urea, eGFR, Electrolitos, Perfil lipídico, Examen de orina, Microalbuminuria'},
-  {id:'pkg-17',cat:'Paquetes',name:'Chequeo Diabetes',indic:'Diabéticos',incluye:'HbA1c, Glucosa, Creatinina, eGFR, Perfil lipídico, Examen de orina, Microalbuminuria, Relación albúmina/creatinina'},
+  {id:'pkg-16',cat:'Paquetes',name:'Chequeo Hipertensión',indic:'Hipertensos',incluye:'Hemograma, Glucosa, HbA1c, Creatinina (con eGFR calculado), Urea, Electrolitos, Perfil lipídico, Examen de orina, Microalbuminuria'},
+  {id:'pkg-17',cat:'Paquetes',name:'Chequeo Diabetes',indic:'Diabéticos',incluye:'HbA1c, Glucosa, Creatinina (con eGFR calculado), Perfil lipídico, Examen de orina, Microalbuminuria, Relación albúmina/creatinina'},
   {id:'pkg-18',cat:'Paquetes',name:'Chequeo Fatiga Crónica',indic:'Cansancio persistente',incluye:'Hemograma, Ferritina, Hierro, Vitamina B12, Ácido fólico, TSH, T4 Libre, Vitamina D, PCR, VSG'},
   {id:'pkg-19',cat:'Paquetes',name:'Chequeo Preoperatorio',indic:'Cirugía programada',incluye:'Hemograma, Glucosa, Creatinina, Urea, Electrolitos, TP/INR, TTPa, Grupo y factor sanguíneo, Examen de orina'},
   {id:'pkg-20',cat:'Paquetes',name:'Perfil Deportivo',indic:'',incluye:'Hemograma, Glucosa, Creatinina, CPK, LDH, Perfil lipídico, Electrolitos, Ferritina, Vitamina D, TSH'},
@@ -904,7 +964,7 @@ const CATALOG = [
   {id:'pkg-22',cat:'Paquetes',name:'Perfil Sexual Masculino',indic:'',incluye:'Testosterona total, Testosterona libre, SHBG, LH, FSH, Prolactina, Estradiol'},
   {id:'pkg-23',cat:'Paquetes',name:'Perfil Hormonal Femenino',indic:'',incluye:'FSH, LH, Estradiol, Progesterona, Prolactina, TSH'},
   {id:'pkg-24',cat:'Paquetes',name:'Perfil Hepático Completo',indic:'',incluye:'TGO, TGP, GGT, Fosfatasa alcalina, Bilirrubinas, Albúmina, Proteínas totales, TP/INR'},
-  {id:'pkg-25',cat:'Paquetes',name:'Perfil Renal Completo',indic:'',incluye:'Creatinina, Urea, eGFR, Electrolitos, Calcio, Fósforo, Magnesio, Examen de orina, Microalbuminuria'},
+  {id:'pkg-25',cat:'Paquetes',name:'Perfil Renal Completo',indic:'',incluye:'Creatinina (con eGFR calculado), Urea, Electrolitos, Calcio, Fósforo, Magnesio, Examen de orina, Microalbuminuria'},
 ];
 
 const CATALOG_BY_ID = {};
@@ -919,14 +979,56 @@ CATALOG.forEach(item => CATALOG_BY_ID[item.id] = item);
 const KEYWORDS_POR_ANALISIS = {
   'lab-hemograma': ['Hemograma'],
   'lab-lipidico': ['Perfil lipídico'],
+  'lab-colesterol': ['Colesterol', 'Perfil lipídico'],
+  'lab-trigliceridos': ['Triglicéridos', 'Perfil lipídico'],
+  'lab-hdl': ['Colesterol HDL', 'Perfil lipídico'],
+  'lab-ldl': ['Colesterol LDL', 'Perfil lipídico'],
   'lab-glucosa': ['Glucosa'],
+  'lab-hba1c': ['HbA1c'],
   'lab-insulina': ['Insulina'],
   'lab-vitd': ['Vitamina D'],
   'lab-vitb12': ['Vitamina B12'],
+  'lab-folico': ['Ácido fólico'],
   'lab-ferritina': ['Ferritina'],
-  'lab-tiroideo': ['TSH'],
-  'lab-hepatica': ['TGO', 'TGP'],
-  'lab-renal': ['Creatinina', 'Urea', 'eGFR'],
+  'lab-hierro': ['Hierro'],
+  'lab-transferrina': ['Transferrina'],
+  'lab-reticulocitos': ['Reticulocitos'],
+  'lab-tsh': ['TSH'],
+  'lab-t4': ['T4 Libre'],
+  'lab-t3': ['T3 Libre'],
+  'lab-antitpo': ['Anti-TPO'],
+  'lab-creatinina': ['Creatinina'],
+  'lab-urea': ['Urea'],
+  'lab-electrolitos': ['Electrolitos', 'Sodio', 'Potasio', 'Cloro'],
+  'lab-orina': ['Examen completo de orina', 'Examen de orina'],
+  'lab-microalbuminuria': ['Microalbuminuria', 'albúmina/creatinina'],
+  'lab-acido-urico': ['Ácido úrico'],
+  'lab-tgo': ['TGO'],
+  'lab-tgp': ['TGP'],
+  'lab-bilirrubinas': ['Bilirrubina'],
+  'lab-fosfatasa': ['Fosfatasa alcalina'],
+  'lab-ggt': ['GGT'],
+  'lab-proteinas': ['Proteínas totales', 'Albúmina'],
+  'lab-calcio': ['Calcio'],
+  'lab-fosforo': ['Fósforo'],
+  'lab-magnesio': ['Magnesio'],
+  'lab-zinc': ['Zinc'],
+  'lab-pcr': ['PCR'],
+  'lab-vsg': ['VSG'],
+  'lab-coagulacion': ['TP/INR', 'TTPa'],
+  'lab-grupo-sanguineo': ['Grupo y factor sanguíneo'],
+  'lab-cpk': ['CPK'],
+  'lab-ldh': ['LDH'],
+  'lab-psa-total': ['PSA total'],
+  'lab-psa-libre': ['PSA libre'],
+  'lab-testosterona-total': ['Testosterona total'],
+  'lab-testosterona-libre': ['Testosterona libre'],
+  'lab-shbg': ['SHBG'],
+  'lab-fsh': ['FSH'],
+  'lab-lh': ['LH'],
+  'lab-estradiol': ['Estradiol'],
+  'lab-progesterona': ['Progesterona'],
+  'lab-prolactina': ['Prolactina'],
 };
 
 // Para cada paquete, precalculamos qué IDs de análisis individuales contiene.
@@ -964,7 +1066,7 @@ const TABS = [
   {key:'Ecografía', label:'🩻 Ecografía'},
   {key:'Radiografía', label:'📸 Radiografía'},
   {key:'Holter', label:'❤️ Holter'},
-  {key:'Ecocardiograma', label:'🫀 Ecocardiograma'},
+  {key:'Ecocardiograma', label:'🫀 Ecocardiograma / ECG'},
   {key:'Resonancia magnética', label:'🧲 Resonancia magnética'},
   {key:'Tomografía', label:'📷 Tomografía / Escáner'},
 ];
@@ -1008,6 +1110,13 @@ function goToCart(){
 }
 
 /* ================== Render: quick picks ================== */
+function velocidadBadge(item){
+  const esRapido = AUTO_CATS.includes(item.cat);
+  return esRapido
+    ? `<span class="badge-velocidad badge-rapido">⚡ Recibes tu orden en minutos</span>`
+    : `<span class="badge-velocidad badge-manual">🕒 Revisión manual (24-48h)</span>`;
+}
+
 function renderQuickPicks(){
   const grid = document.getElementById('quickPicksGrid');
   grid.innerHTML = QUICK_PICKS.map(id=>{
@@ -1018,6 +1127,7 @@ function renderQuickPicks(){
         <div class="top-icon">${item.icon || '🧾'}</div>
         <div class="top-name">${item.name}</div>
         <span class="top-cat">${tabLabel(item.cat)}</span>
+        ${velocidadBadge(item)}
         <button type="button" class="add-btn ${added?'added':''}" onclick="toggleCartItem('${item.id}')">${added?'✓ En el carrito':'Agregar al carrito'}</button>
       </div>
     `;
@@ -1062,6 +1172,7 @@ function renderCatalogGrid(){
       <div class="catalog-card">
         <h4>${item.icon?item.icon+' ':''}${item.name}</h4>
         ${indic}
+        ${velocidadBadge(item)}
         ${incluye}
         <div class="card-footer">
           <button type="button" class="add-btn ${added?'added':''}" onclick="toggleCartItem('${item.id}')">${added?'✓ En el carrito — quitar':'Agregar al carrito'}</button>
@@ -1093,7 +1204,33 @@ function renderCartStep(){
   if(cart.length === 0){
     list.innerHTML = `<div class="cart-empty">Tu carrito está vacío. <a href="#catalogo" style="color:var(--teal-dark);font-weight:600;">Ve al catálogo</a> para elegir tus exámenes.</div>`;
     warningWrap.innerHTML = '';
+    document.getElementById('cartVelocidadNota').innerHTML = '';
     return;
+  }
+
+  // Nota de tiempos de entrega: todo rápido, todo manual, o mezcla
+  const velocidadWrap = document.getElementById('cartVelocidadNota');
+  const hayRapidos = cart.some(id => CATALOG_BY_ID[id] && AUTO_CATS.includes(CATALOG_BY_ID[id].cat));
+  const hayManuales = cart.some(id => CATALOG_BY_ID[id] && !AUTO_CATS.includes(CATALOG_BY_ID[id].cat));
+  if(hayRapidos && hayManuales){
+    velocidadWrap.innerHTML = `
+      <div class="velocidad-nota mixto">
+        <strong>⚠️ Tu carrito mezcla exámenes rápidos y de revisión manual</strong>
+        Si los envías juntos, <strong>toda la solicitud pasará por revisión manual (24-48h)</strong>, incluso los exámenes de laboratorio/ecografía que normalmente son rápidos.
+        Si prefieres recibir los rápidos antes, haz esa parte como una solicitud separada.
+      </div>`;
+  } else if(hayRapidos){
+    velocidadWrap.innerHTML = `
+      <div class="velocidad-nota rapido">
+        <strong>⚡ Recibirás tu orden en minutos</strong>
+        Todos los exámenes de tu carrito son de aprobación rápida (laboratorio/ecografía).
+      </div>`;
+  } else {
+    velocidadWrap.innerHTML = `
+      <div class="velocidad-nota manual">
+        <strong>🕒 Tu orden requiere revisión médica manual</strong>
+        Puede tomar entre 24 y 48 horas en llegarte por correo.
+      </div>`;
   }
 
   // Aviso de duplicados: análisis individuales que ya vienen incluidos en un paquete del carrito
@@ -1231,7 +1368,7 @@ depSelect.addEventListener('change', function(){
 const MEDICO = {
   nombre: 'Giuseppe Bogani Amadori',
   cmp: '076780',
-  titulo: 'Médico General' // se usa "médico general" en las órdenes automáticas de laboratorio/ecografía
+  titulo: 'Médico Cirujano' // título profesional estándar en Perú al graduarse; usado en las órdenes automáticas de laboratorio/ecografía
 };
 
 /* ================== Prefill de datos personales guardados ================== */
@@ -1436,6 +1573,9 @@ form.addEventListener('submit', function(e){
     document.getElementById('progressWrap').style.display = 'none';
     document.getElementById('successScreen').classList.add('active');
     document.getElementById('folioDisplay').textContent = 'N° de solicitud: ' + folio;
+    document.getElementById('tiempoEsperaTexto').textContent = soloAutomatizable
+      ? '⚡ Al ser exámenes de laboratorio/ecografía, recibirás tu orden en pocos minutos.'
+      : '🕒 Tu solicitud requiere revisión médica manual: puede tomar entre 24 y 48 horas hábiles.';
     cart = [];
     saveCart();
     renderAll();
