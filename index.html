@@ -59,8 +59,8 @@
     display:flex;align-items:center;justify-content:center;
     color:#fff;flex-shrink:0;
   }
-  .brand-name{font-weight:700;color:var(--navy);font-size:1rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-  .header-actions{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+  .brand-name{font-weight:700;color:var(--navy);font-size:1rem;white-space:nowrap;}
+  .header-actions{display:flex;align-items:center;gap:6px;flex-shrink:0;}
   .header-link{
     color:var(--navy);font-weight:600;font-size:.88rem;text-decoration:none;white-space:nowrap;
     padding:8px 4px;
@@ -68,7 +68,7 @@
   .header-link:hover{color:var(--teal-dark);}
   .header-cta{
     background:var(--navy);color:#fff;padding:9px 12px;border-radius:999px;
-    font-weight:600;font-size:.82rem;text-decoration:none;white-space:nowrap;
+    font-weight:600;font-size:.82rem;text-decoration:none;white-space:nowrap;flex-shrink:0;
   }
   .cart-pill{
     display:flex;align-items:center;gap:5px;background:var(--mint);color:var(--navy);
@@ -78,13 +78,16 @@
   @media(max-width:520px){
     .header-link{display:none;}
   }
-  @media(max-width:400px){
-    .brand-name{font-size:.88rem;max-width:88px;}
-    .header-cta{padding:9px 10px;font-size:.76rem;}
-    .header-cta::after{content:'';}
+  @media(max-width:430px){
+    .logo{gap:6px;}
+    .logo-icon{width:28px;height:28px;border-radius:8px;}
+    .brand-name{font-size:.86rem;}
+    .header-cta{padding:7px 9px;font-size:.7rem;}
+    .cart-pill{padding:6px 8px;font-size:.72rem;}
   }
-  @media(max-width:340px){
-    .header-cta{display:none;}
+  @media(max-width:360px){
+    .header-cta{padding:6px 8px;font-size:.66rem;}
+    .cart-pill{padding:5px 7px;font-size:.68rem;}
   }
   .cart-pill .count{
     background:var(--teal);color:#fff;border-radius:999px;min-width:20px;height:20px;
@@ -470,6 +473,12 @@
   .velocidad-nota.manual{background:#FFF6EC;border:1.5px solid #F0B860;color:#8A5A00;}
   .velocidad-nota.mixto{background:#FFF6EC;border:1.5px solid #F0B860;color:#8A5A00;}
   .velocidad-nota strong{display:block;margin-bottom:2px;}
+
+  .blocking-alert{
+    display:none;background:#FDEDEC;border:1.5px solid var(--danger);color:#8B1E14;
+    border-radius:10px;padding:12px 14px;margin-top:10px;font-size:.85rem;line-height:1.4;
+  }
+  .blocking-alert.show{display:block;}
   .cart-total-line{
     display:flex;justify-content:space-between;font-weight:700;color:var(--navy);
     padding:10px 0;border-top:1.5px dashed var(--border);margin-top:6px;
@@ -869,63 +878,69 @@
           </div>
 
           <div class="field">
-            <label>¿Presentas algún síntoma actualmente?</label>
+            <label>¿Presentas algún síntoma actualmente? <span class="req">*</span></label>
             <div class="radio-row">
-              <label class="radio-opt"><input type="radio" name="sintomas" value="Sí" data-toggle="sintomasDetalleWrap">Sí</label>
-              <label class="radio-opt"><input type="radio" name="sintomas" value="No" data-toggle="sintomasDetalleWrap">No</label>
+              <label class="radio-opt"><input type="radio" name="sintomas" value="Sí" data-toggle="sintomasDetalleWrap" required>Sí</label>
+              <label class="radio-opt"><input type="radio" name="sintomas" value="No" data-toggle="sintomasDetalleWrap" required>No</label>
             </div>
+            <span class="error-text">Por favor selecciona una opción.</span>
             <div class="conditional" id="sintomasDetalleWrap">
               <textarea name="sintomasDetalle" placeholder="Describe tus síntomas y desde cuándo los presentas"></textarea>
             </div>
           </div>
 
           <div class="field">
-            <label>¿Tienes algún diagnóstico médico previo relacionado?</label>
+            <label>¿Tienes algún diagnóstico médico previo relacionado? <span class="req">*</span></label>
             <div class="radio-row">
-              <label class="radio-opt"><input type="radio" name="diagnosticoPrevio" value="Sí" data-toggle="diagnosticoDetalleWrap">Sí</label>
-              <label class="radio-opt"><input type="radio" name="diagnosticoPrevio" value="No" data-toggle="diagnosticoDetalleWrap">No</label>
+              <label class="radio-opt"><input type="radio" name="diagnosticoPrevio" value="Sí" data-toggle="diagnosticoDetalleWrap" required>Sí</label>
+              <label class="radio-opt"><input type="radio" name="diagnosticoPrevio" value="No" data-toggle="diagnosticoDetalleWrap" required>No</label>
             </div>
+            <span class="error-text">Por favor selecciona una opción.</span>
             <div class="conditional" id="diagnosticoDetalleWrap">
               <textarea name="diagnosticoDetalle" placeholder="¿Cuál?"></textarea>
             </div>
           </div>
 
           <div class="field">
-            <label>¿Tomas medicamentos actualmente?</label>
+            <label>¿Tomas medicamentos actualmente? <span class="req">*</span></label>
             <div class="radio-row">
-              <label class="radio-opt"><input type="radio" name="tomaMedicamentos" value="Sí" data-toggle="medicamentosDetalleWrap">Sí</label>
-              <label class="radio-opt"><input type="radio" name="tomaMedicamentos" value="No" data-toggle="medicamentosDetalleWrap">No</label>
+              <label class="radio-opt"><input type="radio" name="tomaMedicamentos" value="Sí" data-toggle="medicamentosDetalleWrap" required>Sí</label>
+              <label class="radio-opt"><input type="radio" name="tomaMedicamentos" value="No" data-toggle="medicamentosDetalleWrap" required>No</label>
             </div>
+            <span class="error-text">Por favor selecciona una opción.</span>
             <div class="conditional" id="medicamentosDetalleWrap">
               <textarea name="medicamentosDetalle" placeholder="¿Cuáles?"></textarea>
             </div>
           </div>
 
           <div class="field">
-            <label>¿Padeces alguna enfermedad crónica?</label>
+            <label>¿Padeces alguna enfermedad crónica? <span class="req">*</span></label>
             <div class="radio-row">
-              <label class="radio-opt"><input type="radio" name="enfermedadCronica" value="Sí" data-toggle="cronicaDetalleWrap">Sí</label>
-              <label class="radio-opt"><input type="radio" name="enfermedadCronica" value="No" data-toggle="cronicaDetalleWrap">No</label>
+              <label class="radio-opt"><input type="radio" name="enfermedadCronica" value="Sí" data-toggle="cronicaDetalleWrap" required>Sí</label>
+              <label class="radio-opt"><input type="radio" name="enfermedadCronica" value="No" data-toggle="cronicaDetalleWrap" required>No</label>
             </div>
+            <span class="error-text">Por favor selecciona una opción.</span>
             <div class="conditional" id="cronicaDetalleWrap">
               <textarea name="cronicaDetalle" placeholder="¿Cuál?"></textarea>
             </div>
           </div>
 
           <div class="field">
-            <label>¿Te has realizado alguno de estos exámenes antes?</label>
+            <label>¿Te has realizado alguno de estos exámenes antes? <span class="req">*</span></label>
             <div class="radio-row">
-              <label class="radio-opt"><input type="radio" name="examenPrevio" value="Sí">Sí</label>
-              <label class="radio-opt"><input type="radio" name="examenPrevio" value="No">No</label>
+              <label class="radio-opt"><input type="radio" name="examenPrevio" value="Sí" required>Sí</label>
+              <label class="radio-opt"><input type="radio" name="examenPrevio" value="No" required>No</label>
             </div>
+            <span class="error-text">Por favor selecciona una opción.</span>
           </div>
 
           <div class="field">
-            <label>¿Esta solicitud fue recomendada por otro profesional de salud?</label>
+            <label>¿Esta solicitud fue recomendada por otro profesional de salud? <span class="req">*</span></label>
             <div class="radio-row">
-              <label class="radio-opt"><input type="radio" name="recomendadoPor" value="Sí" data-toggle="recomendadoDetalleWrap">Sí</label>
-              <label class="radio-opt"><input type="radio" name="recomendadoPor" value="No" data-toggle="recomendadoDetalleWrap">No</label>
+              <label class="radio-opt"><input type="radio" name="recomendadoPor" value="Sí" data-toggle="recomendadoDetalleWrap" required>Sí</label>
+              <label class="radio-opt"><input type="radio" name="recomendadoPor" value="No" data-toggle="recomendadoDetalleWrap" required>No</label>
             </div>
+            <span class="error-text">Por favor selecciona una opción.</span>
             <div class="conditional" id="recomendadoDetalleWrap">
               <input type="text" name="recomendadoDetalle" placeholder="¿Quién?">
             </div>
@@ -949,6 +964,7 @@
                 <label class="radio-opt"><input type="radio" name="embarazadaActual" value="No aplica" data-required-group="tomografia">No aplica</label>
               </div>
               <span class="error-text" id="embarazadaError">Por favor responde esta pregunta antes de continuar.</span>
+              <p id="notaEmbarazoMasculino" style="display:none;font-size:.78rem;color:var(--muted);margin:6px 0 0;">✓ Detectado automáticamente como "No aplica" según el sexo registrado en tus datos.</p>
             </div>
           </div>
 
@@ -963,6 +979,9 @@
               <span class="error-text" id="implanteError">Por favor responde esta pregunta antes de continuar.</span>
               <div class="conditional" id="implanteDetalleWrap">
                 <input type="text" name="implanteDetalle" placeholder="¿Cuál? (importante para tu seguridad)">
+              </div>
+              <div class="blocking-alert" id="implanteBloqueoAlert">
+                ⛔ <strong>Este examen no se puede realizar de forma segura por esta vía.</strong> Con marcapasos, válvulas cardiacas, clips u otros implantes metálicos, la resonancia magnética requiere evaluación presencial previa. Por favor <strong>quita la resonancia de tu carrito</strong> y consulta directamente con un centro especializado.
               </div>
             </div>
             <div class="field">
@@ -1121,12 +1140,12 @@ const CATALOG = [
   // Cardiología básica
   {id:'ecg-reposo',cat:'Ecocardiograma',name:'Electrocardiograma (ECG) de reposo',icon:'💓'},
   // Ecografía
-  {id:'eco-abdominal',cat:'Ecografía',name:'Ecografía abdominal',icon:'🩻'},
-  {id:'eco-pelvica',cat:'Ecografía',name:'Ecografía pélvica',icon:'🩻'},
+  {id:'eco-abdominal',cat:'Ecografía',name:'Ecografía abdominal',icon:'🔍'},
+  {id:'eco-pelvica',cat:'Ecografía',name:'Ecografía pélvica',icon:'🔍'},
   {id:'eco-obstetrica',cat:'Ecografía',name:'Ecografía obstétrica (embarazo)',icon:'🤰'},
-  {id:'eco-tiroidea',cat:'Ecografía',name:'Ecografía tiroidea',icon:'🩻'},
-  {id:'eco-mamaria',cat:'Ecografía',name:'Ecografía mamaria',icon:'🩻'},
-  {id:'eco-partesblandas',cat:'Ecografía',name:'Ecografía de partes blandas',icon:'🩻'},
+  {id:'eco-tiroidea',cat:'Ecografía',name:'Ecografía tiroidea',icon:'🔍'},
+  {id:'eco-mamaria',cat:'Ecografía',name:'Ecografía mamaria',icon:'🔍'},
+  {id:'eco-partesblandas',cat:'Ecografía',name:'Ecografía de partes blandas',icon:'🔍'},
   // Radiografía
   {id:'rx-torax',cat:'Radiografía',name:'Radiografía de tórax',icon:'📸'},
   // Holter
@@ -1139,9 +1158,9 @@ const CATALOG = [
   {id:'rm-cerebral',cat:'Resonancia magnética',name:'Resonancia cerebral',icon:'🧲'},
   {id:'rm-hombro',cat:'Resonancia magnética',name:'Resonancia de hombro',icon:'🧲'},
   // Tomografía
-  {id:'tac-torax',cat:'Tomografía',name:'Tomografía de tórax',icon:'📷'},
-  {id:'tac-abdominal',cat:'Tomografía',name:'Tomografía abdominal',icon:'📷'},
-  {id:'tac-cerebral',cat:'Tomografía',name:'Tomografía cerebral',icon:'📷'},
+  {id:'tac-torax',cat:'Tomografía',name:'Tomografía de tórax (sin contraste)',icon:'📷'},
+  {id:'tac-abdominal',cat:'Tomografía',name:'Tomografía abdominal (sin contraste)',icon:'📷'},
+  {id:'tac-cerebral',cat:'Tomografía',name:'Tomografía cerebral (sin contraste)',icon:'📷'},
   // Paquetes de laboratorio
   {id:'pkg-01',cat:'Paquetes',name:'Chequeo General Básico',indic:'Adultos sanos 18-39 años',incluye:'Hemograma completo, Glucosa, Creatinina (con eGFR calculado), Urea, Perfil lipídico, TGO, TGP, Bilirrubina total, Fosfatasa alcalina, GGT, Proteínas totales, Albúmina, Sodio, Potasio, Cloro, Examen completo de orina'},
   {id:'pkg-02',cat:'Paquetes',name:'Chequeo General Intermedio',indic:'Adultos 40-59 años',incluye:'Hemograma completo, Glucosa, Creatinina (con eGFR calculado), Urea, Perfil lipídico, TGO, TGP, Bilirrubina total, Fosfatasa alcalina, GGT, Proteínas totales, Albúmina, Sodio, Potasio, Cloro, Examen completo de orina, HbA1c, TSH, Calcio, Fósforo, Magnesio, Ácido úrico'},
@@ -1269,7 +1288,7 @@ const TABS = [
   {key:'Ecografía', label:'🩻 Ecografía'},
   {key:'Radiografía', label:'📸 Radiografía'},
   {key:'Holter', label:'❤️ Holter'},
-  {key:'Ecocardiograma', label:'🫀 Ecocardiograma / ECG'},
+  {key:'Ecocardiograma', label:'🫀 Ecocardiograma - ECG'},
   {key:'Resonancia magnética', label:'🧲 Resonancia magnética'},
   {key:'Tomografía', label:'📷 Tomografía / Escáner'},
 ];
@@ -1574,6 +1593,22 @@ function updateConditionalClinicalQuestions(){
 
   document.querySelectorAll('input[data-required-group=tomografia]').forEach(el=> el.required = hasRadiacion);
   document.querySelectorAll('input[data-required-group=resonancia]').forEach(el=> el.required = hasResonancia);
+
+  // Si el sexo registrado es Masculino, la pregunta de embarazo se autocompleta
+  // como "No aplica" y se bloquea para edición (no aplica biológicamente).
+  const sexoField = document.querySelector('[name="sexo"]');
+  const esMasculino = sexoField && sexoField.value === 'Masculino';
+  const radiosEmbarazo = document.querySelectorAll('input[name="embarazadaActual"]');
+  radiosEmbarazo.forEach(r=>{
+    if(esMasculino){
+      r.disabled = (r.value !== 'No aplica'); // "No aplica" queda habilitado para que se incluya en el envío
+      if(r.value === 'No aplica') r.checked = true;
+    } else {
+      r.disabled = false;
+    }
+  });
+  const notaSexo = document.getElementById('notaEmbarazoMasculino');
+  if(notaSexo) notaSexo.style.display = esMasculino ? 'block' : 'none';
 }
 
 function renderAll(){
@@ -1719,6 +1754,10 @@ function validateStep(n){
     if(!re.test(correo.value)){ field.classList.add('error'); valid=false; }
   }
 
+  if(n===3 && tieneImplanteBloqueante()){
+    valid = false;
+  }
+
   return valid;
 }
 
@@ -1747,6 +1786,18 @@ document.querySelectorAll('input[data-toggle]').forEach(radio=>{
     else{ wrap.classList.remove('show'); }
   });
 });
+
+/* Alerta bloqueante: resonancia + dispositivo médico (marcapasos, clips, etc.) */
+document.querySelectorAll('input[name="tieneImplante"]').forEach(radio=>{
+  radio.addEventListener('change', function(){
+    const alerta = document.getElementById('implanteBloqueoAlert');
+    if(alerta) alerta.classList.toggle('show', this.value === 'Sí');
+  });
+});
+function tieneImplanteBloqueante(){
+  const marcado = document.querySelector('input[name="tieneImplante"]:checked');
+  return !!marcado && marcado.value === 'Sí' && cartHasCategory('Resonancia magnética');
+}
 
 /* ================== Resumen dinámico (paso 4) ================== */
 function buildSummary(){
