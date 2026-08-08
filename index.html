@@ -365,6 +365,26 @@
     padding:10px 16px;border-radius:9px;cursor:pointer;
   }
 
+  .cross-sell-toast{
+    position:fixed;left:16px;right:16px;bottom:16px;z-index:75;
+    display:none;max-width:380px;margin:0 auto;
+  }
+  .cross-sell-toast.show{display:block;}
+  .cross-sell-card{
+    background:#0B2A4A;border-radius:14px;padding:14px 16px;
+    box-shadow:0 12px 30px -10px rgba(0,0,0,.35);position:relative;
+  }
+  .cross-sell-card p{margin:0 0 10px;color:#fff;font-size:.88rem;font-weight:600;padding-right:20px;}
+  .cross-sell-close{
+    position:absolute;top:10px;right:12px;background:none;border:none;color:#B9CBDA;
+    cursor:pointer;font-size:.8rem;padding:2px;
+  }
+  .cross-sell-add{
+    display:block;width:100%;background:var(--teal);color:#fff;border:none;font-weight:700;
+    font-size:.85rem;padding:10px 12px;border-radius:9px;cursor:pointer;margin-top:6px;text-align:left;
+  }
+  .cross-sell-add:hover{background:var(--teal-dark);}
+
   /* Disclaimer band */
   .disclaimer{
     background:var(--navy);color:#fff;border-radius:18px;padding:22px 20px;
@@ -714,7 +734,7 @@
       <button type="button" id="clearSearchBtn" class="clear-search-btn" onclick="clearCatalogSearch()" style="display:none;">✕</button>
     </div>
 
-    <p id="tabsHint" style="color:var(--muted);font-size:.8rem;margin:10px 0 8px;">👉 Desliza o usa las flechas para ver todas las categorías: paquetes, análisis, ecografía, radiografía, holter, ecocardiograma/ECG, <strong>resonancia magnética</strong> y <strong>tomografía</strong>.</p>
+    <p id="tabsHint" style="color:var(--muted);font-size:.8rem;margin:10px 0 8px;">👉 Desliza o usa las flechas para ver todas las categorías: paquetes, análisis, ecografía, radiografía, holter, ecocardiograma/EKG, <strong>resonancia magnética</strong> y <strong>tomografía</strong>.</p>
 
     <div class="tabs-row" id="tabsRow">
       <button type="button" class="tab-arrow tab-arrow-left" id="tabArrowLeft" onclick="scrollTabs(-1)" aria-label="Ver categorías anteriores">‹</button>
@@ -1062,7 +1082,14 @@
   <div class="container">
     <div><strong>OrdenFácil.pe</strong> — Menos trámites. Más salud.</div>
     <div>Este servicio no reemplaza una consulta médica presencial. Los resultados deben interpretarse con personal de salud.</div>
-    <div>¿Dudas? Escríbenos a <strong>contacto@ordenfacil.pe</strong></div>
+    <div>¿Dudas? Escríbenos a <strong>hola@ordenfacil.pe</strong></div>
+    <div style="margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,.15);display:flex;flex-wrap:wrap;gap:16px;">
+      <a href="libro-reclamaciones.html" style="color:#fff;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:6px;">
+        📖 Libro de Reclamaciones
+      </a>
+      <a href="terminos.html" style="color:#B9CBDA;text-decoration:underline;">Términos y condiciones</a>
+      <a href="privacidad.html" style="color:#B9CBDA;text-decoration:underline;">Política de privacidad</a>
+    </div>
   </div>
 </footer>
 
@@ -1072,6 +1099,8 @@
     <button type="button" class="btn-cart-cta" onclick="goToCart()">Generar mi orden</button>
   </div>
 </div>
+
+<div class="cross-sell-toast" id="crossSellToast"></div>
 
 <div class="cookie-banner" id="cookieBanner">
   <p>Usamos cookies necesarias para que tu carrito y tus datos funcionen correctamente en este sitio. Puedes leer más en nuestra <a href="privacidad.html" target="_blank">Política de privacidad</a>.</p>
@@ -1083,6 +1112,10 @@
 
 <script>
 /* ================== CATÁLOGO ================== */
+/* Ícono de ecografía: monitor de ultrasonido con silueta de bebé (en vez de un
+   emoji genérico que se confundía con radiografía). */
+const ICON_ECO = '<svg width="18" height="15" viewBox="0 0 24 20" style="vertical-align:-3px" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="1" width="22" height="16" rx="1.5"/><line x1="3.5" y1="4" x2="9" y2="4"/><line x1="3.5" y1="6" x2="7" y2="6"/><path d="M5 15c1-5 4-8 7-8s6 3 7 8"/><circle cx="13.5" cy="8.3" r="2.1"/><path d="M9.5 12.5c1 1 2 1.3 3 .5"/></svg>';
+
 const CATALOG = [
   // Análisis de laboratorio individuales
   {id:'lab-hemograma',cat:'LaboratorioIndividual',name:'Hemograma completo',icon:'🩸'},
@@ -1105,7 +1138,7 @@ const CATALOG = [
   {id:'lab-t4',cat:'LaboratorioIndividual',name:'T4 Libre',icon:'🦋'},
   {id:'lab-t3',cat:'LaboratorioIndividual',name:'T3 Libre',icon:'🦋'},
   {id:'lab-antitpo',cat:'LaboratorioIndividual',name:'Anti-TPO',icon:'🦋'},
-  {id:'lab-creatinina',cat:'LaboratorioIndividual',name:'Creatinina sérica (con eGFR calculado)',icon:'🧪'},
+  {id:'lab-creatinina',cat:'LaboratorioIndividual',name:'Creatinina sérica',icon:'🧪'},
   {id:'lab-urea',cat:'LaboratorioIndividual',name:'Urea',icon:'🧪'},
   {id:'lab-electrolitos',cat:'LaboratorioIndividual',name:'Electrolitos (sodio, potasio y cloro)',icon:'🧪'},
   {id:'lab-orina',cat:'LaboratorioIndividual',name:'Examen completo de orina',icon:'🧪'},
@@ -1137,15 +1170,17 @@ const CATALOG = [
   {id:'lab-estradiol',cat:'LaboratorioIndividual',name:'Estradiol',icon:'🧬'},
   {id:'lab-progesterona',cat:'LaboratorioIndividual',name:'Progesterona',icon:'🧬'},
   {id:'lab-prolactina',cat:'LaboratorioIndividual',name:'Prolactina',icon:'🧬'},
+  {id:'lab-herpes1',cat:'LaboratorioIndividual',name:'IgG e IgM para Herpes I',icon:'🧪'},
+  {id:'lab-herpes2',cat:'LaboratorioIndividual',name:'IgG e IgM para Herpes II',icon:'🧪'},
   // Cardiología básica
-  {id:'ecg-reposo',cat:'Ecocardiograma',name:'Electrocardiograma (ECG) de reposo',icon:'💓'},
+  {id:'ecg-reposo',cat:'Ecocardiograma',name:'Electrocardiograma (EKG) de reposo',icon:'💓'},
   // Ecografía
-  {id:'eco-abdominal',cat:'Ecografía',name:'Ecografía abdominal',icon:'🔍'},
-  {id:'eco-pelvica',cat:'Ecografía',name:'Ecografía pélvica',icon:'🔍'},
-  {id:'eco-obstetrica',cat:'Ecografía',name:'Ecografía obstétrica (embarazo)',icon:'🤰'},
-  {id:'eco-tiroidea',cat:'Ecografía',name:'Ecografía tiroidea',icon:'🔍'},
-  {id:'eco-mamaria',cat:'Ecografía',name:'Ecografía mamaria',icon:'🔍'},
-  {id:'eco-partesblandas',cat:'Ecografía',name:'Ecografía de partes blandas',icon:'🔍'},
+  {id:'eco-abdominal',cat:'Ecografía',name:'Ecografía abdominal',icon:ICON_ECO},
+  {id:'eco-pelvica',cat:'Ecografía',name:'Ecografía pélvica',icon:ICON_ECO},
+  {id:'eco-obstetrica',cat:'Ecografía',name:'Ecografía obstétrica (embarazo)',icon:ICON_ECO},
+  {id:'eco-tiroidea',cat:'Ecografía',name:'Ecografía tiroidea',icon:ICON_ECO},
+  {id:'eco-mamaria',cat:'Ecografía',name:'Ecografía mamaria',icon:ICON_ECO},
+  {id:'eco-partesblandas',cat:'Ecografía',name:'Ecografía de partes blandas',icon:ICON_ECO},
   // Radiografía
   {id:'rx-torax',cat:'Radiografía',name:'Radiografía de tórax',icon:'📸'},
   // Holter
@@ -1162,11 +1197,11 @@ const CATALOG = [
   {id:'tac-abdominal',cat:'Tomografía',name:'Tomografía abdominal (sin contraste)',icon:'📷'},
   {id:'tac-cerebral',cat:'Tomografía',name:'Tomografía cerebral (sin contraste)',icon:'📷'},
   // Paquetes de laboratorio
-  {id:'pkg-01',cat:'Paquetes',name:'Chequeo General Básico',indic:'Adultos sanos 18-39 años',incluye:'Hemograma completo, Glucosa, Creatinina (con eGFR calculado), Urea, Perfil lipídico, TGO, TGP, Bilirrubina total, Fosfatasa alcalina, GGT, Proteínas totales, Albúmina, Sodio, Potasio, Cloro, Examen completo de orina'},
-  {id:'pkg-02',cat:'Paquetes',name:'Chequeo General Intermedio',indic:'Adultos 40-59 años',incluye:'Hemograma completo, Glucosa, Creatinina (con eGFR calculado), Urea, Perfil lipídico, TGO, TGP, Bilirrubina total, Fosfatasa alcalina, GGT, Proteínas totales, Albúmina, Sodio, Potasio, Cloro, Examen completo de orina, HbA1c, TSH, Calcio, Fósforo, Magnesio, Ácido úrico'},
-  {id:'pkg-03',cat:'Paquetes',name:'Chequeo General Premium',indic:'>60 años o chequeo ejecutivo',incluye:'Hemograma completo, Glucosa, Creatinina (con eGFR calculado), Urea, Perfil lipídico, TGO, TGP, Bilirrubina total, Fosfatasa alcalina, GGT, Proteínas totales, Albúmina, Sodio, Potasio, Cloro, Examen completo de orina, HbA1c, TSH, Calcio, Fósforo, Magnesio, Ácido úrico, Ferritina, Hierro sérico, Transferrina, Saturación de transferrina, Vitamina B12, Ácido fólico, Vitamina D, PCR ultrasensible'},
+  {id:'pkg-01',cat:'Paquetes',name:'Chequeo General Básico',indic:'Adultos sanos 18-39 años',incluye:'Hemograma completo, Glucosa, Creatinina, Urea, Perfil lipídico, TGO, TGP, Bilirrubina total, Fosfatasa alcalina, GGT, Proteínas totales, Albúmina, Sodio, Potasio, Cloro, Examen completo de orina'},
+  {id:'pkg-02',cat:'Paquetes',name:'Chequeo General Intermedio',indic:'Adultos 40-59 años',incluye:'Hemograma completo, Glucosa, Creatinina, Urea, Perfil lipídico, TGO, TGP, Bilirrubina total, Fosfatasa alcalina, GGT, Proteínas totales, Albúmina, Sodio, Potasio, Cloro, Examen completo de orina, HbA1c, TSH, Calcio, Fósforo, Magnesio, Ácido úrico'},
+  {id:'pkg-03',cat:'Paquetes',name:'Chequeo General Premium',indic:'>60 años o chequeo ejecutivo',incluye:'Hemograma completo, Glucosa, Creatinina, Urea, Perfil lipídico, TGO, TGP, Bilirrubina total, Fosfatasa alcalina, GGT, Proteínas totales, Albúmina, Sodio, Potasio, Cloro, Examen completo de orina, HbA1c, TSH, Calcio, Fósforo, Magnesio, Ácido úrico, Ferritina, Hierro sérico, Transferrina, Saturación de transferrina, Vitamina B12, Ácido fólico, Vitamina D, PCR ultrasensible'},
   {id:'pkg-04',cat:'Paquetes',name:'Chequeo Metabólico',indic:'Obesidad, síndrome metabólico',incluye:'Hemograma, Glucosa, HbA1c, Insulina basal, Perfil lipídico, Ácido úrico, TGO, TGP, GGT'},
-  {id:'pkg-05',cat:'Paquetes',name:'Chequeo Renal',indic:'Hipertensión, diabetes, enfermedad renal',incluye:'Creatinina (con eGFR calculado), Urea, Sodio, Potasio, Cloro, Calcio, Fósforo, Magnesio, Examen de orina, Microalbuminuria, Relación albúmina/creatinina'},
+  {id:'pkg-05',cat:'Paquetes',name:'Chequeo Renal',indic:'Hipertensión, diabetes, enfermedad renal',incluye:'Creatinina, Urea, Sodio, Potasio, Cloro, Calcio, Fósforo, Magnesio, Examen de orina, Microalbuminuria, Relación albúmina/creatinina'},
   {id:'pkg-06',cat:'Paquetes',name:'Chequeo Hepático',indic:'Esteatosis hepática, hepatopatías, consumo de alcohol',incluye:'TGO, TGP, Fosfatasa alcalina, GGT, Bilirrubina total/directa/indirecta, Albúmina, Proteínas totales'},
   {id:'pkg-07',cat:'Paquetes',name:'Chequeo Cardiovascular',indic:'Prevención cardiovascular',incluye:'Perfil lipídico, Glucosa, HbA1c, PCR ultrasensible, Lipoproteína(a) (opcional), ApoB (opcional)'},
   {id:'pkg-08',cat:'Paquetes',name:'Chequeo Tiroideo',indic:'Fatiga, aumento de peso, alteraciones tiroideas',incluye:'TSH, T4 Libre, T3 Libre (opcional), Anti-TPO (opcional)'},
@@ -1177,8 +1212,8 @@ const CATALOG = [
   {id:'pkg-13',cat:'Paquetes',name:'Chequeo Femenino',indic:'Prevención en mujeres',incluye:'Hemograma, Glucosa, HbA1c, Perfil lipídico, Creatinina, TSH, Ferritina, Hierro, Examen de orina'},
   {id:'pkg-14',cat:'Paquetes',name:'Chequeo Menopausia',indic:'Mujeres con sospecha de menopausia',incluye:'FSH, Estradiol, TSH, Vitamina D, Calcio'},
   {id:'pkg-15',cat:'Paquetes',name:'Chequeo Obesidad',indic:'Sobrepeso y obesidad',incluye:'Hemograma, Glucosa, HbA1c, Insulina basal, Perfil lipídico, Creatinina, Ácido úrico, TGO, TGP, GGT, TSH, Vitamina D, Ferritina, Vitamina B12'},
-  {id:'pkg-16',cat:'Paquetes',name:'Chequeo Hipertensión',indic:'Hipertensos',incluye:'Hemograma, Glucosa, HbA1c, Creatinina (con eGFR calculado), Urea, Electrolitos, Perfil lipídico, Examen de orina, Microalbuminuria'},
-  {id:'pkg-17',cat:'Paquetes',name:'Chequeo Diabetes',indic:'Diabéticos',incluye:'HbA1c, Glucosa, Creatinina (con eGFR calculado), Perfil lipídico, Examen de orina, Microalbuminuria, Relación albúmina/creatinina'},
+  {id:'pkg-16',cat:'Paquetes',name:'Chequeo Hipertensión',indic:'Hipertensos',incluye:'Hemograma, Glucosa, HbA1c, Creatinina, Urea, Electrolitos, Perfil lipídico, Examen de orina, Microalbuminuria'},
+  {id:'pkg-17',cat:'Paquetes',name:'Chequeo Diabetes',indic:'Diabéticos',incluye:'HbA1c, Glucosa, Creatinina, Perfil lipídico, Examen de orina, Microalbuminuria, Relación albúmina/creatinina'},
   {id:'pkg-18',cat:'Paquetes',name:'Chequeo Fatiga Crónica',indic:'Cansancio persistente',incluye:'Hemograma, Ferritina, Hierro, Vitamina B12, Ácido fólico, TSH, T4 Libre, Vitamina D, PCR, VSG'},
   {id:'pkg-19',cat:'Paquetes',name:'Chequeo Preoperatorio',indic:'Cirugía programada',incluye:'Hemograma, Glucosa, Creatinina, Urea, Electrolitos, TP/INR, TTPa, Grupo y factor sanguíneo, Examen de orina'},
   {id:'pkg-20',cat:'Paquetes',name:'Perfil Deportivo',indic:'',incluye:'Hemograma, Glucosa, Creatinina, CPK, LDH, Perfil lipídico, Electrolitos, Ferritina, Vitamina D, TSH'},
@@ -1186,7 +1221,8 @@ const CATALOG = [
   {id:'pkg-22',cat:'Paquetes',name:'Perfil Sexual Masculino',indic:'',incluye:'Testosterona total, Testosterona libre, SHBG, LH, FSH, Prolactina, Estradiol'},
   {id:'pkg-23',cat:'Paquetes',name:'Perfil Hormonal Femenino',indic:'',incluye:'FSH, LH, Estradiol, Progesterona, Prolactina, TSH'},
   {id:'pkg-24',cat:'Paquetes',name:'Perfil Hepático Completo',indic:'',incluye:'TGO, TGP, GGT, Fosfatasa alcalina, Bilirrubinas, Albúmina, Proteínas totales, TP/INR'},
-  {id:'pkg-25',cat:'Paquetes',name:'Perfil Renal Completo',indic:'',incluye:'Creatinina (con eGFR calculado), Urea, Electrolitos, Calcio, Fósforo, Magnesio, Examen de orina, Microalbuminuria'},
+  {id:'pkg-25',cat:'Paquetes',name:'Perfil Renal Completo',indic:'',incluye:'Creatinina, Urea, Electrolitos, Calcio, Fósforo, Magnesio, Examen de orina, Microalbuminuria'},
+  {id:'pkg-26',cat:'Paquetes',name:'Paquete ITS',indic:'Infecciones de transmisión sexual',incluye:'VIH 4.ª generación, Sífilis RPR cuantitativo, HBsAg, Anti-HBc, Anti-HCV, Clamidia NAAT, Gonorrea NAAT'},
 ];
 
 const CATALOG_BY_ID = {};
@@ -1251,6 +1287,8 @@ const KEYWORDS_POR_ANALISIS = {
   'lab-estradiol': ['Estradiol'],
   'lab-progesterona': ['Progesterona'],
   'lab-prolactina': ['Prolactina'],
+  'lab-herpes1': ['Herpes I'],
+  'lab-herpes2': ['Herpes II'],
 };
 
 // Para cada paquete, precalculamos qué IDs de análisis individuales contiene.
@@ -1288,7 +1326,7 @@ const TABS = [
   {key:'Ecografía', label:'🩻 Ecografía'},
   {key:'Radiografía', label:'📸 Radiografía'},
   {key:'Holter', label:'❤️ Holter'},
-  {key:'Ecocardiograma', label:'🫀 Ecocardiograma - ECG'},
+  {key:'Ecocardiograma', label:'🫀 Ecocardiograma - EKG'},
   {key:'Resonancia magnética', label:'🧲 Resonancia magnética'},
   {key:'Tomografía', label:'📷 Tomografía / Escáner'},
 ];
@@ -1311,11 +1349,47 @@ function saveCart(){
 
 function isInCart(id){ return cart.includes(id); }
 
+/* Sugerencias de "agregar también" para ciertos paquetes (opt-in, nunca
+   automático — el paciente decide si lo quiere agregar como examen aparte). */
+const CROSS_SELL = {
+  'pkg-07': [{ id: 'ecg-reposo', label: 'Electrocardiograma (EKG)' }],
+  'pkg-26': [
+    { id: 'lab-herpes1', label: 'IgG e IgM para Herpes I' },
+    { id: 'lab-herpes2', label: 'IgG e IgM para Herpes II' }
+  ]
+};
+
 function toggleCartItem(id){
   const idx = cart.indexOf(id);
-  if(idx === -1){ cart.push(id); } else { cart.splice(idx,1); }
+  const fueAgregado = idx === -1;
+  if(fueAgregado){ cart.push(id); } else { cart.splice(idx,1); }
   saveCart();
   renderAll();
+  if(fueAgregado) mostrarSugerenciaCrossSell(id);
+}
+
+function mostrarSugerenciaCrossSell(idAgregado){
+  const sugerencias = (CROSS_SELL[idAgregado] || []).filter(s => !isInCart(s.id));
+  const toast = document.getElementById('crossSellToast');
+  if(!toast || sugerencias.length === 0) return;
+
+  toast.innerHTML = `
+    <div class="cross-sell-card">
+      <button type="button" class="cross-sell-close" onclick="document.getElementById('crossSellToast').classList.remove('show')">✕</button>
+      <p>💡 ¿Quieres agregar también?</p>
+      ${sugerencias.map(s => `
+        <button type="button" class="cross-sell-add" onclick="agregarSugerenciaCrossSell('${s.id}')">+ ${s.label}</button>
+      `).join('')}
+    </div>
+  `;
+  toast.classList.add('show');
+  clearTimeout(window._crossSellTimeout);
+  window._crossSellTimeout = setTimeout(()=> toast.classList.remove('show'), 9000);
+}
+
+function agregarSugerenciaCrossSell(id){
+  if(!isInCart(id)){ cart.push(id); saveCart(); renderAll(); }
+  document.getElementById('crossSellToast').classList.remove('show');
 }
 
 function removeFromCart(id){
@@ -1472,12 +1546,22 @@ function toggleIncluye(id){
 }
 
 /* ================== Render: barra de carrito y contador ================== */
+let formularioEnVista = false;
+
 function renderCartBar(){
-  const bar = document.getElementById('cartBar');
   const count = cart.length;
   document.getElementById('cartBarCount').textContent = count;
   document.getElementById('headerCartCount').textContent = count;
-  bar.classList.toggle('show', count>0);
+  actualizarVisibilidadCartBar();
+}
+
+function actualizarVisibilidadCartBar(){
+  const bar = document.getElementById('cartBar');
+  // La barra flotante "Generar mi orden" solo tiene sentido mientras el
+  // paciente está navegando el catálogo. Si ya está dentro del formulario de
+  // checkout (cualquier paso), la ocultamos — de lo contrario, tocarla ahí
+  // dentro reinicia al paso 1 y se siente como "me devolvió al inicio".
+  bar.classList.toggle('show', cart.length > 0 && !formularioEnVista);
 }
 
 /* ================== Render: paso 1 del checkout (carrito) ================== */
@@ -1499,9 +1583,8 @@ function renderCartStep(){
   if(hayRapidos && hayManuales){
     velocidadWrap.innerHTML = `
       <div class="velocidad-nota mixto">
-        <strong>⚠️ Tu carrito mezcla exámenes rápidos y de revisión manual</strong>
-        Si los envías juntos, <strong>toda la solicitud pasará por revisión manual (24-48h)</strong>, incluso los exámenes de laboratorio/ecografía que normalmente son rápidos.
-        Si prefieres recibir los rápidos antes, haz esa parte como una solicitud separada.
+        <strong>⚡🕒 Tu pedido se enviará como 2 solicitudes separadas</strong>
+        Los exámenes de laboratorio/ecografía llegan en minutos; los que requieren revisión (resonancia, tomografía, etc.) llegan en 24-48h. No necesitas hacer nada — el sistema las separa automáticamente al enviar.
       </div>`;
   } else if(hayRapidos){
     velocidadWrap.innerHTML = `
@@ -1811,21 +1894,38 @@ function buildSummary(){
   const dep = fd.get('departamento') || '';
   const prov = fd.get('provincia') || '';
 
-  const itemsHtml = cart.map(id=>{
-    const item = CATALOG_BY_ID[id];
-    return item ? `<li>${item.name} <span style="color:var(--muted)">(${tabLabel(item.cat)})</span></li>` : '';
-  }).join('');
+  const cartAuto = cart.filter(id => CATALOG_BY_ID[id] && AUTO_CATS.includes(CATALOG_BY_ID[id].cat));
+  const cartManual = cart.filter(id => CATALOG_BY_ID[id] && !AUTO_CATS.includes(CATALOG_BY_ID[id].cat));
 
-  const requiereRevisionManual = cart.some(id => CATALOG_BY_ID[id] && !AUTO_CATS.includes(CATALOG_BY_ID[id].cat));
-  const notaRevision = requiereRevisionManual ? `
-    <div style="background:#FFF6EC;border:1px solid #F0B860;border-radius:10px;padding:10px 12px;margin-top:12px;font-size:.82rem;color:#6B4700;">
-      ⏱️ Tu solicitud incluye exámenes que requieren revisión médica caso por caso (resonancia, tomografía, radiografía, holter y/o ecocardiograma). Esto puede tomar un poco más de tiempo que laboratorio/ecografía.
-    </div>` : '';
+  function listaHtml(ids){
+    return ids.map(id=>{
+      const item = CATALOG_BY_ID[id];
+      return item ? `<li>${item.name} <span style="color:var(--muted)">(${tabLabel(item.cat)})</span></li>` : '';
+    }).join('');
+  }
+
+  let examenesBloque;
+  if(cartAuto.length && cartManual.length){
+    examenesBloque = `
+      <h4>⚡ Solicitud 1 — Rápida (${cartAuto.length})</h4>
+      <ul>${listaHtml(cartAuto)}</ul>
+      <h4 style="margin-top:10px;">🕒 Solicitud 2 — Revisión manual (${cartManual.length})</h4>
+      <ul>${listaHtml(cartManual)}</ul>
+      <div style="background:#FFF6EC;border:1px solid #F0B860;border-radius:10px;padding:10px 12px;margin-top:12px;font-size:.82rem;color:#6B4700;">
+        ⚡🕒 Se enviarán como <strong>2 solicitudes separadas</strong> (2 folios, 2 correos): la rápida llega en minutos, la de revisión manual en 24-48h.
+      </div>`;
+  } else {
+    examenesBloque = `<h4>Tus exámenes (${cart.length})</h4><ul>${listaHtml(cart)}</ul>`;
+    if(cartManual.length){
+      examenesBloque += `
+        <div style="background:#FFF6EC;border:1px solid #F0B860;border-radius:10px;padding:10px 12px;margin-top:12px;font-size:.82rem;color:#6B4700;">
+          ⏱️ Tu solicitud requiere revisión médica caso por caso. Esto puede tomar 24-48 horas.
+        </div>`;
+    }
+  }
 
   document.getElementById('summaryBlock').innerHTML = `
-    <h4>Tus exámenes (${cart.length})</h4>
-    <ul>${itemsHtml}</ul>
-    ${notaRevision}
+    ${examenesBloque}
     <h4 style="margin-top:12px;">Tus datos</h4>
     <dl>
       <dt>Nombre:</dt><dd>${nombres} ${apPat} ${apMat}</dd>
@@ -1849,49 +1949,77 @@ form.addEventListener('submit', function(e){
   submitBtn.disabled = true;
   submitBtn.textContent = 'Enviando...';
 
-  const fd = new FormData(form);
+  const cartAuto = cart.filter(id => CATALOG_BY_ID[id] && AUTO_CATS.includes(CATALOG_BY_ID[id].cat));
+  const cartManual = cart.filter(id => CATALOG_BY_ID[id] && !AUTO_CATS.includes(CATALOG_BY_ID[id].cat));
 
-  // Exámenes del carrito
-  const examenesSeleccionados = cart.map(id => CATALOG_BY_ID[id] ? CATALOG_BY_ID[id].name : id).join(', ');
-  const categoriasEnCarrito = [...new Set(cart.map(id => CATALOG_BY_ID[id] ? CATALOG_BY_ID[id].cat : ''))].join(', ');
-  fd.set('examenes', examenesSeleccionados);
-  fd.set('categorias', categoriasEnCarrito);
-  fd.set('cantidadExamenes', String(cart.length));
+  // Si el carrito mezcla rápidos y de revisión manual, se separan en 2
+  // solicitudes independientes (2 folios) para que los rápidos no se demoren
+  // esperando a los de revisión manual.
+  const grupos = [];
+  if(cartAuto.length && cartManual.length){
+    grupos.push({ ids: cartAuto, tipoFlujo: 'Automático (laboratorio/ecografía)', sufijo: 'A' });
+    grupos.push({ ids: cartManual, tipoFlujo: 'Revisión manual', sufijo: 'M' });
+  } else {
+    const soloAutomatizable = cart.length > 0 && cart.every(id => CATALOG_BY_ID[id] && AUTO_CATS.includes(CATALOG_BY_ID[id].cat));
+    grupos.push({ ids: cart, tipoFlujo: soloAutomatizable ? 'Automático (laboratorio/ecografía)' : 'Revisión manual', sufijo: '' });
+  }
 
-  // Detalle estructurado (nombre + qué incluye cada paquete), para que el PDF
-  // pueda mostrar cada examen desglosado en vez de solo el nombre del paquete.
-  const examenesDetalle = cart.map(id => {
-    const item = CATALOG_BY_ID[id];
-    return item ? { nombre: item.name, categoria: item.cat, incluye: item.incluye || '' } : null;
-  }).filter(Boolean);
-  fd.set('examenesDetalle', JSON.stringify(examenesDetalle));
+  const folioBase = 'OF-' + Date.now().toString().slice(-8);
+  const enviosInfo = [];
 
-  // Flujo automático vs revisión manual
-  const soloAutomatizable = cart.every(id => CATALOG_BY_ID[id] && AUTO_CATS.includes(CATALOG_BY_ID[id].cat));
-  fd.set('tipoFlujo', soloAutomatizable ? 'Automático (laboratorio/ecografía)' : 'Revisión manual');
+  function construirFormData(grupo, folio){
+    const fd = new FormData(form);
+    const examenesSeleccionados = grupo.ids.map(id => CATALOG_BY_ID[id] ? CATALOG_BY_ID[id].name : id).join(', ');
+    const categoriasEnCarrito = [...new Set(grupo.ids.map(id => CATALOG_BY_ID[id] ? CATALOG_BY_ID[id].cat : ''))].join(', ');
+    const examenesDetalle = grupo.ids.map(id => {
+      const item = CATALOG_BY_ID[id];
+      return item ? { nombre: item.name, categoria: item.cat, incluye: item.incluye || '' } : null;
+    }).filter(Boolean);
 
-  // Datos del médico (para automatización de órdenes de laboratorio/ecografía)
-  fd.set('medicoNombre', MEDICO.nombre);
-  fd.set('medicoCMP', MEDICO.cmp);
-  fd.set('medicoTitulo', MEDICO.titulo);
+    fd.set('examenes', examenesSeleccionados);
+    fd.set('categorias', categoriasEnCarrito);
+    fd.set('cantidadExamenes', String(grupo.ids.length));
+    fd.set('examenesDetalle', JSON.stringify(examenesDetalle));
+    fd.set('tipoFlujo', grupo.tipoFlujo);
+    fd.set('medicoNombre', MEDICO.nombre);
+    fd.set('medicoCMP', MEDICO.cmp);
+    fd.set('medicoTitulo', MEDICO.titulo);
+    fd.set('fechaEnvio', new Date().toISOString());
+    fd.set('folio', folio);
+    return fd;
+  }
 
-  fd.set('fechaEnvio', new Date().toISOString());
-  const folio = 'OF-' + Date.now().toString().slice(-8);
-  fd.set('folio', folio);
+  // Enviamos cada grupo en secuencia (uno tras otro, no en paralelo, para no
+  // saturar el Web App con 2 solicitudes simultáneas).
+  let cadena = Promise.resolve();
+  grupos.forEach(grupo=>{
+    const folio = folioBase + (grupo.sufijo ? '-' + grupo.sufijo : '');
+    enviosInfo.push({ folio: folio, tipoFlujo: grupo.tipoFlujo });
+    cadena = cadena.then(()=> fetch(SHEET_ENDPOINT, {
+      method: 'POST',
+      mode: 'no-cors', // Apps Script Web Apps no siempre exponen CORS legible; enviamos "a ciegas"
+      body: construirFormData(grupo, folio)
+    }));
+  });
 
-  fetch(SHEET_ENDPOINT, {
-    method: 'POST',
-    mode: 'no-cors', // Apps Script Web Apps no siempre exponen CORS legible; enviamos "a ciegas"
-    body: fd
-  })
+  cadena
   .then(()=>{
     form.style.display = 'none';
     document.getElementById('progressWrap').style.display = 'none';
     document.getElementById('successScreen').classList.add('active');
-    document.getElementById('folioDisplay').textContent = 'N° de solicitud: ' + folio;
-    document.getElementById('tiempoEsperaTexto').textContent = soloAutomatizable
-      ? '⚡ Al ser exámenes de laboratorio/ecografía, recibirás tu orden en pocos minutos.'
-      : '🕒 Tu solicitud requiere revisión médica manual: puede tomar entre 24 y 48 horas hábiles.';
+
+    if(enviosInfo.length === 2){
+      document.getElementById('folioDisplay').innerHTML =
+        'Solicitud rápida: ' + enviosInfo[0].folio + '<br>Solicitud manual: ' + enviosInfo[1].folio;
+      document.getElementById('tiempoEsperaTexto').textContent =
+        '⚡ Tus exámenes de laboratorio/ecografía llegarán en pocos minutos. 🕒 Los que requieren revisión manual llegarán por separado en 24-48 horas hábiles.';
+    } else {
+      document.getElementById('folioDisplay').textContent = 'N° de solicitud: ' + enviosInfo[0].folio;
+      document.getElementById('tiempoEsperaTexto').textContent = enviosInfo[0].tipoFlujo.indexOf('Automático') === 0
+        ? '⚡ Al ser exámenes de laboratorio/ecografía, recibirás tu orden en pocos minutos.'
+        : '🕒 Tu solicitud requiere revisión médica manual: puede tomar entre 24 y 48 horas hábiles.';
+    }
+
     cart = [];
     saveCart();
     renderAll();
@@ -1943,6 +2071,18 @@ renderAll();
 document.getElementById('catTabs').addEventListener('scroll', updateTabArrows);
 window.addEventListener('resize', updateTabArrows);
 setTimeout(updateTabArrows, 300); // tras el primer render, para medir bien los anchos
+
+/* Oculta la barra flotante "Generar mi orden" mientras el formulario de
+   checkout está en pantalla (evita el bug de "me manda al inicio"). */
+(function initFormularioObserver(){
+  const formularioEl = document.getElementById('formulario');
+  if(!formularioEl || typeof IntersectionObserver === 'undefined') return;
+  const observer = new IntersectionObserver(function(entries){
+    formularioEnVista = entries[0].isIntersecting;
+    actualizarVisibilidadCartBar();
+  }, { threshold: 0.1 });
+  observer.observe(formularioEl);
+})();
 </script>
 
 </body>
