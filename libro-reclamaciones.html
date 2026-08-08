@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="es-PE">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Libro de Reclamaciones — OrdenFácil.pe</title>
+<meta name="description" content="Libro de Reclamaciones Virtual de OrdenFácil.pe, conforme al Decreto Supremo N° 011-2011-PCM.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0B2A4A; --navy-2:#123A5E; --teal:#14A98A; --teal-dark:#0E8570;
+    --mint:#EAF6F2; --bg:#FFFFFF; --text:#1B2A38; --muted:#5B7285;
+    --border:#E1EAE7; --danger:#C0392B; --radius:16px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;overflow-x:hidden;}
+  body{margin:0;font-family:'Inter',system-ui,sans-serif;color:var(--text);background:#F8FBFA;line-height:1.5;overflow-x:hidden;}
+  h1,h2,h3,.brand-name{font-family:'Poppins',system-ui,sans-serif;}
+  a{color:var(--teal-dark);}
+  .container{max-width:640px;margin:0 auto;padding:0 20px;}
+
+  header{background:#fff;border-bottom:1px solid var(--border);padding:14px 0;}
+  .header-inner{display:flex;align-items:center;gap:10px;max-width:640px;margin:0 auto;padding:0 20px;}
+  .logo-icon{width:34px;height:34px;border-radius:10px;background:var(--teal);display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0;}
+  .brand-name{font-weight:700;color:var(--navy);font-size:1rem;}
+  .back-link{margin-left:auto;font-size:.85rem;font-weight:600;color:var(--navy);text-decoration:none;}
+
+  .hero{padding:28px 0 8px;text-align:center;}
+  .hero h1{color:var(--navy);font-size:1.5rem;margin:0 0 8px;}
+  .hero p{color:var(--muted);font-size:.92rem;margin:0;}
+
+  .legal-note{
+    background:var(--mint);border:1px solid var(--teal);border-radius:12px;
+    padding:14px 16px;margin:20px 0;font-size:.82rem;color:#0E5A4A;line-height:1.5;
+  }
+
+  .form-card{
+    background:#fff;border:1px solid var(--border);border-radius:20px;
+    padding:26px 22px;box-shadow:0 8px 30px -14px rgba(11,42,74,.15);margin-bottom:40px;
+  }
+  .form-card h2{font-size:1.05rem;color:var(--navy);margin:0 0 4px;}
+  .section-block{margin-bottom:26px;}
+  .section-block:last-child{margin-bottom:0;}
+
+  .field{margin-bottom:16px;}
+  .field label{display:block;font-size:.88rem;font-weight:600;color:var(--navy);margin-bottom:6px;}
+  .field .req{color:var(--danger);}
+  .field .hint-small{font-weight:400;color:var(--muted);font-size:.78rem;}
+  .row-2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  input[type=text], input[type=tel], input[type=email], input[type=number], select, textarea{
+    width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:10px;
+    font-family:inherit;font-size:.95rem;color:var(--text);background:#fff;
+  }
+  input:focus, select:focus, textarea:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px rgba(20,169,138,.15);}
+  textarea{resize:vertical;min-height:90px;}
+
+  .radio-row{display:flex;flex-wrap:wrap;gap:16px;margin-top:4px;}
+  .radio-opt{display:flex;align-items:center;gap:8px;font-size:.9rem;}
+  .radio-opt input{width:16px;height:16px;accent-color:var(--teal);}
+  .conditional{display:none;margin-top:10px;}
+  .conditional.show{display:block;}
+
+  .tipo-toggle{display:flex;gap:10px;margin-top:6px;}
+  .tipo-btn{
+    flex:1;background:#fff;border:1.5px solid var(--border);border-radius:12px;
+    padding:14px;text-align:center;cursor:pointer;font-weight:700;color:var(--navy);font-size:.92rem;
+  }
+  .tipo-btn.active{border-color:var(--teal);background:var(--mint);color:var(--teal-dark);}
+  .tipo-btn small{display:block;font-weight:400;color:var(--muted);font-size:.75rem;margin-top:3px;}
+
+  .check-line{
+    display:flex;align-items:flex-start;gap:10px;margin-bottom:14px;font-size:.85rem;color:var(--muted);
+  }
+  .check-line input{margin-top:3px;width:16px;height:16px;accent-color:var(--teal);flex-shrink:0;}
+  .check-line a{font-weight:600;text-decoration:underline;}
+
+  .btn-submit{
+    width:100%;background:var(--teal);border:none;color:#fff;font-weight:700;
+    padding:15px 20px;border-radius:12px;cursor:pointer;font-size:1rem;
+  }
+  .btn-submit:hover{background:var(--teal-dark);}
+  .btn-submit:disabled{opacity:.6;cursor:not-allowed;}
+
+  .error-text{color:var(--danger);font-size:.8rem;margin-top:5px;display:none;}
+  .field.error input, .field.error select, .field.error textarea{border-color:var(--danger);}
+  .field.error .error-text{display:block;}
+
+  .success-screen{display:none;text-align:center;padding:10px 6px;}
+  .success-screen.active{display:block;}
+  .success-icon{
+    width:60px;height:60px;border-radius:50%;background:var(--mint);color:var(--teal-dark);
+    display:flex;align-items:center;justify-content:center;margin:0 auto 16px;
+  }
+  .success-screen h2{color:var(--navy);margin:0 0 10px;}
+  .success-screen p{color:var(--muted);margin:0 0 8px;font-size:.92rem;}
+  .folio-box{
+    display:inline-block;background:var(--navy);color:#fff;font-weight:700;
+    padding:8px 16px;border-radius:10px;margin-top:10px;font-size:.9rem;
+  }
+
+  footer{background:var(--navy);color:#B9CBDA;padding:26px 0;font-size:.8rem;text-align:center;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <span class="logo-icon">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3v2M16 3v2M4 8h16M12 12v5M9.5 14.5h5"/><rect x="4" y="5" width="16" height="16" rx="3"/></svg>
+    </span>
+    <span class="brand-name">OrdenFácil<span style="color:var(--teal-dark)">.pe</span></span>
+    <a href="index.html" class="back-link">← Volver al inicio</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <h1>📖 Libro de Reclamaciones Virtual</h1>
+    <p>Conforme a la Ley N° 29571 y el Decreto Supremo N° 011-2011-PCM, este establecimiento cuenta con Libro de Reclamaciones a disposición del consumidor.</p>
+  </div>
+</section>
+
+<div class="container">
+  <div class="legal-note">
+    <strong>Reclamo:</strong> disconformidad relacionada con el producto o servicio contratado.<br>
+    <strong>Queja:</strong> disconformidad relacionada con la atención al público, no vinculada directamente al producto o servicio.<br><br>
+    Tienes derecho a recibir una respuesta en un plazo máximo de <strong>15 días hábiles</strong>. Al enviar este formulario, recibirás una copia de tu Hoja de Reclamación en el correo que indiques.
+  </div>
+
+  <div class="form-card" id="formCard">
+    <form id="reclamoForm" novalidate>
+
+      <div class="section-block">
+        <h2>1. Tipo de solicitud <span class="req">*</span></h2>
+        <div class="tipo-toggle">
+          <div class="tipo-btn active" id="btnReclamo" onclick="seleccionarTipo('Reclamo')">
+            Reclamo
+            <small>Disconformidad con el servicio</small>
+          </div>
+          <div class="tipo-btn" id="btnQueja" onclick="seleccionarTipo('Queja')">
+            Queja
+            <small>Disconformidad con la atención</small>
+          </div>
+        </div>
+        <input type="hidden" name="tipoReclamo" id="tipoReclamoInput" value="Reclamo">
+      </div>
+
+      <div class="section-block">
+        <h2>2. Datos del consumidor reclamante</h2>
+        <div class="row-2">
+          <div class="field">
+            <label>Nombres y apellidos <span class="req">*</span></label>
+            <input type="text" name="nombreConsumidor" required>
+            <span class="error-text">Ingresa tu nombre completo.</span>
+          </div>
+          <div class="field">
+            <label>N° de documento <span class="req">*</span></label>
+            <input type="text" name="documentoConsumidor" required>
+            <span class="error-text">Ingresa tu documento de identidad.</span>
+          </div>
+        </div>
+        <div class="field">
+          <label>Domicilio <span class="req">*</span></label>
+          <input type="text" name="domicilioConsumidor" required>
+          <span class="error-text">Ingresa tu domicilio.</span>
+        </div>
+        <div class="row-2">
+          <div class="field">
+            <label>Teléfono <span class="req">*</span></label>
+            <input type="tel" name="telefonoConsumidor" required>
+            <span class="error-text">Ingresa un teléfono válido.</span>
+          </div>
+          <div class="field">
+            <label>Correo electrónico <span class="req">*</span></label>
+            <input type="email" name="correoConsumidor" required>
+            <span class="error-text">Ingresa un correo válido. Aquí recibirás la copia de tu hoja de reclamación.</span>
+          </div>
+        </div>
+        <div class="field">
+          <label>¿Eres menor de edad?</label>
+          <div class="radio-row">
+            <label class="radio-opt"><input type="radio" name="esMenorEdad" value="Sí" data-toggle="apoderadoWrap">Sí</label>
+            <label class="radio-opt"><input type="radio" name="esMenorEdad" value="No" data-toggle="apoderadoWrap" checked>No</label>
+          </div>
+          <div class="conditional" id="apoderadoWrap">
+            <label style="margin-top:10px;">Nombre del padre, madre o apoderado <span class="req">*</span></label>
+            <input type="text" name="nombreApoderado">
+          </div>
+        </div>
+      </div>
+
+      <div class="section-block">
+        <h2>3. Identificación del bien contratado</h2>
+        <div class="field">
+          <label>Tipo <span class="req">*</span></label>
+          <div class="radio-row">
+            <label class="radio-opt"><input type="radio" name="tipoBien" value="Servicio" checked required>Servicio</label>
+            <label class="radio-opt"><input type="radio" name="tipoBien" value="Producto" required>Producto</label>
+          </div>
+        </div>
+        <div class="field">
+          <label>Descripción del servicio/producto <span class="req">*</span></label>
+          <input type="text" name="descripcionBien" placeholder="Ej: Solicitud de orden médica, folio OF-XXXXXXXX" required>
+          <span class="error-text">Describe brevemente el servicio contratado.</span>
+        </div>
+        <div class="field">
+          <label>Monto reclamado <span class="hint-small">(si aplica, en soles)</span></label>
+          <input type="number" name="montoReclamado" min="0" step="0.01" placeholder="0.00">
+        </div>
+      </div>
+
+      <div class="section-block">
+        <h2>4. Detalle</h2>
+        <div class="field">
+          <label>Detalle del reclamo o queja <span class="req">*</span></label>
+          <textarea name="detalleReclamo" required placeholder="Cuéntanos qué ocurrió, con el mayor detalle posible."></textarea>
+          <span class="error-text">Por favor describe tu reclamo o queja.</span>
+        </div>
+        <div class="field">
+          <label>Pedido concreto <span class="req">*</span></label>
+          <textarea name="pedidoConsumidor" required placeholder="¿Qué esperas que hagamos al respecto?"></textarea>
+          <span class="error-text">Cuéntanos qué esperas como solución.</span>
+        </div>
+      </div>
+
+      <div class="check-line">
+        <input type="checkbox" name="aceptaPrivacidadReclamo" required>
+        <span>Acepto la <a href="privacidad.html" target="_blank">Política de privacidad</a> y el tratamiento de mis datos personales para la atención de este reclamo.</span>
+      </div>
+
+      <button type="submit" class="btn-submit" id="submitBtnReclamo">Enviar reclamación</button>
+    </form>
+
+    <div class="success-screen" id="successScreenReclamo">
+      <div class="success-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+      </div>
+      <h2>Tu reclamación fue registrada</h2>
+      <p>Te responderemos dentro de un plazo máximo de 15 días hábiles. Te enviamos una copia de tu Hoja de Reclamación al correo que registraste.</p>
+      <span class="folio-box" id="folioReclamoDisplay"></span>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="container">OrdenFácil.pe — Menos trámites. Más salud.</div>
+</footer>
+
+<script>
+function seleccionarTipo(tipo){
+  document.getElementById('tipoReclamoInput').value = tipo;
+  document.getElementById('btnReclamo').classList.toggle('active', tipo === 'Reclamo');
+  document.getElementById('btnQueja').classList.toggle('active', tipo === 'Queja');
+}
+
+document.querySelectorAll('input[data-toggle]').forEach(radio=>{
+  radio.addEventListener('change', function(){
+    const wrap = document.getElementById(this.dataset.toggle);
+    if(!wrap) return;
+    const apoderadoInput = wrap.querySelector('input');
+    if(this.value === 'Sí'){
+      wrap.classList.add('show');
+      if(apoderadoInput) apoderadoInput.required = true;
+    } else {
+      wrap.classList.remove('show');
+      if(apoderadoInput) apoderadoInput.required = false;
+    }
+  });
+});
+
+const form = document.getElementById('reclamoForm');
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbzReXEC-8NK43_eg2FxPB415WQryz42h8WbaaworzTmLL9KvBlanEV6kbxIflTGiB5G/exec";
+
+form.addEventListener('submit', function(e){
+  e.preventDefault();
+
+  let valid = true;
+  form.querySelectorAll('[required]').forEach(el=>{
+    const field = el.closest('.field');
+    if(!field) return;
+    const isCheckbox = el.type === 'checkbox';
+    const isRadio = el.type === 'radio';
+    let ok;
+    if(isCheckbox){ ok = el.checked; }
+    else if(isRadio){ ok = form.querySelectorAll(`input[name="${el.name}"]:checked`).length > 0; }
+    else{ ok = el.value && el.value.trim() !== ''; }
+    if(!ok){ field.classList.add('error'); valid = false; }
+    else{ field.classList.remove('error'); }
+  });
+  const correo = form.querySelector('[name=correoConsumidor]');
+  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if(!re.test(correo.value)){ correo.closest('.field').classList.add('error'); valid = false; }
+
+  if(!valid) return;
+
+  const submitBtn = document.getElementById('submitBtnReclamo');
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Enviando...';
+
+  const fd = new FormData(form);
+  fd.set('tipoFormulario', 'reclamo');
+  fd.set('fechaEnvio', new Date().toISOString());
+  const folio = 'RC-' + Date.now().toString().slice(-8);
+  fd.set('folioReclamo', folio);
+
+  fetch(SHEET_ENDPOINT, {
+    method: 'POST',
+    mode: 'no-cors',
+    body: fd
+  })
+  .then(()=>{
+    document.getElementById('reclamoForm').style.display = 'none';
+    document.getElementById('successScreenReclamo').classList.add('active');
+    document.getElementById('folioReclamoDisplay').textContent = 'N° de hoja: ' + folio;
+  })
+  .catch((err)=>{
+    console.error(err);
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Enviar reclamación';
+    alert('Hubo un problema al enviar tu reclamación. Por favor intenta nuevamente o escríbenos directo a hola@ordenfacil.pe');
+  });
+});
+</script>
+
+</body>
+</html>
