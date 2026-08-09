@@ -73,6 +73,9 @@
   .check-line{
     display:flex;align-items:flex-start;gap:10px;margin-bottom:14px;font-size:.85rem;color:var(--muted);
   }
+  .check-line.error{background:rgba(192,57,43,.06);border-radius:8px;padding:6px;margin:-6px -6px 8px;}
+  .check-line .error-text{display:none;color:var(--danger);font-size:.78rem;margin-top:4px;}
+  .check-line.error .error-text{display:block;}
   .check-line input{margin-top:3px;width:16px;height:16px;accent-color:var(--teal);flex-shrink:0;}
   .check-line a{font-weight:600;text-decoration:underline;}
 
@@ -227,7 +230,9 @@
 
       <div class="check-line">
         <input type="checkbox" name="aceptaPrivacidadReclamo" required>
-        <span>Acepto la <a href="privacidad.html" target="_blank">Política de privacidad</a> y el tratamiento de mis datos personales para la atención de este reclamo.</span>
+        <span>Acepto la <a href="privacidad.html" target="_blank">Política de privacidad</a> y el tratamiento de mis datos personales para la atención de este reclamo.
+          <span class="error-text">Debes aceptar esto para poder enviar tu reclamación.</span>
+        </span>
       </div>
 
       <button type="submit" class="btn-submit" id="submitBtnReclamo">Enviar reclamación</button>
@@ -278,7 +283,7 @@ form.addEventListener('submit', function(e){
 
   let valid = true;
   form.querySelectorAll('[required]').forEach(el=>{
-    const field = el.closest('.field');
+    const field = el.closest('.field') || el.closest('.check-line');
     if(!field) return;
     const isCheckbox = el.type === 'checkbox';
     const isRadio = el.type === 'radio';
