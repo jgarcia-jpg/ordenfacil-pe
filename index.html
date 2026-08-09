@@ -315,6 +315,7 @@
   }
   .catalog-card h4{margin:0;font-size:.98rem;color:var(--navy);}
   .catalog-card .indic{font-size:.78rem;color:var(--teal-dark);font-weight:600;}
+  .catalog-card .item-desc{font-size:.8rem;color:var(--muted);margin:0;line-height:1.35;}
   .catalog-card .incluye{font-size:.82rem;color:var(--muted);}
   .catalog-card .incluye-toggle{
     font-size:.78rem;color:var(--teal-dark);font-weight:600;cursor:pointer;text-decoration:underline;
@@ -1118,69 +1119,69 @@ const ICON_ECO = '<svg width="18" height="15" viewBox="0 0 24 20" style="vertica
 
 const CATALOG = [
   // Análisis de laboratorio individuales
-  {id:'lab-hemograma',cat:'LaboratorioIndividual',name:'Hemograma completo',icon:'🩸'},
-  {id:'lab-lipidico',cat:'LaboratorioIndividual',name:'Perfil lipídico (colesterol, triglicéridos)',icon:'🧬'},
-  {id:'lab-colesterol',cat:'LaboratorioIndividual',name:'Colesterol total',icon:'🧬'},
-  {id:'lab-trigliceridos',cat:'LaboratorioIndividual',name:'Triglicéridos',icon:'🧬'},
-  {id:'lab-hdl',cat:'LaboratorioIndividual',name:'Colesterol HDL',icon:'🧬'},
-  {id:'lab-ldl',cat:'LaboratorioIndividual',name:'Colesterol LDL',icon:'🧬'},
-  {id:'lab-glucosa',cat:'LaboratorioIndividual',name:'Glucosa en ayunas',icon:'🩸'},
-  {id:'lab-hba1c',cat:'LaboratorioIndividual',name:'HbA1c (hemoglobina glicosilada)',icon:'🩸'},
-  {id:'lab-insulina',cat:'LaboratorioIndividual',name:'Insulina basal',icon:'🧪'},
-  {id:'lab-vitd',cat:'LaboratorioIndividual',name:'Vitamina D',icon:'☀️'},
-  {id:'lab-vitb12',cat:'LaboratorioIndividual',name:'Vitamina B12',icon:'🧪'},
-  {id:'lab-folico',cat:'LaboratorioIndividual',name:'Ácido fólico',icon:'🧪'},
-  {id:'lab-ferritina',cat:'LaboratorioIndividual',name:'Ferritina',icon:'🧪'},
-  {id:'lab-hierro',cat:'LaboratorioIndividual',name:'Hierro sérico',icon:'🧪'},
-  {id:'lab-transferrina',cat:'LaboratorioIndividual',name:'Transferrina y saturación de transferrina',icon:'🧪'},
-  {id:'lab-reticulocitos',cat:'LaboratorioIndividual',name:'Reticulocitos',icon:'🩸'},
-  {id:'lab-tsh',cat:'LaboratorioIndividual',name:'TSH',icon:'🦋'},
-  {id:'lab-t4',cat:'LaboratorioIndividual',name:'T4 Libre',icon:'🦋'},
-  {id:'lab-t3',cat:'LaboratorioIndividual',name:'T3 Libre',icon:'🦋'},
-  {id:'lab-antitpo',cat:'LaboratorioIndividual',name:'Anti-TPO',icon:'🦋'},
-  {id:'lab-creatinina',cat:'LaboratorioIndividual',name:'Creatinina sérica',icon:'🧪'},
-  {id:'lab-urea',cat:'LaboratorioIndividual',name:'Urea',icon:'🧪'},
-  {id:'lab-electrolitos',cat:'LaboratorioIndividual',name:'Electrolitos (sodio, potasio y cloro)',icon:'🧪'},
-  {id:'lab-orina',cat:'LaboratorioIndividual',name:'Examen completo de orina',icon:'🧪'},
-  {id:'lab-microalbuminuria',cat:'LaboratorioIndividual',name:'Microalbuminuria / relación albúmina-creatinina',icon:'🧪'},
-  {id:'lab-acido-urico',cat:'LaboratorioIndividual',name:'Ácido úrico',icon:'🧪'},
-  {id:'lab-tgo',cat:'LaboratorioIndividual',name:'TGO (AST)',icon:'🧪'},
-  {id:'lab-tgp',cat:'LaboratorioIndividual',name:'TGP (ALT)',icon:'🧪'},
-  {id:'lab-bilirrubinas',cat:'LaboratorioIndividual',name:'Bilirrubinas (total, directa, indirecta)',icon:'🧪'},
-  {id:'lab-fosfatasa',cat:'LaboratorioIndividual',name:'Fosfatasa alcalina',icon:'🧪'},
-  {id:'lab-ggt',cat:'LaboratorioIndividual',name:'GGT',icon:'🧪'},
-  {id:'lab-proteinas',cat:'LaboratorioIndividual',name:'Proteínas totales y albúmina',icon:'🧪'},
-  {id:'lab-calcio',cat:'LaboratorioIndividual',name:'Calcio',icon:'🧪'},
-  {id:'lab-fosforo',cat:'LaboratorioIndividual',name:'Fósforo',icon:'🧪'},
-  {id:'lab-magnesio',cat:'LaboratorioIndividual',name:'Magnesio',icon:'🧪'},
-  {id:'lab-zinc',cat:'LaboratorioIndividual',name:'Zinc',icon:'🧪'},
-  {id:'lab-pcr',cat:'LaboratorioIndividual',name:'PCR ultrasensible',icon:'🧪'},
-  {id:'lab-vsg',cat:'LaboratorioIndividual',name:'VSG (velocidad de sedimentación)',icon:'🧪'},
-  {id:'lab-coagulacion',cat:'LaboratorioIndividual',name:'Tiempos de coagulación (TP/INR, TTPa)',icon:'🩸'},
-  {id:'lab-grupo-sanguineo',cat:'LaboratorioIndividual',name:'Grupo sanguíneo y factor Rh',icon:'🩸'},
-  {id:'lab-cpk',cat:'LaboratorioIndividual',name:'CPK',icon:'🧪'},
-  {id:'lab-ldh',cat:'LaboratorioIndividual',name:'LDH',icon:'🧪'},
-  {id:'lab-psa-total',cat:'LaboratorioIndividual',name:'PSA total',icon:'🧪'},
-  {id:'lab-psa-libre',cat:'LaboratorioIndividual',name:'PSA libre',icon:'🧪'},
-  {id:'lab-testosterona-total',cat:'LaboratorioIndividual',name:'Testosterona total',icon:'🧬'},
-  {id:'lab-testosterona-libre',cat:'LaboratorioIndividual',name:'Testosterona libre',icon:'🧬'},
-  {id:'lab-shbg',cat:'LaboratorioIndividual',name:'SHBG',icon:'🧬'},
-  {id:'lab-fsh',cat:'LaboratorioIndividual',name:'FSH',icon:'🧬'},
-  {id:'lab-lh',cat:'LaboratorioIndividual',name:'LH',icon:'🧬'},
-  {id:'lab-estradiol',cat:'LaboratorioIndividual',name:'Estradiol',icon:'🧬'},
-  {id:'lab-progesterona',cat:'LaboratorioIndividual',name:'Progesterona',icon:'🧬'},
-  {id:'lab-prolactina',cat:'LaboratorioIndividual',name:'Prolactina',icon:'🧬'},
-  {id:'lab-herpes1',cat:'LaboratorioIndividual',name:'IgG e IgM para Herpes I',icon:'🧪'},
-  {id:'lab-herpes2',cat:'LaboratorioIndividual',name:'IgG e IgM para Herpes II',icon:'🧪'},
+  {id:'lab-hemograma',cat:'LaboratorioIndividual',name:'Hemograma completo',icon:'🩸',desc:'Analiza tus glóbulos rojos, blancos y plaquetas. Ayuda a detectar anemia, infecciones y problemas de coagulación.'},
+  {id:'lab-lipidico',cat:'LaboratorioIndividual',name:'Perfil lipídico (colesterol, triglicéridos)',icon:'🧬',desc:'Mide el colesterol y los triglicéridos en tu sangre, para evaluar tu riesgo cardiovascular.'},
+  {id:'lab-colesterol',cat:'LaboratorioIndividual',name:'Colesterol total',icon:'🧬',desc:'Mide el colesterol total en tu sangre. Niveles altos aumentan el riesgo cardiovascular.'},
+  {id:'lab-trigliceridos',cat:'LaboratorioIndividual',name:'Triglicéridos',icon:'🧬',desc:'Un tipo de grasa en la sangre; niveles altos se asocian a riesgo cardiovascular y del páncreas.'},
+  {id:'lab-hdl',cat:'LaboratorioIndividual',name:'Colesterol HDL',icon:'🧬',desc:'El colesterol "bueno". Ayuda a limpiar el colesterol de las arterias.'},
+  {id:'lab-ldl',cat:'LaboratorioIndividual',name:'Colesterol LDL',icon:'🧬',desc:'El colesterol "malo". Niveles altos favorecen la acumulación de placa en las arterias.'},
+  {id:'lab-glucosa',cat:'LaboratorioIndividual',name:'Glucosa en ayunas',icon:'🩸',desc:'Mide el azúcar en tu sangre en ayunas. Es la base para detectar prediabetes o diabetes.'},
+  {id:'lab-hba1c',cat:'LaboratorioIndividual',name:'HbA1c (hemoglobina glicosilada)',icon:'🩸',desc:'Muestra tu promedio de azúcar en sangre de los últimos 2-3 meses. Clave para el seguimiento de diabetes.'},
+  {id:'lab-insulina',cat:'LaboratorioIndividual',name:'Insulina basal',icon:'🧪',desc:'Mide la hormona que regula el azúcar en sangre; útil para evaluar resistencia a la insulina.'},
+  {id:'lab-vitd',cat:'LaboratorioIndividual',name:'Vitamina D',icon:'☀️',desc:'Evalúa tus niveles de vitamina D, importante para huesos, músculos y sistema inmune.'},
+  {id:'lab-vitb12',cat:'LaboratorioIndividual',name:'Vitamina B12',icon:'🧪',desc:'Evalúa tus reservas de vitamina B12, clave para la formación de glóbulos rojos y el sistema nervioso.'},
+  {id:'lab-folico',cat:'LaboratorioIndividual',name:'Ácido fólico',icon:'🧪',desc:'Mide el ácido fólico (vitamina B9), importante para la formación de células nuevas.'},
+  {id:'lab-ferritina',cat:'LaboratorioIndividual',name:'Ferritina',icon:'🧪',desc:'Refleja tus reservas de hierro en el cuerpo. Se usa para estudiar anemia o exceso de hierro.'},
+  {id:'lab-hierro',cat:'LaboratorioIndividual',name:'Hierro sérico',icon:'🧪',desc:'Mide el hierro circulante en tu sangre, junto con Ferritina ayuda a estudiar la anemia.'},
+  {id:'lab-transferrina',cat:'LaboratorioIndividual',name:'Transferrina y saturación de transferrina',icon:'🧪',desc:'Mide la proteína que transporta el hierro en la sangre; complementa el estudio de anemia.'},
+  {id:'lab-reticulocitos',cat:'LaboratorioIndividual',name:'Reticulocitos',icon:'🩸',desc:'Mide los glóbulos rojos "jóvenes"; ayuda a saber si tu médula ósea está produciendo sangre normalmente.'},
+  {id:'lab-tsh',cat:'LaboratorioIndividual',name:'TSH',icon:'🦋',desc:'La hormona que regula tu tiroides. Es el primer examen para detectar hipo o hipertiroidismo.'},
+  {id:'lab-t4',cat:'LaboratorioIndividual',name:'T4 Libre',icon:'🦋',desc:'Hormona tiroidea; se pide junto con TSH para precisar el diagnóstico de la tiroides.'},
+  {id:'lab-t3',cat:'LaboratorioIndividual',name:'T3 Libre',icon:'🦋',desc:'Otra hormona tiroidea, útil en el estudio más detallado de la función de tu tiroides.'},
+  {id:'lab-antitpo',cat:'LaboratorioIndividual',name:'Anti-TPO',icon:'🦋',desc:'Detecta anticuerpos contra la tiroides; ayuda a identificar tiroiditis autoinmune (ej. Hashimoto).'},
+  {id:'lab-creatinina',cat:'LaboratorioIndividual',name:'Creatinina sérica',icon:'🧪',desc:'Mide qué tan bien están filtrando tus riñones (incluye el cálculo de tu tasa de filtración, eGFR).'},
+  {id:'lab-urea',cat:'LaboratorioIndividual',name:'Urea',icon:'🧪',desc:'Otro indicador de función renal, se evalúa junto con la creatinina.'},
+  {id:'lab-electrolitos',cat:'LaboratorioIndividual',name:'Electrolitos (sodio, potasio y cloro)',icon:'🧪',desc:'Mide sodio, potasio y cloro en tu sangre; claves para el equilibrio de líquidos, riñones y corazón.'},
+  {id:'lab-orina',cat:'LaboratorioIndividual',name:'Examen completo de orina',icon:'🧪',desc:'Analiza tu orina para detectar infecciones, problemas renales u otras alteraciones.'},
+  {id:'lab-microalbuminuria',cat:'LaboratorioIndividual',name:'Microalbuminuria / relación albúmina-creatinina',icon:'🧪',desc:'Detecta pérdida temprana de proteína por la orina, señal inicial de daño renal (frecuente en diabetes/hipertensión).'},
+  {id:'lab-acido-urico',cat:'LaboratorioIndividual',name:'Ácido úrico',icon:'🧪',desc:'Mide el ácido úrico en sangre; niveles altos se relacionan con gota y cálculos renales.'},
+  {id:'lab-tgo',cat:'LaboratorioIndividual',name:'TGO (AST)',icon:'🧪',desc:'Enzima hepática (AST); su elevación indica daño o inflamación del hígado.'},
+  {id:'lab-tgp',cat:'LaboratorioIndividual',name:'TGP (ALT)',icon:'🧪',desc:'Enzima hepática (ALT), más específica del hígado; se evalúa junto con la TGO.'},
+  {id:'lab-bilirrubinas',cat:'LaboratorioIndividual',name:'Bilirrubinas (total, directa, indirecta)',icon:'🧪',desc:'Mide la bilirrubina en sangre; su elevación puede indicar problemas hepáticos o de vías biliares.'},
+  {id:'lab-fosfatasa',cat:'LaboratorioIndividual',name:'Fosfatasa alcalina',icon:'🧪',desc:'Enzima relacionada con el hígado y los huesos; ayuda a estudiar enfermedades hepáticas u óseas.'},
+  {id:'lab-ggt',cat:'LaboratorioIndividual',name:'GGT',icon:'🧪',desc:'Enzima hepática sensible al consumo de alcohol y a obstrucciones de la vía biliar.'},
+  {id:'lab-proteinas',cat:'LaboratorioIndividual',name:'Proteínas totales y albúmina',icon:'🧪',desc:'Mide las proteínas totales y la albúmina en tu sangre; reflejan tu estado nutricional y función hepática.'},
+  {id:'lab-calcio',cat:'LaboratorioIndividual',name:'Calcio',icon:'🧪',desc:'Mide el calcio en sangre; importante para huesos, músculos y sistema nervioso.'},
+  {id:'lab-fosforo',cat:'LaboratorioIndividual',name:'Fósforo',icon:'🧪',desc:'Mide el fósforo en sangre, relacionado con la salud ósea y renal.'},
+  {id:'lab-magnesio',cat:'LaboratorioIndividual',name:'Magnesio',icon:'🧪',desc:'Mide el magnesio en sangre, un mineral clave para músculos, nervios y corazón.'},
+  {id:'lab-zinc',cat:'LaboratorioIndividual',name:'Zinc',icon:'🧪',desc:'Evalúa tus niveles de zinc, un mineral importante para el sistema inmune y la cicatrización.'},
+  {id:'lab-pcr',cat:'LaboratorioIndividual',name:'PCR ultrasensible',icon:'🧪',desc:'Marcador de inflamación en el cuerpo; útil para evaluar riesgo cardiovascular o procesos inflamatorios.'},
+  {id:'lab-vsg',cat:'LaboratorioIndividual',name:'VSG (velocidad de sedimentación)',icon:'🧪',desc:'Otro marcador de inflamación en el cuerpo, complementario a la PCR.'},
+  {id:'lab-coagulacion',cat:'LaboratorioIndividual',name:'Tiempos de coagulación (TP/INR, TTPa)',icon:'🩸',desc:'Evalúa qué tan bien coagula tu sangre; se pide antes de cirugías o si hay sangrados anormales.'},
+  {id:'lab-grupo-sanguineo',cat:'LaboratorioIndividual',name:'Grupo sanguíneo y factor Rh',icon:'🩸',desc:'Determina tu grupo sanguíneo (A, B, AB, O) y factor Rh; se pide antes de cirugías o transfusiones.'},
+  {id:'lab-cpk',cat:'LaboratorioIndividual',name:'CPK',icon:'🧪',desc:'Enzima muscular; se eleva con daño muscular, ejercicio intenso o algunos problemas cardiacos.'},
+  {id:'lab-ldh',cat:'LaboratorioIndividual',name:'LDH',icon:'🧪',desc:'Enzima presente en varios tejidos; ayuda a detectar daño celular general.'},
+  {id:'lab-psa-total',cat:'LaboratorioIndividual',name:'PSA total',icon:'🧪',desc:'Marcador relacionado con la próstata; se usa en el chequeo preventivo en hombres.'},
+  {id:'lab-psa-libre',cat:'LaboratorioIndividual',name:'PSA libre',icon:'🧪',desc:'Complementa al PSA total para precisar mejor el riesgo prostático.'},
+  {id:'lab-testosterona-total',cat:'LaboratorioIndividual',name:'Testosterona total',icon:'🧬',desc:'Mide la hormona testosterona en sangre.'},
+  {id:'lab-testosterona-libre',cat:'LaboratorioIndividual',name:'Testosterona libre',icon:'🧬',desc:'Mide la fracción "activa" de la testosterona, no unida a proteínas.'},
+  {id:'lab-shbg',cat:'LaboratorioIndividual',name:'SHBG',icon:'🧬',desc:'Proteína que transporta hormonas sexuales; ayuda a interpretar mejor los niveles de testosterona.'},
+  {id:'lab-fsh',cat:'LaboratorioIndividual',name:'FSH',icon:'🧬',desc:'Hormona relacionada con la fertilidad y la función ovárica/testicular.'},
+  {id:'lab-lh',cat:'LaboratorioIndividual',name:'LH',icon:'🧬',desc:'Hormona relacionada con la ovulación y la producción de testosterona.'},
+  {id:'lab-estradiol',cat:'LaboratorioIndividual',name:'Estradiol',icon:'🧬',desc:'Principal hormona estrogénica; se evalúa en fertilidad, menopausia y salud hormonal.'},
+  {id:'lab-progesterona',cat:'LaboratorioIndividual',name:'Progesterona',icon:'🧬',desc:'Hormona relacionada con el ciclo menstrual y el embarazo.'},
+  {id:'lab-prolactina',cat:'LaboratorioIndividual',name:'Prolactina',icon:'🧬',desc:'Hormona relacionada con la lactancia; sus alteraciones pueden afectar el ciclo menstrual o la fertilidad.'},
+  {id:'lab-herpes1',cat:'LaboratorioIndividual',name:'IgG e IgM para Herpes I',icon:'🧪',desc:'Detecta anticuerpos contra el virus del herpes simple tipo 1 (habitualmente oral).'},
+  {id:'lab-herpes2',cat:'LaboratorioIndividual',name:'IgG e IgM para Herpes II',icon:'🧪',desc:'Detecta anticuerpos contra el virus del herpes simple tipo 2 (habitualmente genital).'},
   // Cardiología básica
   {id:'ecg-reposo',cat:'Ecocardiograma',name:'Electrocardiograma (EKG) de reposo',icon:'💓'},
   // Ecografía
-  {id:'eco-abdominal',cat:'Ecografía',name:'Ecografía abdominal',icon:ICON_ECO},
-  {id:'eco-pelvica',cat:'Ecografía',name:'Ecografía pélvica',icon:ICON_ECO},
-  {id:'eco-obstetrica',cat:'Ecografía',name:'Ecografía obstétrica (embarazo)',icon:ICON_ECO},
-  {id:'eco-tiroidea',cat:'Ecografía',name:'Ecografía tiroidea',icon:ICON_ECO},
-  {id:'eco-mamaria',cat:'Ecografía',name:'Ecografía mamaria',icon:ICON_ECO},
-  {id:'eco-partesblandas',cat:'Ecografía',name:'Ecografía de partes blandas',icon:ICON_ECO},
+  {id:'eco-abdominal',cat:'Ecografía',name:'Ecografía abdominal',icon:'🤰'},
+  {id:'eco-pelvica',cat:'Ecografía',name:'Ecografía pélvica',icon:'🤰'},
+  {id:'eco-obstetrica',cat:'Ecografía',name:'Ecografía obstétrica (embarazo)',icon:'🤰'},
+  {id:'eco-tiroidea',cat:'Ecografía',name:'Ecografía tiroidea',icon:'🤰'},
+  {id:'eco-mamaria',cat:'Ecografía',name:'Ecografía mamaria',icon:'🤰'},
+  {id:'eco-partesblandas',cat:'Ecografía',name:'Ecografía de partes blandas',icon:'🤰'},
   // Radiografía
   {id:'rx-torax',cat:'Radiografía',name:'Radiografía de tórax',icon:'📸'},
   // Holter
@@ -1197,32 +1198,32 @@ const CATALOG = [
   {id:'tac-abdominal',cat:'Tomografía',name:'Tomografía abdominal (sin contraste)',icon:'📷'},
   {id:'tac-cerebral',cat:'Tomografía',name:'Tomografía cerebral (sin contraste)',icon:'📷'},
   // Paquetes de laboratorio
-  {id:'pkg-01',cat:'Paquetes',name:'Chequeo General Básico',indic:'Adultos sanos 18-39 años',incluye:'Hemograma completo, Glucosa, Creatinina, Urea, Perfil lipídico, TGO, TGP, Bilirrubina total, Fosfatasa alcalina, GGT, Proteínas totales, Albúmina, Sodio, Potasio, Cloro, Examen completo de orina'},
-  {id:'pkg-02',cat:'Paquetes',name:'Chequeo General Intermedio',indic:'Adultos 40-59 años',incluye:'Hemograma completo, Glucosa, Creatinina, Urea, Perfil lipídico, TGO, TGP, Bilirrubina total, Fosfatasa alcalina, GGT, Proteínas totales, Albúmina, Sodio, Potasio, Cloro, Examen completo de orina, HbA1c, TSH, Calcio, Fósforo, Magnesio, Ácido úrico'},
-  {id:'pkg-03',cat:'Paquetes',name:'Chequeo General Premium',indic:'>60 años o chequeo ejecutivo',incluye:'Hemograma completo, Glucosa, Creatinina, Urea, Perfil lipídico, TGO, TGP, Bilirrubina total, Fosfatasa alcalina, GGT, Proteínas totales, Albúmina, Sodio, Potasio, Cloro, Examen completo de orina, HbA1c, TSH, Calcio, Fósforo, Magnesio, Ácido úrico, Ferritina, Hierro sérico, Transferrina, Saturación de transferrina, Vitamina B12, Ácido fólico, Vitamina D, PCR ultrasensible'},
-  {id:'pkg-04',cat:'Paquetes',name:'Chequeo Metabólico',indic:'Obesidad, síndrome metabólico',incluye:'Hemograma, Glucosa, HbA1c, Insulina basal, Perfil lipídico, Ácido úrico, TGO, TGP, GGT'},
-  {id:'pkg-05',cat:'Paquetes',name:'Chequeo Renal',indic:'Hipertensión, diabetes, enfermedad renal',incluye:'Creatinina, Urea, Sodio, Potasio, Cloro, Calcio, Fósforo, Magnesio, Examen de orina, Microalbuminuria, Relación albúmina/creatinina'},
-  {id:'pkg-06',cat:'Paquetes',name:'Chequeo Hepático',indic:'Esteatosis hepática, hepatopatías, consumo de alcohol',incluye:'TGO, TGP, Fosfatasa alcalina, GGT, Bilirrubina total/directa/indirecta, Albúmina, Proteínas totales'},
-  {id:'pkg-07',cat:'Paquetes',name:'Chequeo Cardiovascular',indic:'Prevención cardiovascular',incluye:'Perfil lipídico, Glucosa, HbA1c, PCR ultrasensible, Lipoproteína(a) (opcional), ApoB (opcional)'},
-  {id:'pkg-08',cat:'Paquetes',name:'Chequeo Tiroideo',indic:'Fatiga, aumento de peso, alteraciones tiroideas',incluye:'TSH, T4 Libre, T3 Libre (opcional), Anti-TPO (opcional)'},
-  {id:'pkg-09',cat:'Paquetes',name:'Chequeo de Vitaminas y Micronutrientes',indic:'Fatiga, malabsorción, bariatría',incluye:'Vitamina D, Vitamina B12, Ácido fólico, Ferritina, Hierro sérico, Transferrina, Saturación de transferrina'},
-  {id:'pkg-10',cat:'Paquetes',name:'Chequeo de Anemia',indic:'Sospecha de anemia',incluye:'Hemograma, Reticulocitos, Ferritina, Hierro sérico, Transferrina, Saturación de transferrina, Vitamina B12, Ácido fólico'},
-  {id:'pkg-11',cat:'Paquetes',name:'Chequeo Masculino (<40 años)',indic:'Prevención en hombres jóvenes',incluye:'Hemograma, Glucosa, HbA1c, Perfil lipídico, Creatinina, TGO, TGP, TSH, Examen de orina'},
-  {id:'pkg-12',cat:'Paquetes',name:'Chequeo Masculino (>40 años)',indic:'Prevención en hombres mayores',incluye:'Hemograma, Glucosa, HbA1c, Perfil lipídico, Creatinina, TGO, TGP, TSH, Examen de orina, PSA total, PSA libre'},
-  {id:'pkg-13',cat:'Paquetes',name:'Chequeo Femenino',indic:'Prevención en mujeres',incluye:'Hemograma, Glucosa, HbA1c, Perfil lipídico, Creatinina, TSH, Ferritina, Hierro, Examen de orina'},
-  {id:'pkg-14',cat:'Paquetes',name:'Chequeo Menopausia',indic:'Mujeres con sospecha de menopausia',incluye:'FSH, Estradiol, TSH, Vitamina D, Calcio'},
-  {id:'pkg-15',cat:'Paquetes',name:'Chequeo Obesidad',indic:'Sobrepeso y obesidad',incluye:'Hemograma, Glucosa, HbA1c, Insulina basal, Perfil lipídico, Creatinina, Ácido úrico, TGO, TGP, GGT, TSH, Vitamina D, Ferritina, Vitamina B12'},
-  {id:'pkg-16',cat:'Paquetes',name:'Chequeo Hipertensión',indic:'Hipertensos',incluye:'Hemograma, Glucosa, HbA1c, Creatinina, Urea, Electrolitos, Perfil lipídico, Examen de orina, Microalbuminuria'},
-  {id:'pkg-17',cat:'Paquetes',name:'Chequeo Diabetes',indic:'Diabéticos',incluye:'HbA1c, Glucosa, Creatinina, Perfil lipídico, Examen de orina, Microalbuminuria, Relación albúmina/creatinina'},
-  {id:'pkg-18',cat:'Paquetes',name:'Chequeo Fatiga Crónica',indic:'Cansancio persistente',incluye:'Hemograma, Ferritina, Hierro, Vitamina B12, Ácido fólico, TSH, T4 Libre, Vitamina D, PCR, VSG'},
-  {id:'pkg-19',cat:'Paquetes',name:'Chequeo Preoperatorio',indic:'Cirugía programada',incluye:'Hemograma, Glucosa, Creatinina, Urea, Electrolitos, TP/INR, TTPa, Grupo y factor sanguíneo, Examen de orina'},
-  {id:'pkg-20',cat:'Paquetes',name:'Perfil Deportivo',indic:'',incluye:'Hemograma, Glucosa, Creatinina, CPK, LDH, Perfil lipídico, Electrolitos, Ferritina, Vitamina D, TSH'},
-  {id:'pkg-21',cat:'Paquetes',name:'Perfil Bariátrico (preoperatorio)',indic:'',incluye:'Hemograma, Glucosa, HbA1c, Perfil lipídico, Creatinina, TGO, TGP, GGT, Albúmina, Proteínas totales, Ferritina, Hierro, B12, Ácido fólico, Vitamina D, Calcio, Magnesio, Fósforo, Zinc'},
-  {id:'pkg-22',cat:'Paquetes',name:'Perfil Sexual Masculino',indic:'',incluye:'Testosterona total, Testosterona libre, SHBG, LH, FSH, Prolactina, Estradiol'},
-  {id:'pkg-23',cat:'Paquetes',name:'Perfil Hormonal Femenino',indic:'',incluye:'FSH, LH, Estradiol, Progesterona, Prolactina, TSH'},
-  {id:'pkg-24',cat:'Paquetes',name:'Perfil Hepático Completo',indic:'',incluye:'TGO, TGP, GGT, Fosfatasa alcalina, Bilirrubinas, Albúmina, Proteínas totales, TP/INR'},
-  {id:'pkg-25',cat:'Paquetes',name:'Perfil Renal Completo',indic:'',incluye:'Creatinina, Urea, Electrolitos, Calcio, Fósforo, Magnesio, Examen de orina, Microalbuminuria'},
-  {id:'pkg-26',cat:'Paquetes',name:'Paquete ITS',indic:'Infecciones de transmisión sexual',incluye:'VIH 4.ª generación, Sífilis RPR cuantitativo, HBsAg, Anti-HBc, Anti-HCV, Clamidia NAAT, Gonorrea NAAT'},
+  {id:'pkg-01',cat:'Paquetes',name:'Chequeo General Básico',indic:'Adultos sanos 18-39 años',incluye:'Hemograma completo, Glucosa, Creatinina, Urea, Perfil lipídico, TGO, TGP, Bilirrubina total, Fosfatasa alcalina, GGT, Proteínas totales, Albúmina, Sodio, Potasio, Cloro, Examen completo de orina',icon:'🩺'},
+  {id:'pkg-02',cat:'Paquetes',name:'Chequeo General Intermedio',indic:'Adultos 40-59 años',incluye:'Hemograma completo, Glucosa, Creatinina, Urea, Perfil lipídico, TGO, TGP, Bilirrubina total, Fosfatasa alcalina, GGT, Proteínas totales, Albúmina, Sodio, Potasio, Cloro, Examen completo de orina, HbA1c, TSH, Calcio, Fósforo, Magnesio, Ácido úrico',icon:'🩺'},
+  {id:'pkg-03',cat:'Paquetes',name:'Chequeo General Premium',indic:'>60 años o chequeo ejecutivo',incluye:'Hemograma completo, Glucosa, Creatinina, Urea, Perfil lipídico, TGO, TGP, Bilirrubina total, Fosfatasa alcalina, GGT, Proteínas totales, Albúmina, Sodio, Potasio, Cloro, Examen completo de orina, HbA1c, TSH, Calcio, Fósforo, Magnesio, Ácido úrico, Ferritina, Hierro sérico, Transferrina, Saturación de transferrina, Vitamina B12, Ácido fólico, Vitamina D, PCR ultrasensible',icon:'✨'},
+  {id:'pkg-04',cat:'Paquetes',name:'Chequeo Metabólico',indic:'Obesidad, síndrome metabólico',incluye:'Hemograma, Glucosa, HbA1c, Insulina basal, Perfil lipídico, Ácido úrico, TGO, TGP, GGT',icon:'⚖️'},
+  {id:'pkg-05',cat:'Paquetes',name:'Chequeo Renal',indic:'Hipertensión, diabetes, enfermedad renal',incluye:'Creatinina, Urea, Sodio, Potasio, Cloro, Calcio, Fósforo, Magnesio, Examen de orina, Microalbuminuria, Relación albúmina/creatinina',icon:'🫘'},
+  {id:'pkg-06',cat:'Paquetes',name:'Chequeo Hepático',indic:'Esteatosis hepática, hepatopatías, consumo de alcohol',incluye:'TGO, TGP, Fosfatasa alcalina, GGT, Bilirrubina total/directa/indirecta, Albúmina, Proteínas totales',icon:'🧪'},
+  {id:'pkg-07',cat:'Paquetes',name:'Chequeo Cardiovascular',indic:'Prevención cardiovascular',incluye:'Perfil lipídico, Glucosa, HbA1c, PCR ultrasensible, Lipoproteína(a) (opcional), ApoB (opcional)',icon:'❤️'},
+  {id:'pkg-08',cat:'Paquetes',name:'Chequeo Tiroideo',indic:'Fatiga, aumento de peso, alteraciones tiroideas',incluye:'TSH, T4 Libre, T3 Libre (opcional), Anti-TPO (opcional)',icon:'🦋'},
+  {id:'pkg-09',cat:'Paquetes',name:'Chequeo de Vitaminas y Micronutrientes',indic:'Fatiga, malabsorción, bariatría',incluye:'Vitamina D, Vitamina B12, Ácido fólico, Ferritina, Hierro sérico, Transferrina, Saturación de transferrina',icon:'🍊'},
+  {id:'pkg-10',cat:'Paquetes',name:'Chequeo de Anemia',indic:'Sospecha de anemia',incluye:'Hemograma, Reticulocitos, Ferritina, Hierro sérico, Transferrina, Saturación de transferrina, Vitamina B12, Ácido fólico',icon:'🩸'},
+  {id:'pkg-11',cat:'Paquetes',name:'Chequeo Masculino (<40 años)',indic:'Prevención en hombres jóvenes',incluye:'Hemograma, Glucosa, HbA1c, Perfil lipídico, Creatinina, TGO, TGP, TSH, Examen de orina',icon:'👨'},
+  {id:'pkg-12',cat:'Paquetes',name:'Chequeo Masculino (>40 años)',indic:'Prevención en hombres mayores',incluye:'Hemograma, Glucosa, HbA1c, Perfil lipídico, Creatinina, TGO, TGP, TSH, Examen de orina, PSA total, PSA libre',icon:'👨'},
+  {id:'pkg-13',cat:'Paquetes',name:'Chequeo Femenino',indic:'Prevención en mujeres',incluye:'Hemograma, Glucosa, HbA1c, Perfil lipídico, Creatinina, TSH, Ferritina, Hierro, Examen de orina',icon:'👩'},
+  {id:'pkg-14',cat:'Paquetes',name:'Chequeo Menopausia',indic:'Mujeres con sospecha de menopausia',incluye:'FSH, Estradiol, TSH, Vitamina D, Calcio',icon:'👩'},
+  {id:'pkg-15',cat:'Paquetes',name:'Chequeo Obesidad',indic:'Sobrepeso y obesidad',incluye:'Hemograma, Glucosa, HbA1c, Insulina basal, Perfil lipídico, Creatinina, Ácido úrico, TGO, TGP, GGT, TSH, Vitamina D, Ferritina, Vitamina B12',icon:'⚖️'},
+  {id:'pkg-16',cat:'Paquetes',name:'Chequeo Hipertensión',indic:'Hipertensos',incluye:'Hemograma, Glucosa, HbA1c, Creatinina, Urea, Electrolitos, Perfil lipídico, Examen de orina, Microalbuminuria',icon:'❤️'},
+  {id:'pkg-17',cat:'Paquetes',name:'Chequeo Diabetes',indic:'Diabéticos',incluye:'HbA1c, Glucosa, Creatinina, Perfil lipídico, Examen de orina, Microalbuminuria, Relación albúmina/creatinina',icon:'🍬'},
+  {id:'pkg-18',cat:'Paquetes',name:'Chequeo Fatiga Crónica',indic:'Cansancio persistente',incluye:'Hemograma, Ferritina, Hierro, Vitamina B12, Ácido fólico, TSH, T4 Libre, Vitamina D, PCR, VSG',icon:'😴'},
+  {id:'pkg-19',cat:'Paquetes',name:'Chequeo Preoperatorio',indic:'Cirugía programada',incluye:'Hemograma, Glucosa, Creatinina, Urea, Electrolitos, TP/INR, TTPa, Grupo y factor sanguíneo, Examen de orina',icon:'🩺'},
+  {id:'pkg-20',cat:'Paquetes',name:'Perfil Deportivo',indic:'',incluye:'Hemograma, Glucosa, Creatinina, CPK, LDH, Perfil lipídico, Electrolitos, Ferritina, Vitamina D, TSH',icon:'🏃'},
+  {id:'pkg-21',cat:'Paquetes',name:'Perfil Bariátrico (preoperatorio)',indic:'',incluye:'Hemograma, Glucosa, HbA1c, Perfil lipídico, Creatinina, TGO, TGP, GGT, Albúmina, Proteínas totales, Ferritina, Hierro, B12, Ácido fólico, Vitamina D, Calcio, Magnesio, Fósforo, Zinc',icon:'⚖️'},
+  {id:'pkg-22',cat:'Paquetes',name:'Perfil Sexual Masculino',indic:'',incluye:'Testosterona total, Testosterona libre, SHBG, LH, FSH, Prolactina, Estradiol',icon:'👨'},
+  {id:'pkg-23',cat:'Paquetes',name:'Perfil Hormonal Femenino',indic:'',incluye:'FSH, LH, Estradiol, Progesterona, Prolactina, TSH',icon:'👩'},
+  {id:'pkg-24',cat:'Paquetes',name:'Perfil Hepático Completo',indic:'',incluye:'TGO, TGP, GGT, Fosfatasa alcalina, Bilirrubinas, Albúmina, Proteínas totales, TP/INR',icon:'🧪'},
+  {id:'pkg-25',cat:'Paquetes',name:'Perfil Renal Completo',indic:'',incluye:'Creatinina, Urea, Electrolitos, Calcio, Fósforo, Magnesio, Examen de orina, Microalbuminuria',icon:'🫘'},
+  {id:'pkg-26',cat:'Paquetes',name:'Paquete ITS',indic:'Infecciones de transmisión sexual',incluye:'VIH 4.ª generación, Sífilis RPR cuantitativo, HBsAg, Anti-HBc, Anti-HCV, Clamidia NAAT, Gonorrea NAAT',icon:'🛡️'},
 ];
 
 const CATALOG_BY_ID = {};
@@ -1369,6 +1370,7 @@ function toggleCartItem(id){
 }
 
 function mostrarSugerenciaCrossSell(idAgregado){
+  window._crossSellTriggerId = idAgregado; // para poder re-renderizar tras agregar una sugerencia
   const sugerencias = (CROSS_SELL[idAgregado] || []).filter(s => !isInCart(s.id));
   const toast = document.getElementById('crossSellToast');
   if(!toast || sugerencias.length === 0) return;
@@ -1384,12 +1386,20 @@ function mostrarSugerenciaCrossSell(idAgregado){
   `;
   toast.classList.add('show');
   clearTimeout(window._crossSellTimeout);
-  window._crossSellTimeout = setTimeout(()=> toast.classList.remove('show'), 9000);
+  window._crossSellTimeout = setTimeout(()=> toast.classList.remove('show'), 12000);
 }
 
 function agregarSugerenciaCrossSell(id){
   if(!isInCart(id)){ cart.push(id); saveCart(); renderAll(); }
-  document.getElementById('crossSellToast').classList.remove('show');
+  // En vez de cerrar el toast, lo volvemos a armar con las sugerencias que
+  // queden pendientes (si había más de una, ej. EKG + Herpes I + Herpes II).
+  const triggerId = window._crossSellTriggerId;
+  const restantes = triggerId ? (CROSS_SELL[triggerId] || []).filter(s => !isInCart(s.id)) : [];
+  if(restantes.length > 0){
+    mostrarSugerenciaCrossSell(triggerId);
+  } else {
+    document.getElementById('crossSellToast').classList.remove('show');
+  }
 }
 
 function removeFromCart(id){
@@ -1460,15 +1470,66 @@ function setActiveTab(key){
   renderCatalogGrid();
 }
 
+/* Palabras clave en lenguaje coloquial (no técnico) que amplían la búsqueda.
+   Ej: alguien que no sabe qué examen pedir busca "riñón" y le mostramos todo
+   lo relacionado a función renal, aunque el catálogo diga "Creatinina", etc. */
+const SEARCH_SYNONYMS = {
+  'riñon': ['renal', 'creatinina', 'urea', 'microalbuminuria'],
+  'riñón': ['renal', 'creatinina', 'urea', 'microalbuminuria'],
+  'corazon': ['cardio', 'cardiovascular', 'ekg', 'electrocardiograma', 'ecocardiograma', 'holter', 'presión'],
+  'corazón': ['cardio', 'cardiovascular', 'ekg', 'electrocardiograma', 'ecocardiograma', 'holter', 'presión'],
+  'higado': ['hepátic', 'tgo', 'tgp', 'bilirrubina', 'transaminasas'],
+  'hígado': ['hepátic', 'tgo', 'tgp', 'bilirrubina', 'transaminasas'],
+  'tiroides': ['tiroideo', 'tsh'],
+  'azucar': ['glucosa', 'hba1c', 'diabetes'],
+  'azúcar': ['glucosa', 'hba1c', 'diabetes'],
+  'diabetes': ['glucosa', 'hba1c'],
+  'presion': ['hipertensión', 'holter'],
+  'presión': ['hipertensión', 'holter'],
+  'colesterol': ['lipídico', 'triglicéridos', 'hdl', 'ldl'],
+  'hueso': ['radiografía'],
+  'huesos': ['radiografía'],
+  'pulmon': ['radiografía', 'tórax'],
+  'pulmón': ['radiografía', 'tórax'],
+  'embarazo': ['obstétrica', 'gestación'],
+  'embarazada': ['obstétrica', 'gestación'],
+  'prostata': ['psa'],
+  'próstata': ['psa'],
+  'its': ['transmisión sexual', 'vih', 'sífilis'],
+  'ets': ['transmisión sexual', 'vih', 'sífilis'],
+  'anemia': ['hemograma', 'ferritina', 'hierro'],
+  'defensas': ['hemograma'],
+  'cirugia': ['preoperatorio'],
+  'cirugía': ['preoperatorio'],
+  'operacion': ['preoperatorio'],
+  'operación': ['preoperatorio'],
+  'cansancio': ['fatiga'],
+  'menopausia': ['menopausia', 'fsh', 'estradiol'],
+  'testosterona': ['sexual masculino'],
+  'fertilidad': ['hormonal', 'fsh', 'lh'],
+};
+
+function expandirBusquedaConSinonimos(q){
+  const terminos = [q];
+  Object.keys(SEARCH_SYNONYMS).forEach(clave=>{
+    if(q.includes(clave)) terminos.push(...SEARCH_SYNONYMS[clave]);
+  });
+  return terminos;
+}
+
 function renderCatalogGrid(){
   const grid = document.getElementById('catalogGrid');
   const q = searchQuery.trim().toLowerCase();
   let items;
   if(q.length > 0){
+    const terminos = expandirBusquedaConSinonimos(q);
     items = CATALOG.filter(i =>
-      i.name.toLowerCase().includes(q) ||
-      (i.indic && i.indic.toLowerCase().includes(q)) ||
-      (i.incluye && i.incluye.toLowerCase().includes(q))
+      terminos.some(t =>
+        i.name.toLowerCase().includes(t) ||
+        (i.indic && i.indic.toLowerCase().includes(t)) ||
+        (i.incluye && i.incluye.toLowerCase().includes(t)) ||
+        (i.desc && i.desc.toLowerCase().includes(t))
+      )
     );
   } else {
     items = CATALOG.filter(i=>i.cat===activeTab);
@@ -1483,6 +1544,7 @@ function renderCatalogGrid(){
     const added = isInCart(item.id);
     const indic = item.indic ? `<div class="indic">${item.indic}</div>` : '';
     const catBadge = q.length > 0 ? `<div class="indic" style="color:var(--muted);">${tabLabel(item.cat)}</div>` : '';
+    const desc = item.desc ? `<p class="item-desc">${item.desc}</p>` : '';
     let incluye = '';
     if(item.incluye){
       incluye = `
@@ -1495,6 +1557,7 @@ function renderCatalogGrid(){
         <h4>${item.icon?item.icon+' ':''}${item.name}</h4>
         ${catBadge}
         ${indic}
+        ${desc}
         ${velocidadBadge(item)}
         ${incluye}
         <div class="card-footer">
