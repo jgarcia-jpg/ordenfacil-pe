@@ -316,6 +316,10 @@
   .catalog-card h4{margin:0;font-size:.98rem;color:var(--navy);}
   .catalog-card .indic{font-size:.78rem;color:var(--teal-dark);font-weight:600;}
   .catalog-card .item-desc{font-size:.8rem;color:var(--muted);margin:0;line-height:1.35;}
+  .catalog-card .opcionales-hint{
+    font-size:.78rem;color:var(--teal-dark);background:var(--mint);border-radius:8px;
+    padding:6px 10px;margin:2px 0;
+  }
   .catalog-card .incluye{font-size:.82rem;color:var(--muted);}
   .catalog-card .incluye-toggle{
     font-size:.78rem;color:var(--teal-dark);font-weight:600;cursor:pointer;text-decoration:underline;
@@ -753,7 +757,7 @@
     <li>La solicitud es gratuita y no garantiza la emisión automática de la orden.</li>
     <li>Un médico revisa cada caso; algunos podrían requerir una consulta adicional.</li>
     <li>Si corresponde, la orden se envía al correo electrónico que registres.</li>
-    <li>Este servicio no reemplaza una consulta médica presencial.</li>
+    <li>Este servicio no reemplaza una consulta médica.</li>
   </ul>
 </div>
 
@@ -1082,7 +1086,7 @@
 <footer>
   <div class="container">
     <div><strong>OrdenFácil.pe</strong> — Menos trámites. Más salud.</div>
-    <div>Este servicio no reemplaza una consulta médica presencial. Los resultados deben interpretarse con personal de salud.</div>
+    <div>Este servicio no reemplaza una consulta médica. Los resultados deben interpretarse con personal de salud.</div>
     <div>¿Dudas? Escríbenos a <strong>hola@ordenfacil.pe</strong></div>
     <div style="margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,.15);display:flex;flex-wrap:wrap;gap:16px;">
       <a href="libro-reclamaciones.html" style="color:#fff;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:6px;">
@@ -1121,6 +1125,8 @@ const CATALOG = [
   // Análisis de laboratorio individuales
   {id:'lab-hemograma',cat:'LaboratorioIndividual',name:'Hemograma completo',icon:'🩸',desc:'Analiza tus glóbulos rojos, blancos y plaquetas. Ayuda a detectar anemia, infecciones y problemas de coagulación.'},
   {id:'lab-lipidico',cat:'LaboratorioIndividual',name:'Perfil lipídico (colesterol, triglicéridos)',icon:'🧬',desc:'Mide el colesterol y los triglicéridos en tu sangre, para evaluar tu riesgo cardiovascular.'},
+  {id:'lab-lipoproteina-a',cat:'LaboratorioIndividual',name:'Lipoproteína(a)',icon:'🧬',desc:'Marcador genético de riesgo cardiovascular, complementario al perfil lipídico habitual.'},
+  {id:'lab-apob',cat:'LaboratorioIndividual',name:'ApoB',icon:'🧬',desc:'Mide las partículas que transportan el colesterol "malo"; para algunos casos es más preciso que el LDL solo.'},
   {id:'lab-colesterol',cat:'LaboratorioIndividual',name:'Colesterol total',icon:'🧬',desc:'Mide el colesterol total en tu sangre. Niveles altos aumentan el riesgo cardiovascular.'},
   {id:'lab-trigliceridos',cat:'LaboratorioIndividual',name:'Triglicéridos',icon:'🧬',desc:'Un tipo de grasa en la sangre; niveles altos se asocian a riesgo cardiovascular y del páncreas.'},
   {id:'lab-hdl',cat:'LaboratorioIndividual',name:'Colesterol HDL',icon:'🧬',desc:'El colesterol "bueno". Ayuda a limpiar el colesterol de las arterias.'},
@@ -1141,7 +1147,9 @@ const CATALOG = [
   {id:'lab-antitpo',cat:'LaboratorioIndividual',name:'Anti-TPO',icon:'🦋',desc:'Detecta anticuerpos contra la tiroides; ayuda a identificar tiroiditis autoinmune (ej. Hashimoto).'},
   {id:'lab-creatinina',cat:'LaboratorioIndividual',name:'Creatinina sérica',icon:'🧪',desc:'Mide qué tan bien están filtrando tus riñones (incluye el cálculo de tu tasa de filtración, eGFR).'},
   {id:'lab-urea',cat:'LaboratorioIndividual',name:'Urea',icon:'🧪',desc:'Otro indicador de función renal, se evalúa junto con la creatinina.'},
-  {id:'lab-electrolitos',cat:'LaboratorioIndividual',name:'Electrolitos (sodio, potasio y cloro)',icon:'🧪',desc:'Mide sodio, potasio y cloro en tu sangre; claves para el equilibrio de líquidos, riñones y corazón.'},
+  {id:'lab-sodio',cat:'LaboratorioIndividual',name:'Sodio sérico',icon:'🧪',desc:'Mide el sodio en tu sangre; clave para el equilibrio de líquidos en el cuerpo.'},
+  {id:'lab-potasio',cat:'LaboratorioIndividual',name:'Potasio sérico',icon:'🧪',desc:'Mide el potasio en tu sangre; importante para el funcionamiento del corazón y los músculos.'},
+  {id:'lab-cloro',cat:'LaboratorioIndividual',name:'Cloro sérico',icon:'🧪',desc:'Mide el cloro en tu sangre; se evalúa junto con sodio y potasio para el equilibrio de electrolitos.'},
   {id:'lab-orina',cat:'LaboratorioIndividual',name:'Examen completo de orina',icon:'🧪',desc:'Analiza tu orina para detectar infecciones, problemas renales u otras alteraciones.'},
   {id:'lab-microalbuminuria',cat:'LaboratorioIndividual',name:'Microalbuminuria / relación albúmina-creatinina',icon:'🧪',desc:'Detecta pérdida temprana de proteína por la orina, señal inicial de daño renal (frecuente en diabetes/hipertensión).'},
   {id:'lab-acido-urico',cat:'LaboratorioIndividual',name:'Ácido úrico',icon:'🧪',desc:'Mide el ácido úrico en sangre; niveles altos se relacionan con gota y cálculos renales.'},
@@ -1174,7 +1182,7 @@ const CATALOG = [
   {id:'lab-herpes1',cat:'LaboratorioIndividual',name:'IgG e IgM para Herpes I',icon:'🧪',desc:'Detecta anticuerpos contra el virus del herpes simple tipo 1 (habitualmente oral).'},
   {id:'lab-herpes2',cat:'LaboratorioIndividual',name:'IgG e IgM para Herpes II',icon:'🧪',desc:'Detecta anticuerpos contra el virus del herpes simple tipo 2 (habitualmente genital).'},
   // Cardiología básica
-  {id:'ecg-reposo',cat:'Ecocardiograma',name:'Electrocardiograma (EKG) de reposo',icon:'💓'},
+  {id:'ecg-reposo',cat:'Ecocardiograma',name:'Electrocardiograma (EKG) de reposo',icon:'💓',autoOverride:true},
   // Ecografía
   {id:'eco-abdominal',cat:'Ecografía',name:'Ecografía abdominal',icon:'🤰'},
   {id:'eco-pelvica',cat:'Ecografía',name:'Ecografía pélvica',icon:'🤰'},
@@ -1204,8 +1212,8 @@ const CATALOG = [
   {id:'pkg-04',cat:'Paquetes',name:'Chequeo Metabólico',indic:'Obesidad, síndrome metabólico',incluye:'Hemograma, Glucosa, HbA1c, Insulina basal, Perfil lipídico, Ácido úrico, TGO, TGP, GGT',icon:'⚖️'},
   {id:'pkg-05',cat:'Paquetes',name:'Chequeo Renal',indic:'Hipertensión, diabetes, enfermedad renal',incluye:'Creatinina, Urea, Sodio, Potasio, Cloro, Calcio, Fósforo, Magnesio, Examen de orina, Microalbuminuria, Relación albúmina/creatinina',icon:'🫘'},
   {id:'pkg-06',cat:'Paquetes',name:'Chequeo Hepático',indic:'Esteatosis hepática, hepatopatías, consumo de alcohol',incluye:'TGO, TGP, Fosfatasa alcalina, GGT, Bilirrubina total/directa/indirecta, Albúmina, Proteínas totales',icon:'🧪'},
-  {id:'pkg-07',cat:'Paquetes',name:'Chequeo Cardiovascular',indic:'Prevención cardiovascular',incluye:'Perfil lipídico, Glucosa, HbA1c, PCR ultrasensible, Lipoproteína(a) (opcional), ApoB (opcional)',icon:'❤️'},
-  {id:'pkg-08',cat:'Paquetes',name:'Chequeo Tiroideo',indic:'Fatiga, aumento de peso, alteraciones tiroideas',incluye:'TSH, T4 Libre, T3 Libre (opcional), Anti-TPO (opcional)',icon:'🦋'},
+  {id:'pkg-07',cat:'Paquetes',name:'Chequeo Cardiovascular',indic:'Prevención cardiovascular',incluye:'Perfil lipídico, Glucosa, HbA1c, PCR ultrasensible',icon:'❤️'},
+  {id:'pkg-08',cat:'Paquetes',name:'Chequeo Tiroideo',indic:'Fatiga, aumento de peso, alteraciones tiroideas',incluye:'TSH, T4 Libre',icon:'🦋'},
   {id:'pkg-09',cat:'Paquetes',name:'Chequeo de Vitaminas y Micronutrientes',indic:'Fatiga, malabsorción, bariatría',incluye:'Vitamina D, Vitamina B12, Ácido fólico, Ferritina, Hierro sérico, Transferrina, Saturación de transferrina',icon:'🍊'},
   {id:'pkg-10',cat:'Paquetes',name:'Chequeo de Anemia',indic:'Sospecha de anemia',incluye:'Hemograma, Reticulocitos, Ferritina, Hierro sérico, Transferrina, Saturación de transferrina, Vitamina B12, Ácido fólico',icon:'🩸'},
   {id:'pkg-11',cat:'Paquetes',name:'Chequeo Masculino (<40 años)',indic:'Prevención en hombres jóvenes',incluye:'Hemograma, Glucosa, HbA1c, Perfil lipídico, Creatinina, TGO, TGP, TSH, Examen de orina',icon:'👨'},
@@ -1213,16 +1221,16 @@ const CATALOG = [
   {id:'pkg-13',cat:'Paquetes',name:'Chequeo Femenino',indic:'Prevención en mujeres',incluye:'Hemograma, Glucosa, HbA1c, Perfil lipídico, Creatinina, TSH, Ferritina, Hierro, Examen de orina',icon:'👩'},
   {id:'pkg-14',cat:'Paquetes',name:'Chequeo Menopausia',indic:'Mujeres con sospecha de menopausia',incluye:'FSH, Estradiol, TSH, Vitamina D, Calcio',icon:'👩'},
   {id:'pkg-15',cat:'Paquetes',name:'Chequeo Obesidad',indic:'Sobrepeso y obesidad',incluye:'Hemograma, Glucosa, HbA1c, Insulina basal, Perfil lipídico, Creatinina, Ácido úrico, TGO, TGP, GGT, TSH, Vitamina D, Ferritina, Vitamina B12',icon:'⚖️'},
-  {id:'pkg-16',cat:'Paquetes',name:'Chequeo Hipertensión',indic:'Hipertensos',incluye:'Hemograma, Glucosa, HbA1c, Creatinina, Urea, Electrolitos, Perfil lipídico, Examen de orina, Microalbuminuria',icon:'❤️'},
+  {id:'pkg-16',cat:'Paquetes',name:'Chequeo Hipertensión',indic:'Hipertensos',incluye:'Hemograma, Glucosa, HbA1c, Creatinina, Urea, Sodio, Potasio, Cloro, Perfil lipídico, Examen de orina, Microalbuminuria',icon:'❤️'},
   {id:'pkg-17',cat:'Paquetes',name:'Chequeo Diabetes',indic:'Diabéticos',incluye:'HbA1c, Glucosa, Creatinina, Perfil lipídico, Examen de orina, Microalbuminuria, Relación albúmina/creatinina',icon:'🍬'},
   {id:'pkg-18',cat:'Paquetes',name:'Chequeo Fatiga Crónica',indic:'Cansancio persistente',incluye:'Hemograma, Ferritina, Hierro, Vitamina B12, Ácido fólico, TSH, T4 Libre, Vitamina D, PCR, VSG',icon:'😴'},
-  {id:'pkg-19',cat:'Paquetes',name:'Chequeo Preoperatorio',indic:'Cirugía programada',incluye:'Hemograma, Glucosa, Creatinina, Urea, Electrolitos, TP/INR, TTPa, Grupo y factor sanguíneo, Examen de orina',icon:'🩺'},
-  {id:'pkg-20',cat:'Paquetes',name:'Perfil Deportivo',indic:'',incluye:'Hemograma, Glucosa, Creatinina, CPK, LDH, Perfil lipídico, Electrolitos, Ferritina, Vitamina D, TSH',icon:'🏃'},
+  {id:'pkg-19',cat:'Paquetes',name:'Chequeo Preoperatorio',indic:'Cirugía programada',incluye:'Hemograma, Glucosa, Creatinina, Urea, Sodio, Potasio, Cloro, TP/INR, TTPa, Grupo y factor sanguíneo, Examen de orina',icon:'🩺'},
+  {id:'pkg-20',cat:'Paquetes',name:'Perfil Deportivo',indic:'',incluye:'Hemograma, Glucosa, Creatinina, CPK, LDH, Perfil lipídico, Sodio, Potasio, Cloro, Ferritina, Vitamina D, TSH',icon:'🏃'},
   {id:'pkg-21',cat:'Paquetes',name:'Perfil Bariátrico (preoperatorio)',indic:'',incluye:'Hemograma, Glucosa, HbA1c, Perfil lipídico, Creatinina, TGO, TGP, GGT, Albúmina, Proteínas totales, Ferritina, Hierro, B12, Ácido fólico, Vitamina D, Calcio, Magnesio, Fósforo, Zinc',icon:'⚖️'},
   {id:'pkg-22',cat:'Paquetes',name:'Perfil Sexual Masculino',indic:'',incluye:'Testosterona total, Testosterona libre, SHBG, LH, FSH, Prolactina, Estradiol',icon:'👨'},
   {id:'pkg-23',cat:'Paquetes',name:'Perfil Hormonal Femenino',indic:'',incluye:'FSH, LH, Estradiol, Progesterona, Prolactina, TSH',icon:'👩'},
   {id:'pkg-24',cat:'Paquetes',name:'Perfil Hepático Completo',indic:'',incluye:'TGO, TGP, GGT, Fosfatasa alcalina, Bilirrubinas, Albúmina, Proteínas totales, TP/INR',icon:'🧪'},
-  {id:'pkg-25',cat:'Paquetes',name:'Perfil Renal Completo',indic:'',incluye:'Creatinina, Urea, Electrolitos, Calcio, Fósforo, Magnesio, Examen de orina, Microalbuminuria',icon:'🫘'},
+  {id:'pkg-25',cat:'Paquetes',name:'Perfil Renal Completo',indic:'',incluye:'Creatinina, Urea, Sodio, Potasio, Cloro, Calcio, Fósforo, Magnesio, Examen de orina, Microalbuminuria',icon:'🫘'},
   {id:'pkg-26',cat:'Paquetes',name:'Paquete ITS',indic:'Infecciones de transmisión sexual',incluye:'VIH 4.ª generación, Sífilis RPR cuantitativo, HBsAg, Anti-HBc, Anti-HCV, Clamidia NAAT, Gonorrea NAAT',icon:'🛡️'},
 ];
 
@@ -1238,6 +1246,8 @@ CATALOG.forEach(item => CATALOG_BY_ID[item.id] = item);
 const KEYWORDS_POR_ANALISIS = {
   'lab-hemograma': ['Hemograma'],
   'lab-lipidico': ['Perfil lipídico'],
+  'lab-lipoproteina-a': ['Lipoproteína(a)', 'Lipoproteína (a)'],
+  'lab-apob': ['ApoB'],
   'lab-colesterol': ['Colesterol', 'Perfil lipídico'],
   'lab-trigliceridos': ['Triglicéridos', 'Perfil lipídico'],
   'lab-hdl': ['Colesterol HDL', 'Perfil lipídico'],
@@ -1258,7 +1268,9 @@ const KEYWORDS_POR_ANALISIS = {
   'lab-antitpo': ['Anti-TPO'],
   'lab-creatinina': ['Creatinina'],
   'lab-urea': ['Urea'],
-  'lab-electrolitos': ['Electrolitos', 'Sodio', 'Potasio', 'Cloro'],
+  'lab-sodio': ['Sodio'],
+  'lab-potasio': ['Potasio'],
+  'lab-cloro': ['Cloro'],
   'lab-orina': ['Examen completo de orina', 'Examen de orina'],
   'lab-microalbuminuria': ['Microalbuminuria', 'albúmina/creatinina'],
   'lab-acido-urico': ['Ácido úrico'],
@@ -1324,7 +1336,7 @@ function getCartDuplicates(){
 const TABS = [
   {key:'Paquetes', label:'📦 Paquetes de laboratorio'},
   {key:'LaboratorioIndividual', label:'🧪 Análisis individuales'},
-  {key:'Ecografía', label:'🩻 Ecografía'},
+  {key:'Ecografía', label:'🤰 Ecografía'},
   {key:'Radiografía', label:'📸 Radiografía'},
   {key:'Holter', label:'❤️ Holter'},
   {key:'Ecocardiograma', label:'🫀 Ecocardiograma - EKG'},
@@ -1336,6 +1348,19 @@ const QUICK_PICKS = ['lab-hemograma','pkg-01','lab-lipidico','lab-glucosa','eco-
 
 // Categorías que hoy se pueden automatizar (fase futura); el resto siempre pasa por revisión médica caso por caso
 const AUTO_CATS = ['LaboratorioIndividual','Paquetes','Ecografía'];
+
+/**
+ * Determina si un ítem específico es de aprobación automática. Por defecto
+ * se basa en su categoría (AUTO_CATS), pero permite excepciones puntuales
+ * marcando el ítem con `autoOverride: true` — ej. el EKG es automático
+ * aunque comparta categoría "Ecocardiograma" con el Ecocardiograma en sí,
+ * que sigue siendo de revisión manual.
+ */
+function esItemAutomatico(item){
+  if(!item) return false;
+  if(item.autoOverride === true) return true;
+  return AUTO_CATS.includes(item.cat);
+}
 
 /* ================== CARRITO ================== */
 let cart = [];
@@ -1353,7 +1378,15 @@ function isInCart(id){ return cart.includes(id); }
 /* Sugerencias de "agregar también" para ciertos paquetes (opt-in, nunca
    automático — el paciente decide si lo quiere agregar como examen aparte). */
 const CROSS_SELL = {
-  'pkg-07': [{ id: 'ecg-reposo', label: 'Electrocardiograma (EKG)' }],
+  'pkg-07': [
+    { id: 'ecg-reposo', label: 'Electrocardiograma (EKG)' },
+    { id: 'lab-lipoproteina-a', label: 'Lipoproteína(a)' },
+    { id: 'lab-apob', label: 'ApoB' }
+  ],
+  'pkg-08': [
+    { id: 'lab-t3', label: 'T3 Libre' },
+    { id: 'lab-antitpo', label: 'Anti-TPO' }
+  ],
   'pkg-26': [
     { id: 'lab-herpes1', label: 'IgG e IgM para Herpes I' },
     { id: 'lab-herpes2', label: 'IgG e IgM para Herpes II' }
@@ -1417,7 +1450,7 @@ function goToCart(){
 
 /* ================== Render: quick picks ================== */
 function velocidadBadge(item){
-  const esRapido = AUTO_CATS.includes(item.cat);
+  const esRapido = esItemAutomatico(item);
   return esRapido
     ? `<span class="badge-velocidad badge-rapido">⚡ Recibes tu orden en minutos</span>`
     : `<span class="badge-velocidad badge-manual">🕒 Revisión manual (24-48h)</span>`;
@@ -1552,6 +1585,10 @@ function renderCatalogGrid(){
         <div class="incluye-full" id="incluye-${item.id}">${item.incluye}</div>
       `;
     }
+    const opcionales = CROSS_SELL[item.id];
+    const opcionalesHint = opcionales ? `
+        <p class="opcionales-hint">➕ Opcional, tú eliges: ${opcionales.map(o=>o.label).join(', ')}</p>
+      ` : '';
     return `
       <div class="catalog-card">
         <h4>${item.icon?item.icon+' ':''}${item.name}</h4>
@@ -1560,6 +1597,7 @@ function renderCatalogGrid(){
         ${desc}
         ${velocidadBadge(item)}
         ${incluye}
+        ${opcionalesHint}
         <div class="card-footer">
           <button type="button" class="add-btn ${added?'added':''}" onclick="toggleCartItem('${item.id}')">${added?'✓ En el carrito — quitar':'Agregar al carrito'}</button>
         </div>
@@ -1641,8 +1679,8 @@ function renderCartStep(){
 
   // Nota de tiempos de entrega: todo rápido, todo manual, o mezcla
   const velocidadWrap = document.getElementById('cartVelocidadNota');
-  const hayRapidos = cart.some(id => CATALOG_BY_ID[id] && AUTO_CATS.includes(CATALOG_BY_ID[id].cat));
-  const hayManuales = cart.some(id => CATALOG_BY_ID[id] && !AUTO_CATS.includes(CATALOG_BY_ID[id].cat));
+  const hayRapidos = cart.some(id => esItemAutomatico(CATALOG_BY_ID[id]));
+  const hayManuales = cart.some(id => CATALOG_BY_ID[id] && !esItemAutomatico(CATALOG_BY_ID[id]));
   if(hayRapidos && hayManuales){
     velocidadWrap.innerHTML = `
       <div class="velocidad-nota mixto">
@@ -1933,6 +1971,35 @@ document.querySelectorAll('input[data-toggle]').forEach(radio=>{
   });
 });
 
+/* Campos de detalle que se vuelven obligatorios cuando la respuesta es "Sí"
+   (antes se podían dejar en blanco aunque el usuario dijera que sí presenta
+   síntomas, toma medicamentos, etc.) */
+const DETALLES_OBLIGATORIOS_SI = {
+  'sintomasDetalleWrap': 'sintomasDetalle',
+  'diagnosticoDetalleWrap': 'diagnosticoDetalle',
+  'medicamentosDetalleWrap': 'medicamentosDetalle',
+  'cronicaDetalleWrap': 'cronicaDetalle',
+};
+Object.keys(DETALLES_OBLIGATORIOS_SI).forEach(wrapId=>{
+  const wrap = document.getElementById(wrapId);
+  const campo = document.querySelector(`[name="${DETALLES_OBLIGATORIOS_SI[wrapId]}"]`);
+  if(!wrap || !campo) return;
+  // Agregamos el mensaje de error si todavía no existe
+  if(!wrap.querySelector('.error-text')){
+    const err = document.createElement('span');
+    err.className = 'error-text';
+    err.textContent = 'Por favor completa este campo.';
+    wrap.appendChild(err);
+  }
+  const radios = document.querySelectorAll(`input[data-toggle="${wrapId}"]`);
+  radios.forEach(radio=>{
+    radio.addEventListener('change', function(){
+      campo.required = (this.value === 'Sí');
+      if(this.value !== 'Sí'){ wrap.classList.remove('error'); }
+    });
+  });
+});
+
 /* Alerta bloqueante: resonancia + dispositivo médico (marcapasos, clips, etc.) */
 document.querySelectorAll('input[name="tieneImplante"]').forEach(radio=>{
   radio.addEventListener('change', function(){
@@ -1957,8 +2024,8 @@ function buildSummary(){
   const dep = fd.get('departamento') || '';
   const prov = fd.get('provincia') || '';
 
-  const cartAuto = cart.filter(id => CATALOG_BY_ID[id] && AUTO_CATS.includes(CATALOG_BY_ID[id].cat));
-  const cartManual = cart.filter(id => CATALOG_BY_ID[id] && !AUTO_CATS.includes(CATALOG_BY_ID[id].cat));
+  const cartAuto = cart.filter(id => esItemAutomatico(CATALOG_BY_ID[id]));
+  const cartManual = cart.filter(id => CATALOG_BY_ID[id] && !esItemAutomatico(CATALOG_BY_ID[id]));
 
   function listaHtml(ids){
     return ids.map(id=>{
@@ -2012,8 +2079,8 @@ form.addEventListener('submit', function(e){
   submitBtn.disabled = true;
   submitBtn.textContent = 'Enviando...';
 
-  const cartAuto = cart.filter(id => CATALOG_BY_ID[id] && AUTO_CATS.includes(CATALOG_BY_ID[id].cat));
-  const cartManual = cart.filter(id => CATALOG_BY_ID[id] && !AUTO_CATS.includes(CATALOG_BY_ID[id].cat));
+  const cartAuto = cart.filter(id => esItemAutomatico(CATALOG_BY_ID[id]));
+  const cartManual = cart.filter(id => CATALOG_BY_ID[id] && !esItemAutomatico(CATALOG_BY_ID[id]));
 
   // Si el carrito mezcla rápidos y de revisión manual, se separan en 2
   // solicitudes independientes (2 folios) para que los rápidos no se demoren
@@ -2023,7 +2090,7 @@ form.addEventListener('submit', function(e){
     grupos.push({ ids: cartAuto, tipoFlujo: 'Automático (laboratorio/ecografía)', sufijo: 'A' });
     grupos.push({ ids: cartManual, tipoFlujo: 'Revisión manual', sufijo: 'M' });
   } else {
-    const soloAutomatizable = cart.length > 0 && cart.every(id => CATALOG_BY_ID[id] && AUTO_CATS.includes(CATALOG_BY_ID[id].cat));
+    const soloAutomatizable = cart.length > 0 && cart.every(id => esItemAutomatico(CATALOG_BY_ID[id]));
     grupos.push({ ids: cart, tipoFlujo: soloAutomatizable ? 'Automático (laboratorio/ecografía)' : 'Revisión manual', sufijo: '' });
   }
 
